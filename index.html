@@ -1,1 +1,918 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Afinco | Oportunidade de Independência</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #050505;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1120px, 92%);
+      margin: auto;
+    }
+
+    /* TOPO */
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      padding: 24px 0;
+    }
+
+    .topo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #d8a62a;
+    }
+
+    .menu {
+      display: flex;
+      gap: 24px;
+      font-size: 14px;
+      color: #dddddd;
+    }
+
+    .menu a:hover {
+      color: #d8a62a;
+    }
+
+    /* HERO */
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 80% 40%, rgba(216,166,42,.18), transparent 35%),
+        linear-gradient(135deg, #050505 0%, #101010 55%, #050505 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      right: -200px;
+      bottom: -200px;
+      border-radius: 50%;
+      background: rgba(216,166,42,.08);
+      filter: blur(40px);
+    }
+
+    .hero-content {
+      max-width: 760px;
+      position: relative;
+      z-index: 2;
+      padding-top: 70px;
+    }
+
+    .tag {
+      color: #d8a62a;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 7vw, 82px);
+      line-height: .98;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+
+    h1 span {
+      color: #d8a62a;
+    }
+
+    .hero-text {
+      max-width: 650px;
+      color: #c9c9c9;
+      font-size: 19px;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: #d8a62a;
+      color: #080808;
+      padding: 16px 28px;
+      border-radius: 6px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      transition: .2s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      filter: brightness(1.08);
+    }
+
+    /* SEÇÕES */
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-title span {
+      color: #d8a62a;
+    }
+
+    .section-text {
+      color: #aaa;
+      max-width: 700px;
+      font-size: 18px;
+      margin-bottom: 45px;
+    }
+
+    /* CARDS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: #101010;
+      border: 1px solid #292929;
+      border-radius: 12px;
+      padding: 30px;
+      transition: .25s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #d8a62a;
+    }
+
+    .card-number {
+      color: #d8a62a;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .card h3 {
+      font-size: 23px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #999;
+    }
+
+    /* DESTAQUE */
+
+    .highlight {
+      background: #0d0d0d;
+      border-top: 1px solid #222;
+      border-bottom: 1px solid #222;
+    }
+
+    .highlight-box {
+      border: 1px solid #3b3018;
+      background: linear-gradient(135deg, #111 0%, #080808 100%);
+      border-radius: 18px;
+      padding: 60px;
+    }
+
+    /* VÍDEOS */
+
+    .video-area {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+    }
+
+    .video-placeholder {
+      min-height: 300px;
+      border-radius: 15px;
+      border: 1px solid #292929;
+      background: #0d0d0d;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .video-placeholder strong {
+      display: block;
+      color: #d8a62a;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .video-placeholder p {
+      color: #888;
+    }
+
+    /* PROCESSO */
+
+    .steps {
+      display: grid;
+      gap: 15px;
+    }
+
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 22px;
+      background: #101010;
+      border: 1px solid #252525;
+      border-radius: 10px;
+    }
+
+    .step-number {
+      min-width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #d8a62a;
+      color: #050505;
+      font-weight: bold;
+    }
+
+    /* FORMULÁRIO */
+
+    .form-box {
+      max-width: 760px;
+      margin: auto;
+      background: #0e0e0e;
+      border: 1px solid #292929;
+      border-radius: 18px;
+      padding: 40px;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 15px;
+      background: #050505;
+      color: white;
+      border: 1px solid #333;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 130px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: #777;
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    /* RODAPÉ */
+
+    footer {
+      padding: 45px 0;
+      border-top: 1px solid #222;
+      color: #777;
+      text-align: center;
+    }
+
+    footer strong {
+      color: #d8a62a;
+    }
+
+    /* CELULAR */
+
+    @media (max-width: 800px) {
+
+      .menu {
+        display: none;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .video-area {
+        grid-template-columns: 1fr;
+      }
+
+      .highlight-box {
+        padding: 30px;
+      }
+
+      .form-box {
+        padding: 25px;
+      }
+
+      .hero-text {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container topo">
+      <div class="logo">AFINCO</div>
+
+      <nav class="menu">
+        <a href="#oportunidade">Oportunidade</a>
+        <a href="#afinco">Por que Afinco</a>
+        <a href="#processo">Processo</a>
+        <a href="#cadastro">Cadastro</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+
+        <div class="tag">
+          Oportunidade de independência
+        </div>
+
+        <h1>
+          Só quem se arrisca
+          merece viver o
+          <span>extraordinário.</span>
+        </h1>
+
+        <p class="hero-text">
+          Estamos buscando pessoas com fome de crescimento,
+          vontade de aprender e desejo de construir uma nova história.
+        </p>
+
+        <a href="#cadastro" class="btn">
+          Quero fazer parte
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- OPORTUNIDADE -->
+
+  <section id="oportunidade">
+
+    <div class="container">
+
+      <div class="tag">
+        Uma oportunidade diferente
+      </div>
+
+      <h2 class="section-title">
+        Seja <span>financeiramente independente.</span>
+      </h2>
+
+      <p class="section-text">
+        Aqui você encontra uma oportunidade para desenvolver
+        suas habilidades, aprender vendas e crescer junto com uma equipe.
+      </p>
+
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-number">01</div>
+          <h3>Treinamento</h3>
+          <p>
+            Você não precisa chegar pronto.
+            Nosso objetivo é desenvolver pessoas.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-number">02</div>
+          <h3>Suporte</h3>
+          <p>
+            Você não estará sozinho durante sua jornada.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-number">03</div>
+          <h3>Crescimento</h3>
+          <p>
+            Quem tem fome de crescimento encontra espaço para evoluir.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- POR QUE AFINCO -->
+
+  <section id="afinco" class="highlight">
+
+    <div class="container">
+
+      <div class="highlight-box">
+
+        <div class="tag">
+          Por que Afinco?
+        </div>
+
+        <h2 class="section-title">
+          Mais do que uma vaga.
+          <span>Uma oportunidade.</span>
+        </h2>
+
+        <p class="section-text">
+          Queremos pessoas que estejam dispostas a aprender,
+          crescer e buscar resultados extraordinários.
+        </p>
+
+        <div class="cards">
+
+          <div class="card">
+            <div class="card-number">01</div>
+            <h3>Ambiente</h3>
+            <p>
+              Pessoas trabalhando juntas em busca de evolução.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-number">02</div>
+            <h3>Performance</h3>
+            <p>
+              Desenvolvimento baseado em atitude e resultado.
+            </p>
+          </div>
+
+          <div class="card">
+            <div class="card-number">03</div>
+            <h3>Propósito</h3>
+            <p>
+              Construir uma trajetória profissional diferente.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- VÍDEOS -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="tag">
+        Conheça a nossa realidade
+      </div>
+
+      <h2 class="section-title">
+        Pessoas <span>reais.</span>
+      </h2>
+
+      <p class="section-text">
+        Em breve você poderá conhecer um pouco mais da nossa equipe
+        através dos vídeos institucionais.
+      </p>
+
+      <div class="video-area">
+
+        <div class="video-placeholder">
+          <div>
+            <strong>VÍDEO 01</strong>
+            <p>
+              Vídeo vertical da equipe.
+              Será inserido nesta área.
+            </p>
+          </div>
+        </div>
+
+        <div class="video-placeholder">
+          <div>
+            <strong>VÍDEO 02</strong>
+            <p>
+              Vídeo institucional da Afinco.
+              Será inserido nesta área.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- PROCESSO -->
+
+  <section id="processo" class="highlight">
+
+    <div class="container">
+
+      <div class="tag">
+        Processo seletivo
+      </div>
+
+      <h2 class="section-title">
+        Como <span>funciona?</span>
+      </h2>
+
+      <p class="section-text">
+        O processo foi pensado para ser simples e transparente.
+      </p>
+
+      <div class="steps">
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <div>
+            <strong>Você se cadastra</strong>
+            <p>Preenche suas informações diretamente no site.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div>
+            <strong>Nossa equipe analisa</strong>
+            <p>Seu perfil será avaliado pela equipe responsável.</p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div>
+            <strong>Entramos em contato</strong>
+            <p>Caso seu perfil avance, nossa equipe entrará em contato.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- VAGAS -->
+
+  <section>
+
+    <div class="container">
+
+      <div class="tag">
+        Oportunidade
+      </div>
+
+      <h2 class="section-title">
+        <span>3 vagas</span> disponíveis.
+      </h2>
+
+      <p class="section-text">
+        Se você acredita que pode fazer parte dessa equipe,
+        dê o primeiro passo.
+      </p>
+
+      <a href="#cadastro" class="btn">
+        Quero participar
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- CADASTRO -->
+
+  <section id="cadastro" class="highlight">
+
+    <div class="container">
+
+      <div class="form-box">
+
+        <div class="tag">
+          Primeiro passo
+        </div>
+
+        <h2 class="section-title">
+          Faça seu <span>cadastro.</span>
+        </h2>
+
+        <p class="section-text">
+          Preencha as informações abaixo.
+          Nesta primeira versão estamos preparando a experiência
+          de cadastro que será conectada ao nosso sistema.
+        </p>
+
+        <form>
+
+          <div class="form-group">
+
+            <label for="nome">
+              Nome Completo
+            </label>
+
+            <input
+              id="nome"
+              type="text"
+              placeholder="Digite seu nome completo"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="idade">
+              Idade
+            </label>
+
+            <input
+              id="idade"
+              type="number"
+              placeholder="Digite sua idade"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="sexo">
+              Sexo
+            </label>
+
+            <select id="sexo">
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option>
+                Masculino
+              </option>
+
+              <option>
+                Feminino
+              </option>
+
+              <option>
+                Outro
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="trabalho">
+              Está trabalhando atualmente?
+            </label>
+
+            <select id="trabalho">
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option>
+                Sim
+              </option>
+
+              <option>
+                Não
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="origem">
+              Como ficou sabendo da vaga disponível?
+            </label>
+
+            <input
+              id="origem"
+              type="text"
+              placeholder="Conte para nós"
+            >
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="inicio">
+              Seu início teria que ser em quanto tempo?
+            </label>
+
+            <select id="inicio">
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option>
+                Imediatamente
+              </option>
+
+              <option>
+                1 dia
+              </option>
+
+              <option>
+                3 dias
+              </option>
+
+              <option>
+                5 dias
+              </option>
+
+              <option>
+                15 dias
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="vendas">
+              Experiência com área de vendas?
+            </label>
+
+            <select id="vendas">
+
+              <option value="">
+                Selecione
+              </option>
+
+              <option>
+                Sim
+              </option>
+
+              <option>
+                Não
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="experiencia">
+              Fale mais sobre sua experiência.
+            </label>
+
+            <textarea
+              id="experiencia"
+              placeholder="Conte um pouco sobre sua experiência..."
+            ></textarea>
+
+          </div>
+
+
+          <div class="form-group">
+
+            <label for="motivo">
+              Por que você deveria participar da nossa equipe?
+            </label>
+
+            <textarea
+              id="motivo"
+              placeholder="Escreva sua resposta..."
+            ></textarea>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="btn"
+            onclick="alert('Essa é a primeira versão visual. Na próxima etapa vamos conectar este cadastro ao Supabase.')"
+          >
+            Enviar cadastro
+          </button>
+
+          <p class="form-note">
+            Seus dados serão tratados conforme as regras de privacidade
+            que serão implementadas na próxima etapa.
+          </p>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- RODAPÉ -->
+
+  <footer>
+
+    <div class="container">
+
+      <p>
+        <strong>AFINCO</strong>
+      </p>
+
+      <p>
+        Oportunidade de independência.
+      </p>
+
+      <br>
+
+      <p>
+        © 2026 Afinco. Todos os direitos reservados.
+      </p>
+
+    </div>
+
+  </footer>
+
+</body>
+</html>
