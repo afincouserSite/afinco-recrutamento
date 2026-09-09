@@ -1476,17 +1476,83 @@
 
   <script>
 
+    // ============================================================
+    // SUPABASE — FORMULÁRIO DE CANDIDATURA
+    // ============================================================
+    // IMPORTANTE:
+    // 1. Coloque aqui a URL do seu projeto Supabase.
+    // 2. Coloque aqui a sua Publishable Key.
+    // 3. NÃO coloque Secret Key ou service_role neste arquivo.
+    // ============================================================
+
+    const SUPABASE_URL = "COLE_AQUI_A_URL_DO_SEU_PROJETO";
+    const SUPABASE_KEY = "COLE_AQUI_SUA_PUBLISHABLE_KEY";
+
     const form = document.getElementById("candidaturaForm");
 
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", async function(event) {
 
       event.preventDefault();
 
-      alert(
-        "Candidatura recebida! Em breve nossa equipe poderá entrar em contato."
-      );
+      const botao = form.querySelector('button[type="submit"]');
 
-      form.reset();
+      botao.disabled = true;
+      botao.textContent = "Enviando...";
+
+      const dados = {
+        nome_completo: document.getElementById("nome").value.trim(),
+        idade: parseInt(document.getElementById("idade").value, 10),
+        sexo: document.getElementById("sexo").value,
+        trabalhando_atualmente: document.getElementById("trabalhando").value,
+        como_soube: document.getElementById("origem").value,
+        inicio: document.getElementById("inicio").value,
+        experiencia_vendas: document.getElementById("vendas").value,
+        experiencia: document.getElementById("experiencia").value.trim(),
+        motivo: document.getElementById("motivo").value.trim()
+      };
+
+      try {
+
+        const resposta = await fetch(
+          SUPABASE_URL + "/rest/v1/candidaturas",
+          {
+            method: "POST",
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization": "Bearer " + SUPABASE_KEY,
+              "Content-Type": "application/json",
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify(dados)
+          }
+        );
+
+        if (!resposta.ok) {
+          const erro = await resposta.text();
+          console.error("Erro Supabase:", erro);
+          throw new Error("Falha ao enviar candidatura.");
+        }
+
+        alert(
+          "Candidatura enviada com sucesso! Em breve nossa equipe poderá entrar em contato."
+        );
+
+        form.reset();
+
+      } catch (erro) {
+
+        console.error("Erro ao enviar candidatura:", erro);
+
+        alert(
+          "Não foi possível enviar sua candidatura agora. Tente novamente."
+        );
+
+      } finally {
+
+        botao.disabled = false;
+        botao.textContent = "Enviar minha candidatura →";
+
+      }
 
     });
 
