@@ -1,2667 +1,4594 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Afinco | Gestão de Candidatos</title>
-
-  <style>
-    :root {
-      --bg: #080b10;
-      --panel: #10151d;
-      --panel-2: #141b24;
-      --panel-3: #0c1118;
-      --border: #26313e;
-      --border-light: #344150;
-      --text: #f5f7fa;
-      --muted: #8d98a6;
-      --gold: #d7b56d;
-      --green: #51c878;
-      --red: #e26d76;
-      --blue: #5ca9e9;
-      --purple: #a78bfa;
-      --orange: #e6a44c;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at 20% 0%, rgba(215,181,109,.07), transparent 28%),
-        radial-gradient(circle at 90% 10%, rgba(92,169,233,.05), transparent 25%),
-        var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    button,
-    input,
-    select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    /* =====================================================
-       LOGIN
-    ===================================================== */
-
-    #loginScreen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .login-box {
-      width: 100%;
-      max-width: 430px;
-      padding: 38px;
-      background: rgba(16,21,29,.96);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      box-shadow: 0 30px 100px rgba(0,0,0,.55);
-    }
-
-    .login-logo {
-      text-align: center;
-      margin-bottom: 34px;
-    }
-
-    .login-logo h1 {
-      font-size: 40px;
-      font-weight: 900;
-      letter-spacing: -2px;
-    }
-
-    .login-logo h1 span {
-      color: var(--gold);
-    }
-
-    .login-logo p {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .login-label {
-      display: block;
-      margin-bottom: 8px;
-      color: #b9c1cb;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .login-field {
-      margin-bottom: 18px;
-    }
-
-    .login-field input {
-      width: 100%;
-      height: 48px;
-      border: 1px solid var(--border);
-      background: var(--panel-3);
-      color: white;
-      border-radius: 11px;
-      padding: 0 14px;
-      outline: none;
-    }
-
-    .login-field input:focus {
-      border-color: var(--gold);
-    }
-
-    .login-button {
-      width: 100%;
-      height: 50px;
-      border: none;
-      border-radius: 11px;
-      background: var(--gold);
-      color: #111;
-      font-weight: 900;
-      transition: .2s;
-    }
-
-    .login-button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
-
-    .login-error {
-      display: none;
-      margin-bottom: 18px;
-      padding: 12px;
-      border-radius: 10px;
-      background: rgba(226,109,118,.1);
-      border: 1px solid rgba(226,109,118,.4);
-      color: #ffb8be;
-      font-size: 13px;
-    }
-
-    /* =====================================================
-       ADMIN
-    ===================================================== */
-
-    #adminScreen {
-      display: none;
-    }
-
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(8,11,16,.92);
-      backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(255,255,255,.07);
-    }
-
-    .topbar-inner {
-      max-width: 1500px;
-      margin: auto;
-      min-height: 70px;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 26px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .logo span {
-      color: var(--gold);
-    }
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .admin-email {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .logout-btn {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      color: white;
-      padding: 9px 14px;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .logout-btn:hover {
-      background: var(--panel-2);
-    }
-
-    .container {
-      width: 100%;
-      max-width: 1500px;
-      margin: auto;
-      padding: 35px 24px 70px;
-    }
-
-    /* =====================================================
-       HEADER
-    ===================================================== */
-
-    .page-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 20px;
-      margin-bottom: 28px;
-    }
-
-    .page-header h1 {
-      font-size: 32px;
-      letter-spacing: -1px;
-      margin-bottom: 7px;
-    }
-
-    .page-header p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .live-indicator {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      color: #aab4c0;
-      font-size: 12px;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 12px rgba(81,200,120,.65);
-    }
-
-    /* =====================================================
-       DASHBOARD STATS
-    ===================================================== */
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .stat-card {
-      min-height: 118px;
-      padding: 20px;
-      background: linear-gradient(
-        145deg,
-        var(--panel-2),
-        var(--panel)
-      );
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .stat-card::after {
-      content: "";
-      position: absolute;
-      right: -30px;
-      bottom: -30px;
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,.04);
-    }
-
-    .stat-label {
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 12px;
-    }
-
-    .stat-number {
-      font-size: 30px;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
-
-    .stat-total {
-      border-color: rgba(215,181,109,.35);
-    }
-
-    .stat-total .stat-number {
-      color: var(--gold);
-    }
-
-    .stat-new .stat-number {
-      color: var(--blue);
-    }
-
-    .stat-analysis .stat-number {
-      color: var(--orange);
-    }
-
-    .stat-interview .stat-number {
-      color: var(--purple);
-    }
-
-    .stat-approved .stat-number {
-      color: var(--green);
-    }
-
-    .stat-rejected .stat-number {
-      color: var(--red);
-    }
-
-    /* =====================================================
-       TOOLBAR
-    ===================================================== */
-
-    .toolbar {
-      padding: 17px;
-      background: rgba(16,21,29,.9);
-      border: 1px solid var(--border);
-      border-radius: 17px;
-      margin-bottom: 24px;
-    }
-
-    .toolbar-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 13px;
-    }
-
-    .toolbar-title {
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    .toolbar-subtitle {
-      color: var(--muted);
-      font-size: 11px;
-      margin-top: 3px;
-    }
-
-    .toolbar-row {
-      display: grid;
-      grid-template-columns: minmax(250px, 1fr) 210px auto auto;
-      gap: 10px;
-    }
-
-    .search-box {
-      position: relative;
-    }
-
-    .search-box input,
-    .filter-select {
-      width: 100%;
-      height: 46px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--panel-3);
-      color: white;
-      outline: none;
-      padding: 0 14px;
-    }
-
-    .search-box input:focus,
-    .filter-select:focus {
-      border-color: var(--gold);
-    }
-
-    .toolbar-button {
-      height: 46px;
-      padding: 0 18px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--panel-2);
-      color: white;
-      font-weight: 800;
-      font-size: 12px;
-    }
-
-    .toolbar-button:hover {
-      border-color: var(--border-light);
-      background: #1b2430;
-    }
-
-    /* =====================================================
-       RESULTS
-    ===================================================== */
-
-    .results-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-
-    .results-title {
-      font-size: 18px;
-      font-weight: 900;
-    }
-
-    .results-count {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .candidates-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 15px;
-    }
-
-    .candidate-card {
-      background: linear-gradient(
-        145deg,
-        #131a23,
-        #0f141b
-      );
-      border: 1px solid var(--border);
-      border-radius: 19px;
-      overflow: hidden;
-      transition: .2s;
-    }
-
-    .candidate-card:hover {
-      border-color: #3a4756;
-      transform: translateY(-1px);
-    }
-
-    .candidate-top {
-      padding: 20px;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .candidate-name {
-      font-size: 19px;
-      font-weight: 900;
-      letter-spacing: -.3px;
-      margin-bottom: 6px;
-    }
-
-    .candidate-meta {
-      color: #707c8a;
-      font-size: 11px;
-    }
-
-    .status-area {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 7px;
-    }
-
-    .status-badge {
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      padding: 5px 9px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: var(--panel-3);
-    }
-
-    .status-select {
-      min-width: 145px;
-      height: 38px;
-      border: 1px solid var(--border);
-      border-radius: 9px;
-      background: #0b1017;
-      color: white;
-      padding: 0 10px;
-      outline: none;
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .status-select:focus {
-      border-color: var(--gold);
-    }
-
-    .candidate-divider {
-      height: 1px;
-      background: rgba(255,255,255,.05);
-    }
-
-    .candidate-summary {
-      padding: 16px 20px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 9px;
-    }
-
-    .mini-info {
-      padding: 11px;
-      background: rgba(8,11,16,.45);
-      border: 1px solid rgba(255,255,255,.04);
-      border-radius: 10px;
-    }
-
-    .mini-label {
-      color: #697583;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      margin-bottom: 5px;
-      font-weight: 800;
-    }
-
-    .mini-value {
-      color: #e8edf2;
-      font-size: 12px;
-      line-height: 1.35;
-    }
-
-    .candidate-actions {
-      padding: 0 20px 18px;
-    }
-
-    .details-button {
-      width: 100%;
-      height: 40px;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: #dce2e8;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .details-button:hover {
-      background: var(--panel-2);
-      border-color: var(--border-light);
-    }
-
-    /* =====================================================
-       EMPTY
-    ===================================================== */
-
-    .empty-box {
-      grid-column: 1 / -1;
-      padding: 55px 20px;
-      text-align: center;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-    }
-
-    .empty-icon {
-      font-size: 38px;
-      margin-bottom: 12px;
-    }
-
-    .empty-title {
-      font-size: 17px;
-      font-weight: 900;
-      margin-bottom: 5px;
-    }
-
-    .empty-text {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    /* =====================================================
-       MODAL
-    ===================================================== */
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 500;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(0,0,0,.78);
-      backdrop-filter: blur(8px);
-    }
-
-    .modal {
-      width: 100%;
-      max-width: 850px;
-      max-height: 90vh;
-      overflow-y: auto;
-      background: #10151d;
-      border: 1px solid var(--border-light);
-      border-radius: 21px;
-      box-shadow: 0 30px 100px rgba(0,0,0,.65);
-    }
-
-    .modal-header {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      padding: 20px 22px;
-      background: rgba(16,21,29,.96);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 15px;
-    }
-
-    .modal-title {
-      font-size: 22px;
-      font-weight: 900;
-      margin-bottom: 5px;
-    }
-
-    .modal-subtitle {
-      color: var(--muted);
-      font-size: 11px;
-    }
-
-    .close-modal {
-      width: 35px;
-      height: 35px;
-      border-radius: 9px;
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      color: white;
-      font-size: 18px;
-      flex-shrink: 0;
-    }
-
-    .close-modal:hover {
-      background: #252f3b;
-    }
-
-    .modal-body {
-      padding: 22px;
-    }
-
-    .modal-section {
-      margin-bottom: 25px;
-    }
-
-    .modal-section:last-child {
-      margin-bottom: 0;
-    }
-
-    .modal-section-title {
-      color: var(--gold);
-      font-size: 11px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-      margin-bottom: 11px;
-    }
-
-    .details-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .detail-box {
-      padding: 14px;
-      background: var(--panel-3);
-      border: 1px solid rgba(255,255,255,.05);
-      border-radius: 11px;
-    }
-
-    .detail-box.full {
-      grid-column: 1 / -1;
-    }
-
-    .detail-label {
-      color: #6f7b89;
-      font-size: 9px;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      font-weight: 900;
-      margin-bottom: 6px;
-    }
-
-    .detail-value {
-      color: #edf1f5;
-      font-size: 13px;
-      line-height: 1.55;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    #toast {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 999;
-      display: none;
-      max-width: 380px;
-      padding: 14px 17px;
-      border-radius: 11px;
-      background: #15221a;
-      border: 1px solid #315d40;
-      color: #d7f2df;
-      box-shadow: 0 15px 45px rgba(0,0,0,.45);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    /* =====================================================
-       RESPONSIVO
-    ===================================================== */
-
-    @media (max-width: 1250px) {
-      .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .candidates-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 800px) {
-      .topbar-inner {
-        padding: 15px;
-        min-height: auto;
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .top-actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      .container {
-        padding: 25px 15px 50px;
-      }
-
-      .page-header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .toolbar-row {
-        grid-template-columns: 1fr;
-      }
-
-      .candidate-top {
-        flex-direction: column;
-      }
-
-      .status-area {
-        width: 100%;
-        align-items: stretch;
-      }
-
-      .status-select {
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 560px) {
-      .login-box {
-        padding: 28px 20px;
-      }
-
-      .login-logo h1 {
-        font-size: 34px;
-      }
-
-      .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-      }
-
-      .stat-card {
-        padding: 15px;
-        min-height: 100px;
-      }
-
-      .stat-number {
-        font-size: 25px;
-      }
-
-      .candidate-summary {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .details-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .detail-box.full {
-        grid-column: auto;
-      }
-
-      .modal-overlay {
-        padding: 10px;
-      }
-
-      .modal {
-        max-height: 94vh;
-      }
-
-      .admin-email {
-        max-width: 210px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      #toast {
-        left: 15px;
-        right: 15px;
-        bottom: 15px;
-        max-width: none;
-      }
-    }
-  </style>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Afinco | Central de Recrutamento</title>
+
+<style>
+
+:root{
+
+  --bg:#07090d;
+  --panel:#0e131a;
+  --panel2:#121923;
+  --panel3:#090d13;
+
+  --border:#222d39;
+  --border2:#33404e;
+
+  --text:#f5f7fa;
+  --muted:#7f8b99;
+
+  --gold:#d7b56d;
+  --gold2:#f0d99c;
+
+  --green:#55d17d;
+  --red:#ef727c;
+  --blue:#5ba9ed;
+  --purple:#a78bfa;
+  --orange:#e8a44d;
+  --cyan:#4fd1c5;
+
+  --shadow:0 25px 80px rgba(0,0,0,.45);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+  font-family:
+    Inter,
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+
+    radial-gradient(
+      circle at 10% 0%,
+      rgba(215,181,109,.08),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(91,169,237,.07),
+      transparent 28%
+    ),
+
+    var(--bg);
+
+  color:var(--text);
+
+  min-height:100vh;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+#loginScreen{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:20px;
+}
+
+.login-box{
+
+  width:100%;
+  max-width:430px;
+
+  padding:40px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(18,25,35,.98),
+      rgba(10,14,20,.98)
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:26px;
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.65);
+
+  position:relative;
+
+  overflow:hidden;
+}
+
+.login-box::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:220px;
+  height:220px;
+
+  border-radius:50%;
+
+  top:-120px;
+  right:-90px;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,181,109,.16),
+      transparent 70%
+    );
+}
+
+.login-logo{
+
+  text-align:center;
+
+  margin-bottom:35px;
+
+  position:relative;
+}
+
+.login-logo h1{
+
+  font-size:44px;
+
+  font-weight:950;
+
+  letter-spacing:-3px;
+}
+
+.login-logo h1 span{
+  color:var(--gold);
+}
+
+.login-logo p{
+
+  color:var(--muted);
+
+  font-size:12px;
+
+  margin-top:8px;
+}
+
+.login-label{
+
+  display:block;
+
+  margin-bottom:8px;
+
+  color:#bbc3cd;
+
+  font-size:11px;
+
+  font-weight:800;
+
+  text-transform:uppercase;
+
+  letter-spacing:.5px;
+}
+
+.login-field{
+  margin-bottom:18px;
+}
+
+.login-field input{
+
+  width:100%;
+  height:50px;
+
+  background:#080c12;
+
+  border:1px solid var(--border);
+
+  color:white;
+
+  border-radius:11px;
+
+  padding:0 15px;
+
+  outline:none;
+
+  transition:.2s;
+}
+
+.login-field input:focus{
+
+  border-color:var(--gold);
+
+  box-shadow:
+    0 0 0 3px rgba(215,181,109,.08);
+}
+
+.login-button{
+
+  width:100%;
+  height:52px;
+
+  border:none;
+
+  border-radius:11px;
+
+  background:
+    linear-gradient(
+      135deg,
+      var(--gold),
+      var(--gold2)
+    );
+
+  color:#111;
+
+  font-weight:950;
+
+  transition:.2s;
+
+  margin-top:4px;
+}
+
+.login-button:hover{
+
+  transform:translateY(-2px);
+
+  box-shadow:
+    0 12px 30px rgba(215,181,109,.15);
+}
+
+.login-button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
+.login-error{
+
+  display:none;
+
+  margin-bottom:18px;
+
+  padding:12px;
+
+  border-radius:10px;
+
+  background:rgba(239,114,124,.08);
+
+  border:1px solid rgba(239,114,124,.35);
+
+  color:#ffb9bf;
+
+  font-size:12px;
+}
+
+
+/* =========================================================
+   ADMIN
+========================================================= */
+
+#adminScreen{
+  display:none;
+}
+
+.topbar{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:1000;
+
+  background:
+    rgba(7,9,13,.88);
+
+  backdrop-filter:blur(20px);
+
+  border-bottom:
+    1px solid rgba(255,255,255,.06);
+}
+
+.topbar-inner{
+
+  max-width:1600px;
+
+  min-height:72px;
+
+  margin:auto;
+
+  padding:0 25px;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:20px;
+}
+
+.logo{
+
+  font-size:28px;
+
+  font-weight:950;
+
+  letter-spacing:-1.5px;
+}
+
+.logo span{
+  color:var(--gold);
+}
+
+.top-actions{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:12px;
+}
+
+.admin-email{
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+.logout-btn{
+
+  border:1px solid var(--border);
+
+  background:var(--panel);
+
+  color:white;
+
+  padding:9px 14px;
+
+  border-radius:9px;
+
+  font-size:11px;
+
+  font-weight:800;
+}
+
+.logout-btn:hover{
+  background:var(--panel2);
+}
+
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+
+  width:100%;
+
+  max-width:1600px;
+
+  margin:auto;
+
+  padding:34px 25px 80px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-end;
+
+  gap:20px;
+
+  margin-bottom:26px;
+}
+
+.page-header h1{
+
+  font-size:34px;
+
+  letter-spacing:-1.5px;
+
+  margin-bottom:7px;
+}
+
+.page-header p{
+
+  color:var(--muted);
+
+  font-size:13px;
+}
+
+.live-indicator{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:8px;
+
+  color:#aab4c0;
+
+  font-size:11px;
+}
+
+.live-dot{
+
+  width:8px;
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  box-shadow:
+    0 0 14px rgba(85,209,125,.65);
+
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+
+  0%,100%{
+    opacity:1;
+  }
+
+  50%{
+    opacity:.35;
+  }
+}
+
+
+/* =========================================================
+   KPI
+========================================================= */
+
+.stats-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(6,1fr);
+
+  gap:12px;
+
+  margin-bottom:25px;
+}
+
+.stat-card{
+
+  min-height:115px;
+
+  padding:20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      var(--panel2),
+      var(--panel)
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:17px;
+
+  position:relative;
+
+  overflow:hidden;
+
+  transition:.2s;
+}
+
+.stat-card:hover{
+
+  transform:translateY(-2px);
+
+  border-color:var(--border2);
+}
+
+.stat-card::after{
+
+  content:"";
+
+  position:absolute;
+
+  width:100px;
+  height:100px;
+
+  border-radius:50%;
+
+  right:-45px;
+  bottom:-50px;
+
+  border:1px solid rgba(255,255,255,.04);
+}
+
+.stat-label{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.6px;
+
+  font-weight:850;
+
+  margin-bottom:13px;
+}
+
+.stat-number{
+
+  font-size:30px;
+
+  font-weight:950;
+
+  letter-spacing:-1px;
+}
+
+.stat-total{
+  border-color:rgba(215,181,109,.35);
+}
+
+.stat-total .stat-number{
+  color:var(--gold);
+}
+
+.stat-new .stat-number{
+  color:var(--blue);
+}
+
+.stat-analysis .stat-number{
+  color:var(--orange);
+}
+
+.stat-interview .stat-number{
+  color:var(--purple);
+}
+
+.stat-approved .stat-number{
+  color:var(--green);
+}
+
+.stat-rejected .stat-number{
+  color:var(--red);
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+========================================================= */
+
+.dashboard-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(0,1fr)
+    360px;
+
+  gap:18px;
+
+  margin-bottom:25px;
+}
+
+
+/* =========================================================
+   ANALYTICS
+========================================================= */
+
+.analytics-card{
+
+  background:
+    linear-gradient(
+      145deg,
+      #111821,
+      #0c1117
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:19px;
+
+  padding:21px;
+
+  box-shadow:var(--shadow);
+}
+
+.card-head{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  gap:15px;
+
+  margin-bottom:20px;
+}
+
+.card-title{
+
+  font-size:15px;
+
+  font-weight:950;
+}
+
+.card-subtitle{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:4px;
+}
+
+.best-source{
+
+  padding:7px 10px;
+
+  border-radius:9px;
+
+  background:
+    rgba(215,181,109,.08);
+
+  border:1px solid
+    rgba(215,181,109,.2);
+
+  color:var(--gold2);
+
+  font-size:10px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   SOURCE RANKING
+========================================================= */
+
+.source-list{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:13px;
+}
+
+.source-row{
+
+  display:grid;
+
+  grid-template-columns:170px 1fr 65px;
+
+  align-items:center;
+
+  gap:12px;
+}
+
+.source-name{
+
+  color:#e9edf1;
+
+  font-size:11px;
+
+  font-weight:750;
+
+  overflow:hidden;
+
+  text-overflow:ellipsis;
+
+  white-space:nowrap;
+}
+
+.source-track{
+
+  height:9px;
+
+  background:#080c11;
+
+  border-radius:99px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.04);
+}
+
+.source-fill{
+
+  height:100%;
+
+  border-radius:99px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--gold),
+      var(--gold2)
+    );
+
+  transition:
+    width .6s ease;
+}
+
+.source-result{
+
+  text-align:right;
+
+  font-size:10px;
+
+  color:var(--muted);
+
+  font-weight:800;
+}
+
+.source-result strong{
+
+  color:white;
+
+  font-size:12px;
+}
+
+
+/* =========================================================
+   FUNNEL
+========================================================= */
+
+.funnel{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:11px;
+}
+
+.funnel-row{
+
+  display:grid;
+
+  grid-template-columns:105px 1fr 45px;
+
+  align-items:center;
+
+  gap:10px;
+}
+
+.funnel-label{
+
+  font-size:10px;
+
+  color:#b6c0ca;
+
+  font-weight:800;
+}
+
+.funnel-track{
+
+  height:8px;
+
+  background:#080c11;
+
+  border-radius:99px;
+
+  overflow:hidden;
+}
+
+.funnel-fill{
+
+  height:100%;
+
+  border-radius:99px;
+}
+
+.funnel-number{
+
+  text-align:right;
+
+  font-size:12px;
+
+  font-weight:900;
+}
+
+
+/* =========================================================
+   TOOLBAR
+========================================================= */
+
+.toolbar{
+
+  padding:17px;
+
+  background:
+    rgba(16,21,29,.9);
+
+  border:1px solid var(--border);
+
+  border-radius:17px;
+
+  margin-bottom:23px;
+}
+
+.toolbar-top{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:13px;
+}
+
+.toolbar-title{
+
+  font-size:13px;
+
+  font-weight:900;
+}
+
+.toolbar-subtitle{
+
+  color:var(--muted);
+
+  font-size:10px;
+
+  margin-top:3px;
+}
+
+.toolbar-row{
+
+  display:grid;
+
+  grid-template-columns:
+    minmax(250px,1fr)
+    210px
+    auto
+    auto
+    auto;
+
+  gap:9px;
+}
+
+.search-box input,
+.filter-select{
+
+  width:100%;
+
+  height:45px;
+
+  background:#090d13;
+
+  border:1px solid var(--border);
+
+  border-radius:10px;
+
+  color:white;
+
+  padding:0 13px;
+
+  outline:none;
+}
+
+.search-box input:focus,
+.filter-select:focus{
+
+  border-color:var(--gold);
+
+  box-shadow:
+    0 0 0 3px rgba(215,181,109,.06);
+}
+
+.toolbar-button{
+
+  height:45px;
+
+  padding:0 16px;
+
+  border:1px solid var(--border);
+
+  border-radius:10px;
+
+  background:var(--panel2);
+
+  color:white;
+
+  font-size:11px;
+
+  font-weight:850;
+}
+
+.toolbar-button:hover{
+
+  border-color:var(--border2);
+
+  background:#1a2330;
+}
+
+.trash-button{
+
+  color:#ff9ca3;
+
+  border-color:
+    rgba(239,114,124,.25);
+}
+
+.trash-button:hover{
+
+  background:
+    rgba(239,114,124,.08);
+}
+
+
+/* =========================================================
+   RESULTS HEADER
+========================================================= */
+
+.results-header{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:13px;
+}
+
+.results-title{
+
+  font-size:18px;
+
+  font-weight:950;
+}
+
+.results-count{
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+
+/* =========================================================
+   CANDIDATES
+========================================================= */
+
+.candidates-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,minmax(0,1fr));
+
+  gap:15px;
+}
+
+.candidate-card{
+
+  background:
+    linear-gradient(
+      145deg,
+      #131a23,
+      #0d1218
+    );
+
+  border:1px solid var(--border);
+
+  border-radius:19px;
+
+  overflow:hidden;
+
+  transition:.2s;
+
+  animation:cardIn .25s ease;
+}
+
+@keyframes cardIn{
+
+  from{
+    opacity:0;
+    transform:translateY(5px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.candidate-card:hover{
+
+  transform:translateY(-2px);
+
+  border-color:#3b4857;
+}
+
+.candidate-top{
+
+  padding:20px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:15px;
+}
+
+.candidate-name{
+
+  font-size:18px;
+
+  font-weight:950;
+
+  letter-spacing:-.3px;
+
+  margin-bottom:5px;
+}
+
+.candidate-meta{
+
+  color:#6f7b89;
+
+  font-size:10px;
+}
+
+.status-area{
+
+  display:flex;
+
+  flex-direction:column;
+
+  align-items:flex-end;
+
+  gap:7px;
+}
+
+.status-badge{
+
+  padding:5px 9px;
+
+  border-radius:99px;
+
+  border:1px solid var(--border);
+
+  background:#090d13;
+
+  font-size:9px;
+
+  text-transform:uppercase;
+
+  font-weight:950;
+
+  letter-spacing:.5px;
+}
+
+.status-select{
+
+  min-width:145px;
+
+  height:37px;
+
+  border:1px solid var(--border);
+
+  border-radius:9px;
+
+  background:#090d13;
+
+  color:white;
+
+  padding:0 9px;
+
+  outline:none;
+
+  font-size:10px;
+
+  font-weight:850;
+}
+
+.status-select:focus{
+  border-color:var(--gold);
+}
+
+.candidate-divider{
+
+  height:1px;
+
+  background:
+    rgba(255,255,255,.05);
+}
+
+.candidate-summary{
+
+  padding:15px 20px;
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:8px;
+}
+
+.mini-info{
+
+  padding:10px;
+
+  background:
+    rgba(7,9,13,.48);
+
+  border:1px solid
+    rgba(255,255,255,.04);
+
+  border-radius:10px;
+}
+
+.mini-label{
+
+  color:#687482;
+
+  font-size:8px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.5px;
+
+  font-weight:900;
+
+  margin-bottom:5px;
+}
+
+.mini-value{
+
+  color:#e7ebef;
+
+  font-size:11px;
+
+  line-height:1.35;
+}
+
+.candidate-actions{
+
+  display:grid;
+
+  grid-template-columns:1fr 48px;
+
+  gap:8px;
+
+  padding:
+    0 20px 18px;
+}
+
+.details-button{
+
+  height:40px;
+
+  border:1px solid var(--border);
+
+  background:transparent;
+
+  color:#dce2e8;
+
+  border-radius:9px;
+
+  font-size:11px;
+
+  font-weight:850;
+}
+
+.details-button:hover{
+
+  background:var(--panel2);
+
+  border-color:var(--border2);
+}
+
+.trash-small{
+
+  height:40px;
+
+  border:1px solid
+    rgba(239,114,124,.2);
+
+  background:
+    rgba(239,114,124,.04);
+
+  color:#ff9ca3;
+
+  border-radius:9px;
+
+  font-size:16px;
+}
+
+.trash-small:hover{
+
+  background:
+    rgba(239,114,124,.1);
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-box{
+
+  grid-column:1 / -1;
+
+  padding:55px 20px;
+
+  text-align:center;
+
+  background:var(--panel);
+
+  border:1px solid var(--border);
+
+  border-radius:18px;
+}
+
+.empty-icon{
+
+  font-size:38px;
+
+  margin-bottom:12px;
+}
+
+.empty-title{
+
+  font-size:17px;
+
+  font-weight:950;
+
+  margin-bottom:5px;
+}
+
+.empty-text{
+
+  color:var(--muted);
+
+  font-size:11px;
+}
+
+
+/* =========================================================
+   TRASH
+========================================================= */
+
+.trash-header{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  margin-bottom:20px;
+}
+
+.trash-title{
+
+  font-size:25px;
+
+  font-weight:950;
+}
+
+.trash-subtitle{
+
+  color:var(--muted);
+
+  font-size:11px;
+
+  margin-top:4px;
+}
+
+.trash-warning{
+
+  padding:9px 12px;
+
+  border-radius:9px;
+
+  background:
+    rgba(239,114,124,.06);
+
+  border:1px solid
+    rgba(239,114,124,.2);
+
+  color:#ffabb1;
+
+  font-size:10px;
+
+  font-weight:800;
+}
+
+.trash-card{
+
+  background:
+    linear-gradient(
+      145deg,
+      #17171c,
+      #0e1116
+    );
+
+  border:1px solid
+    rgba(239,114,124,.16);
+
+  border-radius:17px;
+
+  padding:18px;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  gap:15px;
+}
+
+.trash-info strong{
+
+  display:block;
+
+  font-size:15px;
+
+  margin-bottom:5px;
+}
+
+.trash-info span{
+
+  color:var(--muted);
+
+  font-size:10px;
+}
+
+.trash-actions{
+
+  display:flex;
+
+  gap:8px;
+}
+
+.restore-btn,
+.delete-btn{
+
+  height:38px;
+
+  padding:0 13px;
+
+  border-radius:9px;
+
+  font-size:10px;
+
+  font-weight:900;
+}
+
+.restore-btn{
+
+  border:1px solid
+    rgba(85,209,125,.25);
+
+  background:
+    rgba(85,209,125,.05);
+
+  color:#8ce8a7;
+}
+
+.delete-btn{
+
+  border:1px solid
+    rgba(239,114,124,.3);
+
+  background:
+    rgba(239,114,124,.06);
+
+  color:#ff9da4;
+}
+
+.restore-btn:hover{
+  background:rgba(85,209,125,.1);
+}
+
+.delete-btn:hover{
+  background:rgba(239,114,124,.12);
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:2000;
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  padding:20px;
+
+  background:
+    rgba(0,0,0,.8);
+
+  backdrop-filter:blur(10px);
+}
+
+.modal{
+
+  width:100%;
+
+  max-width:900px;
+
+  max-height:90vh;
+
+  overflow-y:auto;
+
+  background:#10151d;
+
+  border:1px solid var(--border2);
+
+  border-radius:21px;
+
+  box-shadow:
+    0 40px 120px rgba(0,0,0,.7);
+}
+
+.modal-header{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:3;
+
+  padding:20px 22px;
+
+  background:
+    rgba(16,21,29,.96);
+
+  backdrop-filter:blur(15px);
+
+  border-bottom:1px solid var(--border);
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:flex-start;
+
+  gap:15px;
+}
+
+.modal-title{
+
+  font-size:22px;
+
+  font-weight:950;
+
+  margin-bottom:5px;
+}
+
+.modal-subtitle{
+
+  color:var(--muted);
+
+  font-size:10px;
+}
+
+.close-modal{
+
+  width:35px;
+
+  height:35px;
+
+  border-radius:9px;
+
+  border:1px solid var(--border);
+
+  background:var(--panel2);
+
+  color:white;
+
+  font-size:18px;
+}
+
+.close-modal:hover{
+  background:#252f3b;
+}
+
+.modal-body{
+  padding:22px;
+}
+
+.modal-section{
+  margin-bottom:25px;
+}
+
+.modal-section-title{
+
+  color:var(--gold);
+
+  font-size:10px;
+
+  font-weight:950;
+
+  text-transform:uppercase;
+
+  letter-spacing:.8px;
+
+  margin-bottom:11px;
+}
+
+.details-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(2,1fr);
+
+  gap:10px;
+}
+
+.detail-box{
+
+  padding:14px;
+
+  background:var(--panel3);
+
+  border:1px solid
+    rgba(255,255,255,.05);
+
+  border-radius:11px;
+}
+
+.detail-box.full{
+  grid-column:1 / -1;
+}
+
+.detail-label{
+
+  color:#6f7b89;
+
+  font-size:8px;
+
+  text-transform:uppercase;
+
+  letter-spacing:.5px;
+
+  font-weight:950;
+
+  margin-bottom:6px;
+}
+
+.detail-value{
+
+  color:#edf1f5;
+
+  font-size:12px;
+
+  line-height:1.55;
+
+  white-space:pre-wrap;
+
+  word-break:break-word;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+#toast{
+
+  position:fixed;
+
+  right:22px;
+
+  bottom:22px;
+
+  z-index:3000;
+
+  display:none;
+
+  max-width:390px;
+
+  padding:14px 17px;
+
+  border-radius:11px;
+
+  background:#15221a;
+
+  border:1px solid #315d40;
+
+  color:#d7f2df;
+
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.45);
+
+  font-size:11px;
+
+  font-weight:850;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:1300px){
+
+  .stats-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .dashboard-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:900px){
+
+  .candidates-grid{
+    grid-template-columns:1fr;
+  }
+
+  .toolbar-row{
+    grid-template-columns:1fr;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .topbar-inner{
+
+    padding:15px;
+
+    align-items:flex-start;
+
+    flex-direction:column;
+  }
+
+  .top-actions{
+    width:100%;
+
+    justify-content:space-between;
+  }
+
+  .container{
+    padding:24px 14px 50px;
+  }
+
+  .page-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+  }
+
+  .stats-grid{
+
+    grid-template-columns:
+      repeat(2,1fr);
+
+    gap:8px;
+  }
+
+  .stat-card{
+
+    min-height:100px;
+
+    padding:15px;
+  }
+
+  .stat-number{
+    font-size:25px;
+  }
+
+  .candidate-top{
+    flex-direction:column;
+  }
+
+  .status-area{
+
+    align-items:stretch;
+
+    width:100%;
+  }
+
+  .status-select{
+    width:100%;
+  }
+
+  .candidate-summary{
+
+    grid-template-columns:
+      repeat(2,1fr);
+  }
+
+  .source-row{
+
+    grid-template-columns:
+      105px 1fr 45px;
+  }
+
+  .details-grid{
+    grid-template-columns:1fr;
+  }
+
+  .detail-box.full{
+    grid-column:auto;
+  }
+
+  .trash-card{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+  }
+
+  .trash-actions{
+    width:100%;
+  }
+
+  .restore-btn,
+  .delete-btn{
+    flex:1;
+  }
+
+}
+
+@media(max-width:480px){
+
+  .login-box{
+    padding:28px 20px;
+  }
+
+  .login-logo h1{
+    font-size:35px;
+  }
+
+  .candidate-actions{
+    grid-template-columns:1fr;
+  }
+
+  .trash-actions{
+    flex-direction:column;
+  }
+
+  #toast{
+
+    left:15px;
+
+    right:15px;
+
+    bottom:15px;
+
+    max-width:none;
+  }
+
+}
+
+</style>
+
 </head>
 
 <body>
 
-  <!-- =====================================================
-       LOGIN
-  ====================================================== -->
 
-  <section id="loginScreen">
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-    <div class="login-box">
+<section id="loginScreen">
 
-      <div class="login-logo">
-        <h1>Afinco<span>.</span></h1>
-        <p>Painel de Gestão de Candidatos</p>
-      </div>
+  <div class="login-box">
 
-      <div
-        id="loginError"
-        class="login-error"
-      ></div>
+    <div class="login-logo">
 
-      <form id="loginForm">
+      <h1>
+        Afinco<span>.</span>
+      </h1>
 
-        <div class="login-field">
-
-          <label
-            class="login-label"
-            for="email"
-          >
-            E-mail
-          </label>
-
-          <input
-            id="email"
-            type="email"
-            placeholder="Digite seu e-mail"
-            autocomplete="username"
-            required
-          >
-
-        </div>
-
-        <div class="login-field">
-
-          <label
-            class="login-label"
-            for="password"
-          >
-            Senha
-          </label>
-
-          <input
-            id="password"
-            type="password"
-            placeholder="Digite sua senha"
-            autocomplete="current-password"
-            required
-          >
-
-        </div>
-
-        <button
-          id="loginButton"
-          class="login-button"
-          type="submit"
-        >
-          Entrar no painel
-        </button>
-
-      </form>
+      <p>
+        Central de Gestão de Recrutamento
+      </p>
 
     </div>
 
-  </section>
+    <div
+      id="loginError"
+      class="login-error"
+    ></div>
 
+    <form id="loginForm">
 
-  <!-- =====================================================
-       ADMIN
-  ====================================================== -->
+      <div class="login-field">
 
-  <section id="adminScreen">
+        <label
+          class="login-label"
+          for="email"
+        >
+          E-mail
+        </label>
 
-    <header class="topbar">
-
-      <div class="topbar-inner">
-
-        <div class="logo">
-          Afinco<span>.</span>
-        </div>
-
-        <div class="top-actions">
-
-          <div
-            id="adminEmail"
-            class="admin-email"
-          ></div>
-
-          <button
-            id="logoutButton"
-            class="logout-btn"
-          >
-            Sair
-          </button>
-
-        </div>
+        <input
+          id="email"
+          type="email"
+          placeholder="Digite seu e-mail"
+          autocomplete="username"
+          required
+        >
 
       </div>
 
-    </header>
-
-
-    <main class="container">
-
-      <!-- CABEÇALHO -->
-
-      <section class="page-header">
-
-        <div>
-
-          <h1>
-            Gestão de Candidatos
-          </h1>
-
-          <p>
-            Acompanhe o processo seletivo da Afinco em um só lugar.
-          </p>
-
-        </div>
-
-        <div class="live-indicator">
-
-          <span class="live-dot"></span>
-
-          Sistema conectado
-
-        </div>
-
-      </section>
-
-
-      <!-- INDICADORES -->
-
-      <section class="stats-grid">
-
-        <div class="stat-card stat-total">
-
-          <div class="stat-label">
-            Total
-          </div>
-
-          <div
-            id="totalCount"
-            class="stat-number"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat-card stat-new">
-
-          <div class="stat-label">
-            Novos
-          </div>
-
-          <div
-            id="novoCount"
-            class="stat-number"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat-card stat-analysis">
-
-          <div class="stat-label">
-            Em análise
-          </div>
-
-          <div
-            id="analiseCount"
-            class="stat-number"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat-card stat-interview">
-
-          <div class="stat-label">
-            Entrevista
-          </div>
-
-          <div
-            id="entrevistaCount"
-            class="stat-number"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat-card stat-approved">
-
-          <div class="stat-label">
-            Aprovados
-          </div>
-
-          <div
-            id="aprovadoCount"
-            class="stat-number"
-          >
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat-card stat-rejected">
-
-          <div class="stat-label">
-            Reprovados
-          </div>
-
-          <div
-            id="reprovadoCount"
-            class="stat-number"
-          >
-            0
-          </div>
-
-        </div>
-
-      </section>
-
-
-      <!-- BUSCA E FILTROS -->
-
-      <section class="toolbar">
-
-        <div class="toolbar-top">
-
-          <div>
-
-            <div class="toolbar-title">
-              Encontrar candidato
-            </div>
-
-            <div class="toolbar-subtitle">
-              Pesquise pelo nome ou filtre pelo andamento.
-            </div>
-
-          </div>
-
-        </div>
-
-
-        <div class="toolbar-row">
-
-          <div class="search-box">
-
-            <input
-              id="searchInput"
-              type="text"
-              placeholder="🔎  Digite o nome do candidato..."
-              autocomplete="off"
-            >
-
-          </div>
-
-
-          <select
-            id="statusFilter"
-            class="filter-select"
-          >
-
-            <option value="Todos">
-              Todos os status
-            </option>
-
-            <option value="Novo">
-              Novo
-            </option>
-
-            <option value="Em análise">
-              Em análise
-            </option>
-
-            <option value="Entrevista">
-              Entrevista
-            </option>
-
-            <option value="Aprovado">
-              Aprovado
-            </option>
-
-            <option value="Reprovado">
-              Reprovado
-            </option>
-
-          </select>
-
-
-          <button
-            id="refreshButton"
-            class="toolbar-button"
-          >
-            ↻ Atualizar
-          </button>
-
-
-          <button
-            id="clearButton"
-            class="toolbar-button"
-          >
-            Limpar
-          </button>
-
-        </div>
-
-      </section>
-
-
-      <!-- LISTA -->
-
-      <section>
-
-        <div class="results-header">
-
-          <div class="results-title">
-            Candidaturas
-          </div>
-
-          <div
-            id="resultsCount"
-            class="results-count"
-          >
-            0 candidatos
-          </div>
-
-        </div>
-
-
-        <div
-          id="candidatesList"
-          class="candidates-grid"
+      <div class="login-field">
+
+        <label
+          class="login-label"
+          for="password"
         >
+          Senha
+        </label>
 
-          <div class="empty-box">
-
-            <div class="empty-icon">
-              ⏳
-            </div>
-
-            <div class="empty-title">
-              Carregando...
-            </div>
-
-            <div class="empty-text">
-              Buscando candidaturas.
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-    </main>
-
-  </section>
-
-
-  <!-- =====================================================
-       MODAL DE DETALHES
-  ====================================================== -->
-
-  <div
-    id="detailsModal"
-    class="modal-overlay"
-  >
-
-    <div class="modal">
-
-      <div class="modal-header">
-
-        <div>
-
-          <div
-            id="modalName"
-            class="modal-title"
-          >
-            Candidato
-          </div>
-
-          <div
-            id="modalDate"
-            class="modal-subtitle"
-          ></div>
-
-        </div>
-
-        <button
-          id="closeModal"
-          class="close-modal"
+        <input
+          id="password"
+          type="password"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+          required
         >
-          ×
-        </button>
 
       </div>
 
+      <button
+        id="loginButton"
+        class="login-button"
+        type="submit"
+      >
+        Entrar na Central
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     ADMIN
+===================================================== -->
+
+<section id="adminScreen">
+
+<header class="topbar">
+
+  <div class="topbar-inner">
+
+    <div class="logo">
+      Afinco<span>.</span>
+    </div>
+
+    <div class="top-actions">
 
       <div
-        id="modalBody"
-        class="modal-body"
+        id="adminEmail"
+        class="admin-email"
       ></div>
+
+      <button
+        id="logoutButton"
+        class="logout-btn"
+      >
+        Sair
+      </button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- HEADER -->
+
+<section class="page-header">
+
+  <div>
+
+    <h1>
+      Central de Recrutamento
+    </h1>
+
+    <p>
+      Controle candidatos, desempenho das divulgações e evolução do processo seletivo.
+    </p>
+
+  </div>
+
+  <div class="live-indicator">
+
+    <span class="live-dot"></span>
+
+    Sistema online
+
+  </div>
+
+</section>
+
+
+<!-- KPIs -->
+
+<section class="stats-grid">
+
+  <div class="stat-card stat-total">
+
+    <div class="stat-label">
+      Total
+    </div>
+
+    <div
+      id="totalCount"
+      class="stat-number"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card stat-new">
+
+    <div class="stat-label">
+      Novos
+    </div>
+
+    <div
+      id="novoCount"
+      class="stat-number"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card stat-analysis">
+
+    <div class="stat-label">
+      Em análise
+    </div>
+
+    <div
+      id="analiseCount"
+      class="stat-number"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card stat-interview">
+
+    <div class="stat-label">
+      Entrevistas
+    </div>
+
+    <div
+      id="entrevistaCount"
+      class="stat-number"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card stat-approved">
+
+    <div class="stat-label">
+      Aprovados
+    </div>
+
+    <div
+      id="aprovadoCount"
+      class="stat-number"
+    >
+      0
+    </div>
+
+  </div>
+
+
+  <div class="stat-card stat-rejected">
+
+    <div class="stat-label">
+      Reprovados
+    </div>
+
+    <div
+      id="reprovadoCount"
+      class="stat-number"
+    >
+      0
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     DASHBOARD ANALÍTICO
+===================================================== -->
+
+<section class="dashboard-grid">
+
+
+<!-- FONTES -->
+
+<div class="analytics-card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        📊 Desempenho das divulgações
+      </div>
+
+      <div class="card-subtitle">
+        Qual canal está trazendo mais candidatos?
+      </div>
+
+    </div>
+
+    <div
+      id="bestSource"
+      class="best-source"
+    >
+      🏆 Calculando...
+    </div>
+
+  </div>
+
+  <div
+    id="sourceList"
+    class="source-list"
+  ></div>
+
+</div>
+
+
+<!-- FUNIL -->
+
+<div class="analytics-card">
+
+  <div class="card-head">
+
+    <div>
+
+      <div class="card-title">
+        🎯 Funil seletivo
+      </div>
+
+      <div class="card-subtitle">
+        Evolução dos candidatos
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    id="funnel"
+    class="funnel"
+  ></div>
+
+</div>
+
+</section>
+
+
+<!-- =====================================================
+     BUSCA
+===================================================== -->
+
+<section class="toolbar">
+
+  <div class="toolbar-top">
+
+    <div>
+
+      <div class="toolbar-title">
+        🔎 Encontrar candidato
+      </div>
+
+      <div class="toolbar-subtitle">
+        Pesquise pelo nome ou filtre pelo andamento.
+      </div>
 
     </div>
 
   </div>
 
 
-  <div id="toast"></div>
+  <div class="toolbar-row">
+
+    <div class="search-box">
+
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="🔎  Digite o nome do candidato..."
+        autocomplete="off"
+      >
+
+    </div>
 
 
-  <script>
+    <select
+      id="statusFilter"
+      class="filter-select"
+    >
 
-    /* =====================================================
-       SUPABASE
-    ===================================================== */
+      <option value="Todos">
+        Todos os status
+      </option>
 
-    const SUPABASE_URL =
-      "https://suxumbvzokoezwxouyeg.supabase.co";
+      <option value="Novo">
+        Novo
+      </option>
 
-    const SUPABASE_KEY =
-      "sb_publishable_1N3VgWZFmYC6UKTYdW_xYw_dwsa91AZ";
+      <option value="Em análise">
+        Em análise
+      </option>
 
+      <option value="Entrevista">
+        Entrevista
+      </option>
 
-    /* =====================================================
-       ELEMENTOS
-    ===================================================== */
+      <option value="Aprovado">
+        Aprovado
+      </option>
 
-    const loginScreen =
-      document.getElementById("loginScreen");
+      <option value="Reprovado">
+        Reprovado
+      </option>
 
-    const adminScreen =
-      document.getElementById("adminScreen");
-
-    const loginForm =
-      document.getElementById("loginForm");
-
-    const loginButton =
-      document.getElementById("loginButton");
-
-    const loginError =
-      document.getElementById("loginError");
-
-    const adminEmail =
-      document.getElementById("adminEmail");
-
-    const logoutButton =
-      document.getElementById("logoutButton");
-
-    const candidatesList =
-      document.getElementById("candidatesList");
-
-    const searchInput =
-      document.getElementById("searchInput");
-
-    const statusFilter =
-      document.getElementById("statusFilter");
-
-    const refreshButton =
-      document.getElementById("refreshButton");
-
-    const clearButton =
-      document.getElementById("clearButton");
-
-    const detailsModal =
-      document.getElementById("detailsModal");
-
-    const closeModal =
-      document.getElementById("closeModal");
+    </select>
 
 
-    /* =====================================================
-       ESTADO
-    ===================================================== */
-
-    let candidates = [];
-
-    let filteredCandidates = [];
-
-    let accessToken =
-      localStorage.getItem("afinco_access_token") || "";
+    <button
+      id="refreshButton"
+      class="toolbar-button"
+    >
+      ↻ Atualizar
+    </button>
 
 
-    /* =====================================================
-       SEGURANÇA / HTML
-    ===================================================== */
+    <button
+      id="clearButton"
+      class="toolbar-button"
+    >
+      Limpar
+    </button>
 
-    function escapeHTML(value) {
 
-      if (
-        value === null ||
-        value === undefined
-      ) {
-        return "";
-      }
+    <button
+      id="trashButton"
+      class="toolbar-button trash-button"
+    >
+      🗑️ Lixeira
+    </button>
 
-      return String(value)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CANDIDATURAS
+===================================================== -->
+
+<section id="candidateSection">
+
+  <div class="results-header">
+
+    <div class="results-title">
+      Candidaturas
+    </div>
+
+    <div
+      id="resultsCount"
+      class="results-count"
+    >
+      0 candidatos
+    </div>
+
+  </div>
+
+
+  <div
+    id="candidatesList"
+    class="candidates-grid"
+  >
+
+    <div class="empty-box">
+
+      <div class="empty-icon">
+        ⏳
+      </div>
+
+      <div class="empty-title">
+        Carregando...
+      </div>
+
+      <div class="empty-text">
+        Buscando candidaturas.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     LIXEIRA
+===================================================== -->
+
+<section
+  id="trashSection"
+  style="display:none;"
+>
+
+  <div class="trash-header">
+
+    <div>
+
+      <div class="trash-title">
+        🗑️ Lixeira
+      </div>
+
+      <div class="trash-subtitle">
+        Candidatos descartados ficam aqui antes da exclusão definitiva.
+      </div>
+
+    </div>
+
+    <div class="trash-warning">
+      ⚠️ Exclusão definitiva não pode ser desfeita
+    </div>
+
+  </div>
+
+
+  <div
+    id="trashList"
+    class="candidates-grid"
+  ></div>
+
+</section>
+
+
+</main>
+
+</section>
+
+
+<!-- =====================================================
+     MODAL
+===================================================== -->
+
+<div
+  id="detailsModal"
+  class="modal-overlay"
+>
+
+  <div class="modal">
+
+    <div class="modal-header">
+
+      <div>
+
+        <div
+          id="modalName"
+          class="modal-title"
+        >
+          Candidato
+        </div>
+
+        <div
+          id="modalDate"
+          class="modal-subtitle"
+        ></div>
+
+      </div>
+
+      <button
+        id="closeModal"
+        class="close-modal"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <div
+      id="modalBody"
+      class="modal-body"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<div id="toast"></div>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+  "https://suxumbvzokoezwxouyeg.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_1N3VgWZFmYC6UKTYdW_xYw_dwsa91AZ";
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const loginScreen =
+  document.getElementById("loginScreen");
+
+const adminScreen =
+  document.getElementById("adminScreen");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginButton =
+  document.getElementById("loginButton");
+
+const loginError =
+  document.getElementById("loginError");
+
+const adminEmail =
+  document.getElementById("adminEmail");
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+const candidatesList =
+  document.getElementById("candidatesList");
+
+const trashList =
+  document.getElementById("trashList");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const statusFilter =
+  document.getElementById("statusFilter");
+
+const refreshButton =
+  document.getElementById("refreshButton");
+
+const clearButton =
+  document.getElementById("clearButton");
+
+const trashButton =
+  document.getElementById("trashButton");
+
+const candidateSection =
+  document.getElementById("candidateSection");
+
+const trashSection =
+  document.getElementById("trashSection");
+
+const detailsModal =
+  document.getElementById("detailsModal");
+
+const closeModal =
+  document.getElementById("closeModal");
+
+
+/* =========================================================
+   ESTADO
+========================================================= */
+
+let candidates = [];
+
+let filteredCandidates = [];
+
+let accessToken =
+  localStorage.getItem(
+    "afinco_access_token"
+  ) || "";
+
+
+/* =========================================================
+   ESCAPE
+========================================================= */
+
+function escapeHTML(value){
+
+  if(
+    value === null ||
+    value === undefined
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =========================================================
+   DATA
+========================================================= */
+
+function formatDate(value){
+
+  if(!value){
+    return "-";
+  }
+
+  const date =
+    new Date(value);
+
+  if(
+    Number.isNaN(
+      date.getTime()
+    )
+  ){
+    return "-";
+  }
+
+  return date.toLocaleString(
+    "pt-BR",
+    {
+      dateStyle:"short",
+      timeStyle:"short"
     }
+  );
+}
 
 
-    /* =====================================================
-       DATA
-    ===================================================== */
+/* =========================================================
+   TOAST
+========================================================= */
 
-    function formatDate(value) {
+function showToast(message){
 
-      if (!value) {
-        return "-";
-      }
+  const toast =
+    document.getElementById("toast");
 
-      const date =
-        new Date(value);
+  toast.textContent =
+    message;
 
-      if (
-        Number.isNaN(
-          date.getTime()
-        )
-      ) {
-        return "-";
-      }
+  toast.style.display =
+    "block";
 
-      return date.toLocaleString(
-        "pt-BR",
-        {
-          dateStyle: "short",
-          timeStyle: "short"
-        }
-      );
-    }
+  clearTimeout(
+    window.toastTimer
+  );
 
-
-    /* =====================================================
-       TOAST
-    ===================================================== */
-
-    function showToast(message) {
-
-      const toast =
-        document.getElementById("toast");
-
-      toast.textContent =
-        message;
-
-      toast.style.display =
-        "block";
-
-      clearTimeout(
-        window.toastTimer
-      );
-
-      window.toastTimer =
-        setTimeout(() => {
-
-          toast.style.display =
-            "none";
-
-        }, 3000);
-    }
+  window.toastTimer =
+    setTimeout(
+      () => {
+        toast.style.display =
+          "none";
+      },
+      3200
+    );
+}
 
 
-    /* =====================================================
-       LOGIN ERRO
-    ===================================================== */
+/* =========================================================
+   LOGIN ERRO
+========================================================= */
 
-    function showLoginError(message) {
+function showLoginError(message){
 
-      loginError.textContent =
-        message;
+  loginError.textContent =
+    message;
 
-      loginError.style.display =
-        "block";
-    }
+  loginError.style.display =
+    "block";
+}
 
+function hideLoginError(){
 
-    function hideLoginError() {
+  loginError.textContent =
+    "";
 
-      loginError.textContent =
-        "";
-
-      loginError.style.display =
-        "none";
-    }
-
-
-    /* =====================================================
-       STATUS
-    ===================================================== */
-
-    function getStatusClass(status) {
-
-      switch (status) {
-
-        case "Novo":
-          return "status-new";
-
-        case "Em análise":
-          return "status-analysis";
-
-        case "Entrevista":
-          return "status-interview";
-
-        case "Aprovado":
-          return "status-approved";
-
-        case "Reprovado":
-          return "status-rejected";
-
-        default:
-          return "";
-      }
-    }
+  loginError.style.display =
+    "none";
+}
 
 
-    function getStatusColor(status) {
+/* =========================================================
+   STATUS
+========================================================= */
 
-      switch (status) {
+function getStatusColor(status){
 
-        case "Novo":
-          return "var(--blue)";
+  switch(status){
 
-        case "Em análise":
-          return "var(--orange)";
+    case "Novo":
+      return "var(--blue)";
 
-        case "Entrevista":
-          return "var(--purple)";
+    case "Em análise":
+      return "var(--orange)";
 
-        case "Aprovado":
-          return "var(--green)";
+    case "Entrevista":
+      return "var(--purple)";
 
-        case "Reprovado":
-          return "var(--red)";
+    case "Aprovado":
+      return "var(--green)";
 
-        default:
-          return "var(--muted)";
-      }
-    }
+    case "Reprovado":
+      return "var(--red)";
+
+    default:
+      return "var(--muted)";
+  }
+}
 
 
-    /* =====================================================
-       LOGIN
-    ===================================================== */
+/* =========================================================
+   LOGIN
+========================================================= */
 
-    loginForm.addEventListener(
-      "submit",
-      async function(event) {
+loginForm.addEventListener(
+  "submit",
+  async function(event){
 
-        event.preventDefault();
+    event.preventDefault();
 
-        hideLoginError();
+    hideLoginError();
 
-        const email =
-          document
-            .getElementById("email")
-            .value
-            .trim();
+    const email =
+      document
+        .getElementById("email")
+        .value
+        .trim();
 
-        const password =
-          document
-            .getElementById("password")
-            .value;
+    const password =
+      document
+        .getElementById("password")
+        .value;
 
-        loginButton.disabled =
-          true;
+    loginButton.disabled =
+      true;
 
-        loginButton.textContent =
-          "Entrando...";
+    loginButton.textContent =
+      "Entrando...";
 
-        try {
+    try{
 
-          const response =
-            await fetch(
-              `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
-              {
-                method: "POST",
+      const response =
+        await fetch(
+          `${SUPABASE_URL}/auth/v1/token?grant_type=password`,
+          {
+            method:"POST",
 
-                headers: {
-                  "apikey": SUPABASE_KEY,
-                  "Content-Type":
-                    "application/json"
-                },
+            headers:{
+              "apikey":
+                SUPABASE_KEY,
 
-                body: JSON.stringify({
-                  email,
-                  password
-                })
-              }
-            );
+              "Content-Type":
+                "application/json"
+            },
 
-          const data =
-            await response.json();
-
-          if (!response.ok) {
-
-            throw new Error(
-              data.error_description ||
-              data.msg ||
-              data.message ||
-              "E-mail ou senha incorretos."
-            );
+            body:JSON.stringify({
+              email,
+              password
+            })
           }
+        );
 
-          accessToken =
-            data.access_token;
+      const data =
+        await response.json();
 
-          localStorage.setItem(
-            "afinco_access_token",
-            accessToken
-          );
+      if(!response.ok){
 
-          adminEmail.textContent =
-            email;
+        throw new Error(
+          data.error_description ||
+          data.msg ||
+          data.message ||
+          "E-mail ou senha incorretos."
+        );
+      }
 
-          loginScreen.style.display =
-            "none";
+      accessToken =
+        data.access_token;
 
-          adminScreen.style.display =
-            "block";
+      localStorage.setItem(
+        "afinco_access_token",
+        accessToken
+      );
 
-          await loadCandidates();
+      adminEmail.textContent =
+        email;
 
-        } catch (error) {
+      loginScreen.style.display =
+        "none";
 
-          console.error(error);
+      adminScreen.style.display =
+        "block";
 
-          showLoginError(
-            error.message ||
-            "Não foi possível entrar."
-          );
+      await loadCandidates();
 
-        } finally {
+    }catch(error){
 
-          loginButton.disabled =
-            false;
+      console.error(error);
 
-          loginButton.textContent =
-            "Entrar no painel";
+      showLoginError(
+        error.message ||
+        "Não foi possível entrar."
+      );
+
+    }finally{
+
+      loginButton.disabled =
+        false;
+
+      loginButton.textContent =
+        "Entrar na Central";
+    }
+
+  }
+);
+
+
+/* =========================================================
+   CARREGAR
+========================================================= */
+
+async function loadCandidates(){
+
+  candidatesList.innerHTML = `
+    <div class="empty-box">
+
+      <div class="empty-icon">
+        ⏳
+      </div>
+
+      <div class="empty-title">
+        Carregando candidaturas...
+      </div>
+
+      <div class="empty-text">
+        Aguarde um momento.
+      </div>
+
+    </div>
+  `;
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/candidaturas?select=*&order=created_at.desc`,
+        {
+          method:"GET",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`
+          }
         }
+      );
 
+    if(response.status === 401){
+
+      logout();
+
+      return;
+    }
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+    }
+
+    const data =
+      await response.json();
+
+    candidates =
+      data.filter(
+        candidate =>
+          !candidate.deleted_at
+      );
+
+    updateStats();
+
+    updateAnalytics();
+
+    applyFilters();
+
+  }catch(error){
+
+    console.error(error);
+
+    candidatesList.innerHTML = `
+      <div class="empty-box">
+
+        <div class="empty-icon">
+          ⚠️
+        </div>
+
+        <div class="empty-title">
+          Não foi possível carregar
+        </div>
+
+        <div class="empty-text">
+          Verifique sua conexão e tente novamente.
+        </div>
+
+        <br>
+
+        <button
+          class="toolbar-button"
+          onclick="loadCandidates()"
+        >
+          Tentar novamente
+        </button>
+
+      </div>
+    `;
+  }
+}
+
+
+/* =========================================================
+   ESTATÍSTICAS
+========================================================= */
+
+function updateStats(){
+
+  document.getElementById(
+    "totalCount"
+  ).textContent =
+    candidates.length;
+
+  document.getElementById(
+    "novoCount"
+  ).textContent =
+    candidates.filter(
+      c => c.status === "Novo"
+    ).length;
+
+  document.getElementById(
+    "analiseCount"
+  ).textContent =
+    candidates.filter(
+      c => c.status === "Em análise"
+    ).length;
+
+  document.getElementById(
+    "entrevistaCount"
+  ).textContent =
+    candidates.filter(
+      c => c.status === "Entrevista"
+    ).length;
+
+  document.getElementById(
+    "aprovadoCount"
+  ).textContent =
+    candidates.filter(
+      c => c.status === "Aprovado"
+    ).length;
+
+  document.getElementById(
+    "reprovadoCount"
+  ).textContent =
+    candidates.filter(
+      c => c.status === "Reprovado"
+    ).length;
+}
+
+
+/* =========================================================
+   ANALYTICS
+========================================================= */
+
+function updateAnalytics(){
+
+  const sources = {};
+
+  candidates.forEach(
+    candidate => {
+
+      const source =
+        (
+          candidate.como_soube ||
+          "Não informado"
+        ).trim();
+
+      if(!sources[source]){
+
+        sources[source] = {
+          total:0,
+          approved:0
+        };
+      }
+
+      sources[source].total++;
+
+      if(
+        candidate.status ===
+        "Aprovado"
+      ){
+        sources[source].approved++;
+      }
+
+    }
+  );
+
+
+  const ranked =
+    Object.entries(sources)
+      .sort(
+        (a,b) =>
+          b[1].total -
+          a[1].total
+      );
+
+
+  const max =
+    ranked.length
+      ? ranked[0][1].total
+      : 1;
+
+
+  const sourceList =
+    document.getElementById(
+      "sourceList"
+    );
+
+
+  if(!ranked.length){
+
+    sourceList.innerHTML = `
+      <div class="empty-text">
+        Ainda não existem dados suficientes.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  sourceList.innerHTML =
+    ranked
+      .slice(0,8)
+      .map(
+        ([name,data]) => {
+
+          const percentage =
+            Math.round(
+              (
+                data.total /
+                max
+              ) * 100
+            );
+
+          const approval =
+            data.total
+              ? Math.round(
+                  (
+                    data.approved /
+                    data.total
+                  ) * 100
+                )
+              : 0;
+
+          return `
+
+            <div class="source-row">
+
+              <div class="source-name">
+                ${escapeHTML(name)}
+              </div>
+
+              <div>
+
+                <div
+                  class="source-track"
+                >
+
+                  <div
+                    class="source-fill"
+                    style="width:${percentage}%"
+                  ></div>
+
+                </div>
+
+              </div>
+
+              <div class="source-result">
+
+                <strong>
+                  ${data.total}
+                </strong>
+
+                <br>
+
+                ${approval}% aprov.
+
+              </div>
+
+            </div>
+
+          `;
+        }
+      )
+      .join("");
+
+
+  const best =
+    ranked[0][0];
+
+  document.getElementById(
+    "bestSource"
+  ).textContent =
+    `🏆 ${best}`;
+}
+
+
+/* =========================================================
+   FUNIL
+========================================================= */
+
+function updateFunnel(){
+
+  const values = [
+
+    {
+      name:"Novo",
+      value:
+        candidates.filter(
+          c => c.status === "Novo"
+        ).length,
+      color:"var(--blue)"
+    },
+
+    {
+      name:"Em análise",
+      value:
+        candidates.filter(
+          c => c.status === "Em análise"
+        ).length,
+      color:"var(--orange)"
+    },
+
+    {
+      name:"Entrevista",
+      value:
+        candidates.filter(
+          c => c.status === "Entrevista"
+        ).length,
+      color:"var(--purple)"
+    },
+
+    {
+      name:"Aprovado",
+      value:
+        candidates.filter(
+          c => c.status === "Aprovado"
+        ).length,
+      color:"var(--green)"
+    },
+
+    {
+      name:"Reprovado",
+      value:
+        candidates.filter(
+          c => c.status === "Reprovado"
+        ).length,
+      color:"var(--red)"
+    }
+
+  ];
+
+
+  const max =
+    Math.max(
+      ...values.map(
+        item => item.value
+      ),
+      1
+    );
+
+
+  document.getElementById(
+    "funnel"
+  ).innerHTML =
+    values
+      .map(
+        item => {
+
+          const width =
+            Math.round(
+              (
+                item.value /
+                max
+              ) * 100
+            );
+
+          return `
+
+            <div class="funnel-row">
+
+              <div class="funnel-label">
+                ${item.name}
+              </div>
+
+              <div class="funnel-track">
+
+                <div
+                  class="funnel-fill"
+                  style="
+                    width:${width}%;
+                    background:${item.color};
+                  "
+                ></div>
+
+              </div>
+
+              <div class="funnel-number">
+                ${item.value}
+              </div>
+
+            </div>
+
+          `;
+        }
+      )
+      .join("");
+}
+
+
+function updateAnalytics(){
+
+  const sources = {};
+
+  candidates.forEach(
+    candidate => {
+
+      const source =
+        (
+          candidate.como_soube ||
+          "Não informado"
+        ).trim();
+
+      if(!sources[source]){
+
+        sources[source] = {
+          total:0,
+          approved:0
+        };
+      }
+
+      sources[source].total++;
+
+      if(
+        candidate.status ===
+        "Aprovado"
+      ){
+        sources[source].approved++;
+      }
+    }
+  );
+
+
+  const ranked =
+    Object.entries(sources)
+      .sort(
+        (a,b) =>
+          b[1].total -
+          a[1].total
+      );
+
+
+  const max =
+    ranked.length
+      ? ranked[0][1].total
+      : 1;
+
+
+  const sourceList =
+    document.getElementById(
+      "sourceList"
+    );
+
+
+  if(!ranked.length){
+
+    sourceList.innerHTML = `
+      <div class="empty-text">
+        Ainda não existem dados suficientes.
+      </div>
+    `;
+
+  }else{
+
+    sourceList.innerHTML =
+      ranked
+        .slice(0,8)
+        .map(
+          ([name,data]) => {
+
+            const width =
+              Math.round(
+                (
+                  data.total /
+                  max
+                ) * 100
+              );
+
+            const approval =
+              data.total
+                ? Math.round(
+                    (
+                      data.approved /
+                      data.total
+                    ) * 100
+                  )
+                : 0;
+
+            return `
+
+              <div class="source-row">
+
+                <div class="source-name">
+                  ${escapeHTML(name)}
+                </div>
+
+                <div class="source-track">
+
+                  <div
+                    class="source-fill"
+                    style="width:${width}%"
+                  ></div>
+
+                </div>
+
+                <div class="source-result">
+
+                  <strong>
+                    ${data.total}
+                  </strong>
+
+                  <br>
+
+                  ${approval}% aprov.
+
+                </div>
+
+              </div>
+
+            `;
+          }
+        )
+        .join("");
+  }
+
+
+  document.getElementById(
+    "bestSource"
+  ).textContent =
+    ranked.length
+      ? `🏆 ${ranked[0][0]}`
+      : "Sem dados";
+
+
+  updateFunnel();
+}
+
+
+/* =========================================================
+   FILTROS
+========================================================= */
+
+function applyFilters(){
+
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+  const status =
+    statusFilter.value;
+
+
+  filteredCandidates =
+    candidates.filter(
+      candidate => {
+
+        const name =
+          (
+            candidate.nome_completo ||
+            ""
+          ).toLowerCase();
+
+        const matchesSearch =
+          !search ||
+          name.includes(search);
+
+        const matchesStatus =
+          status === "Todos" ||
+          candidate.status === status;
+
+        return (
+          matchesSearch &&
+          matchesStatus
+        );
       }
     );
 
 
-    /* =====================================================
-       CARREGAR CANDIDATURAS
-    ===================================================== */
+  renderCandidates();
+}
 
-    async function loadCandidates() {
 
-      candidatesList.innerHTML = `
+searchInput.addEventListener(
+  "input",
+  applyFilters
+);
+
+
+statusFilter.addEventListener(
+  "change",
+  applyFilters
+);
+
+
+clearButton.addEventListener(
+  "click",
+  () => {
+
+    searchInput.value =
+      "";
+
+    statusFilter.value =
+      "Todos";
+
+    applyFilters();
+  }
+);
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderCandidates(){
+
+  document.getElementById(
+    "resultsCount"
+  ).textContent =
+    `${filteredCandidates.length} ${
+      filteredCandidates.length === 1
+        ? "candidato"
+        : "candidatos"
+    }`;
+
+
+  if(!filteredCandidates.length){
+
+    candidatesList.innerHTML = `
+      <div class="empty-box">
+
+        <div class="empty-icon">
+          🔎
+        </div>
+
+        <div class="empty-title">
+          Nenhum candidato encontrado
+        </div>
+
+        <div class="empty-text">
+          Tente outro nome ou altere o filtro.
+        </div>
+
+      </div>
+    `;
+
+    return;
+  }
+
+
+  candidatesList.innerHTML =
+    filteredCandidates
+      .map(
+        candidate => {
+
+          const status =
+            candidate.status ||
+            "Novo";
+
+          const color =
+            getStatusColor(status);
+
+
+          return `
+
+            <article
+              class="candidate-card"
+            >
+
+              <div class="candidate-top">
+
+                <div>
+
+                  <div class="candidate-name">
+
+                    ${escapeHTML(
+                      candidate.nome_completo
+                    )}
+
+                  </div>
+
+                  <div class="candidate-meta">
+
+                    Candidatura recebida em
+                    ${formatDate(
+                      candidate.created_at
+                    )}
+
+                  </div>
+
+                </div>
+
+
+                <div class="status-area">
+
+                  <div
+                    class="status-badge"
+                    style="
+                      color:${color};
+                      border-color:${color};
+                    "
+                  >
+                    ${escapeHTML(status)}
+                  </div>
+
+
+                  <select
+                    class="status-select"
+                    data-status-id="${escapeHTML(candidate.id)}"
+                  >
+
+                    ${statusOption(
+                      "Novo",
+                      status
+                    )}
+
+                    ${statusOption(
+                      "Em análise",
+                      status
+                    )}
+
+                    ${statusOption(
+                      "Entrevista",
+                      status
+                    )}
+
+                    ${statusOption(
+                      "Aprovado",
+                      status
+                    )}
+
+                    ${statusOption(
+                      "Reprovado",
+                      status
+                    )}
+
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <div class="candidate-divider"></div>
+
+
+              <div class="candidate-summary">
+
+                ${miniInfo(
+                  "Idade",
+                  candidate.idade
+                )}
+
+                ${miniInfo(
+                  "Sexo",
+                  candidate.sexo
+                )}
+
+                ${miniInfo(
+                  "Vendas",
+                  candidate.experiencia_vendas
+                )}
+
+                ${miniInfo(
+                  "Trabalhando",
+                  candidate.trabalhando_atualmente
+                )}
+
+                ${miniInfo(
+                  "Início",
+                  candidate.inicio
+                )}
+
+                ${miniInfo(
+                  "Origem",
+                  candidate.como_soube
+                )}
+
+              </div>
+
+
+              <div class="candidate-actions">
+
+                <button
+                  class="details-button"
+                  data-details-id="${escapeHTML(candidate.id)}"
+                >
+                  👁️ Ver ficha completa
+                </button>
+
+                <button
+                  class="trash-small"
+                  title="Enviar para lixeira"
+                  data-trash-id="${escapeHTML(candidate.id)}"
+                >
+                  🗑️
+                </button>
+
+              </div>
+
+            </article>
+
+          `;
+        }
+      )
+      .join("");
+}
+
+
+function statusOption(
+  value,
+  current
+){
+
+  return `
+    <option
+      value="${escapeHTML(value)}"
+      ${value === current ? "selected" : ""}
+    >
+      ${escapeHTML(value)}
+    </option>
+  `;
+}
+
+
+function miniInfo(
+  label,
+  value
+){
+
+  return `
+
+    <div class="mini-info">
+
+      <div class="mini-label">
+        ${escapeHTML(label)}
+      </div>
+
+      <div class="mini-value">
+        ${
+          escapeHTML(
+            value
+          ) || "-"
+        }
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+/* =========================================================
+   EVENTOS DOS CANDIDATOS
+========================================================= */
+
+candidatesList.addEventListener(
+  "click",
+  function(event){
+
+    const details =
+      event.target.closest(
+        "[data-details-id]"
+      );
+
+    if(details){
+
+      openDetails(
+        details.dataset.detailsId
+      );
+
+      return;
+    }
+
+
+    const trash =
+      event.target.closest(
+        "[data-trash-id]"
+      );
+
+    if(trash){
+
+      moveToTrash(
+        trash.dataset.trashId
+      );
+    }
+
+  }
+);
+
+
+candidatesList.addEventListener(
+  "change",
+  function(event){
+
+    const select =
+      event.target.closest(
+        "[data-status-id]"
+      );
+
+    if(!select){
+      return;
+    }
+
+    updateStatus(
+      select.dataset.statusId,
+      select.value
+    );
+  }
+);
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+async function updateStatus(
+  id,
+  newStatus
+){
+
+  const candidate =
+    candidates.find(
+      item => item.id === id
+    );
+
+  if(!candidate){
+    return;
+  }
+
+
+  const oldStatus =
+    candidate.status;
+
+
+  candidate.status =
+    newStatus;
+
+
+  updateStats();
+  updateAnalytics();
+  applyFilters();
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,
+        {
+          method:"PATCH",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=minimal"
+          },
+
+          body:JSON.stringify({
+            status:newStatus
+          })
+        }
+      );
+
+
+    if(!response.ok){
+
+      candidate.status =
+        oldStatus;
+
+      updateStats();
+      updateAnalytics();
+      applyFilters();
+
+      throw new Error(
+        await response.text()
+      );
+    }
+
+
+    showToast(
+      `✓ Status alterado para "${newStatus}".`
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "⚠️ Não foi possível salvar o status."
+    );
+  }
+}
+
+
+/* =========================================================
+   MOVER PARA LIXEIRA
+========================================================= */
+
+async function moveToTrash(id){
+
+  const candidate =
+    candidates.find(
+      item => item.id === id
+    );
+
+  if(!candidate){
+    return;
+  }
+
+
+  const confirmed =
+    confirm(
+      `Enviar "${candidate.nome_completo}" para a lixeira?\n\nO candidato NÃO será apagado. Ele poderá ser restaurado depois.`
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,
+        {
+          method:"PATCH",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=minimal"
+          },
+
+          body:JSON.stringify({
+            deleted_at:
+              new Date().toISOString()
+          })
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+    }
+
+
+    candidates =
+      candidates.filter(
+        item => item.id !== id
+      );
+
+
+    updateStats();
+    updateAnalytics();
+    applyFilters();
+
+
+    showToast(
+      "🗑️ Candidato enviado para a lixeira."
+    );
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "⚠️ Não foi possível mover para a lixeira."
+    );
+  }
+}
+
+
+/* =========================================================
+   ABRIR LIXEIRA
+========================================================= */
+
+trashButton.addEventListener(
+  "click",
+  async function(){
+
+    candidateSection.style.display =
+      "none";
+
+    trashSection.style.display =
+      "block";
+
+    await loadTrash();
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  }
+);
+
+
+/* =========================================================
+   CARREGAR LIXEIRA
+========================================================= */
+
+async function loadTrash(){
+
+  trashList.innerHTML = `
+    <div class="empty-box">
+
+      <div class="empty-icon">
+        ⏳
+      </div>
+
+      <div class="empty-title">
+        Abrindo lixeira...
+      </div>
+
+      <div class="empty-text">
+        Aguarde.
+      </div>
+
+    </div>
+  `;
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/candidaturas?select=*&deleted_at=not.is.null&order=deleted_at.desc`,
+        {
+          method:"GET",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`
+          }
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+    }
+
+
+    const trash =
+      await response.json();
+
+
+    if(!trash.length){
+
+      trashList.innerHTML = `
         <div class="empty-box">
 
           <div class="empty-icon">
-            ⏳
+            🗑️
           </div>
 
           <div class="empty-title">
-            Carregando candidaturas...
+            A lixeira está vazia
           </div>
 
           <div class="empty-text">
-            Aguarde um momento.
+            Nenhum candidato descartado.
           </div>
 
         </div>
       `;
 
-      try {
-
-        const response =
-          await fetch(
-            `${SUPABASE_URL}/rest/v1/candidaturas?select=*&order=created_at.desc`,
-            {
-              method: "GET",
-
-              headers: {
-                "apikey":
-                  SUPABASE_KEY,
-
-                "Authorization":
-                  `Bearer ${accessToken}`
-              }
-            }
-          );
-
-        if (
-          response.status === 401
-        ) {
-
-          logout();
-
-          return;
-        }
-
-        if (!response.ok) {
-
-          const text =
-            await response.text();
-
-          throw new Error(
-            text ||
-            "Erro ao carregar candidaturas."
-          );
-        }
-
-        candidates =
-          await response.json();
-
-        updateStats();
-
-        applyFilters();
-
-      } catch (error) {
-
-        console.error(error);
-
-        candidatesList.innerHTML = `
-          <div class="empty-box">
-
-            <div class="empty-icon">
-              ⚠️
-            </div>
-
-            <div class="empty-title">
-              Não foi possível carregar
-            </div>
-
-            <div class="empty-text">
-              Verifique sua conexão e tente novamente.
-            </div>
-
-            <br>
-
-            <button
-              class="toolbar-button"
-              onclick="loadCandidates()"
-            >
-              Tentar novamente
-            </button>
-
-          </div>
-        `;
-      }
+      return;
     }
 
 
-    /* =====================================================
-       ESTATÍSTICAS
-    ===================================================== */
+    trashList.innerHTML =
+      trash
+        .map(
+          candidate => `
 
-    function updateStats() {
+            <article class="trash-card">
 
-      document.getElementById(
-        "totalCount"
-      ).textContent =
-        candidates.length;
+              <div class="trash-info">
 
-      document.getElementById(
-        "novoCount"
-      ).textContent =
-        candidates.filter(
-          c => c.status === "Novo"
-        ).length;
+                <strong>
+                  ${escapeHTML(
+                    candidate.nome_completo
+                  )}
+                </strong>
 
-      document.getElementById(
-        "analiseCount"
-      ).textContent =
-        candidates.filter(
-          c => c.status === "Em análise"
-        ).length;
+                <span>
 
-      document.getElementById(
-        "entrevistaCount"
-      ).textContent =
-        candidates.filter(
-          c => c.status === "Entrevista"
-        ).length;
+                  Status:
+                  ${escapeHTML(
+                    candidate.status || "Novo"
+                  )}
 
-      document.getElementById(
-        "aprovadoCount"
-      ).textContent =
-        candidates.filter(
-          c => c.status === "Aprovado"
-        ).length;
+                  • Enviado para lixeira:
+                  ${formatDate(
+                    candidate.deleted_at
+                  )}
 
-      document.getElementById(
-        "reprovadoCount"
-      ).textContent =
-        candidates.filter(
-          c => c.status === "Reprovado"
-        ).length;
-    }
+                </span>
+
+              </div>
 
 
-    /* =====================================================
-       FILTROS
-    ===================================================== */
+              <div class="trash-actions">
 
-    function applyFilters() {
-
-      const search =
-        searchInput.value
-          .trim()
-          .toLowerCase();
-
-      const status =
-        statusFilter.value;
-
-      filteredCandidates =
-        candidates.filter(
-          candidate => {
-
-            const name =
-              (
-                candidate.nome_completo ||
-                ""
-              ).toLowerCase();
-
-            const matchesSearch =
-              !search ||
-              name.includes(search);
-
-            const matchesStatus =
-              status === "Todos" ||
-              candidate.status === status;
-
-            return (
-              matchesSearch &&
-              matchesStatus
-            );
-          }
-        );
-
-      renderCandidates();
-    }
-
-
-    searchInput.addEventListener(
-      "input",
-      applyFilters
-    );
-
-
-    statusFilter.addEventListener(
-      "change",
-      applyFilters
-    );
-
-
-    clearButton.addEventListener(
-      "click",
-      function() {
-
-        searchInput.value =
-          "";
-
-        statusFilter.value =
-          "Todos";
-
-        applyFilters();
-      }
-    );
-
-
-    /* =====================================================
-       RENDERIZAR
-    ===================================================== */
-
-    function renderCandidates() {
-
-      document.getElementById(
-        "resultsCount"
-      ).textContent =
-        `${filteredCandidates.length} ${
-          filteredCandidates.length === 1
-            ? "candidato"
-            : "candidatos"
-        }`;
-
-      if (
-        filteredCandidates.length === 0
-      ) {
-
-        candidatesList.innerHTML = `
-          <div class="empty-box">
-
-            <div class="empty-icon">
-              🔎
-            </div>
-
-            <div class="empty-title">
-              Nenhum candidato encontrado
-            </div>
-
-            <div class="empty-text">
-              Tente outro nome ou altere o filtro.
-            </div>
-
-          </div>
-        `;
-
-        return;
-      }
-
-      candidatesList.innerHTML =
-        filteredCandidates
-          .map(
-            candidate => {
-
-              const status =
-                candidate.status ||
-                "Novo";
-
-              const statusColor =
-                getStatusColor(status);
-
-              return `
-
-                <article
-                  class="candidate-card"
+                <button
+                  class="restore-btn"
+                  data-restore-id="${escapeHTML(candidate.id)}"
                 >
+                  ♻️ Restaurar
+                </button>
+
+                <button
+                  class="delete-btn"
+                  data-delete-id="${escapeHTML(candidate.id)}"
+                >
+                  ❌ Excluir definitivamente
+                </button>
 
-                  <div
-                    class="candidate-top"
-                  >
-
-                    <div>
-
-                      <div
-                        class="candidate-name"
-                      >
-                        ${escapeHTML(
-                          candidate.nome_completo
-                        )}
-                      </div>
-
-                      <div
-                        class="candidate-meta"
-                      >
-                        Candidatura recebida em
-                        ${formatDate(
-                          candidate.created_at
-                        )}
-                      </div>
-
-                    </div>
-
-
-                    <div
-                      class="status-area"
-                    >
-
-                      <div
-                        class="status-badge"
-                        style="
-                          color:${statusColor};
-                          border-color:${statusColor};
-                        "
-                      >
-                        ${escapeHTML(status)}
-                      </div>
-
-                      <select
-                        class="status-select"
-                        onchange="
-                          updateStatus(
-                            '${escapeHTML(candidate.id)}',
-                            this.value
-                          )
-                        "
-                      >
-
-                        <option
-                          value="Novo"
-                          ${
-                            status === "Novo"
-                              ? "selected"
-                              : ""
-                          }
-                        >
-                          Novo
-                        </option>
-
-                        <option
-                          value="Em análise"
-                          ${
-                            status === "Em análise"
-                              ? "selected"
-                              : ""
-                          }
-                        >
-                          Em análise
-                        </option>
-
-                        <option
-                          value="Entrevista"
-                          ${
-                            status === "Entrevista"
-                              ? "selected"
-                              : ""
-                          }
-                        >
-                          Entrevista
-                        </option>
-
-                        <option
-                          value="Aprovado"
-                          ${
-                            status === "Aprovado"
-                              ? "selected"
-                              : ""
-                          }
-                        >
-                          Aprovado
-                        </option>
-
-                        <option
-                          value="Reprovado"
-                          ${
-                            status === "Reprovado"
-                              ? "selected"
-                              : ""
-                          }
-                        >
-                          Reprovado
-                        </option>
-
-                      </select>
-
-                    </div>
-
-                  </div>
-
-
-                  <div
-                    class="candidate-divider"
-                  ></div>
-
-
-                  <div
-                    class="candidate-summary"
-                  >
-
-                    <div class="mini-info">
-
-                      <div
-                        class="mini-label"
-                      >
-                        Idade
-                      </div>
-
-                      <div
-                        class="mini-value"
-                      >
-                        ${escapeHTML(
-                          candidate.idade
-                        )}
-                      </div>
-
-                    </div>
-
-
-                    <div class="mini-info">
-
-                      <div
-                        class="mini-label"
-                      >
-                        Sexo
-                      </div>
-
-                      <div
-                        class="mini-value"
-                      >
-                        ${escapeHTML(
-                          candidate.sexo
-                        )}
-                      </div>
-
-                    </div>
-
-
-                    <div class="mini-info">
-
-                      <div
-                        class="mini-label"
-                      >
-                        Vendas
-                      </div>
-
-                      <div
-                        class="mini-value"
-                      >
-                        ${escapeHTML(
-                          candidate.experiencia_vendas
-                        )}
-                      </div>
-
-                    </div>
-
-
-                    <div class="mini-info">
-
-                      <div
-                        class="mini-label"
-                      >
-                        Trabalhando
-                      </div>
-
-                      <div
-                        class="mini-value"
-                      >
-                        ${escapeHTML(
-                          candidate.trabalhando_atualmente
-                        )}
-                      </div>
-
-                    </div>
-
-
-                    <div class="mini-info">
-
-                      <div
-                        class="mini-label"
-                      >
-                        Início
-                      </div>
-
-                      <div
-                        class="mini-value"
-                      >
-                        ${escapeHTML(
-                          candidate.inicio
-                        )}
-                      </div>
-
-                    </div>
-
-
-                    <div class="mini-info">
-
-                      <div
-                        class="mini-label"
-                      >
-                        Origem
-                      </div>
-
-                      <div
-                        class="mini-value"
-                      >
-                        ${escapeHTML(
-                          candidate.como_soube
-                        )}
-                      </div>
-
-                    </div>
-
-                  </div>
-
-
-                  <div
-                    class="candidate-actions"
-                  >
-
-                    <button
-                      class="details-button"
-                      onclick="
-                        openDetails(
-                          '${escapeHTML(candidate.id)}'
-                        )
-                      "
-                    >
-                      👁️ Ver ficha completa
-                    </button>
-
-                  </div>
-
-                </article>
-
-              `;
-            }
-          )
-          .join("");
-    }
-
-
-    /* =====================================================
-       ALTERAR STATUS
-    ===================================================== */
-
-    async function updateStatus(
-      id,
-      newStatus
-    ) {
-
-      const candidate =
-        candidates.find(
-          item => item.id === id
-        );
-
-      if (!candidate) {
-        return;
-      }
-
-      const oldStatus =
-        candidate.status;
-
-      candidate.status =
-        newStatus;
-
-      updateStats();
-      applyFilters();
-
-      try {
-
-        const response =
-          await fetch(
-            `${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,
-            {
-              method: "PATCH",
-
-              headers: {
-                "apikey":
-                  SUPABASE_KEY,
-
-                "Authorization":
-                  `Bearer ${accessToken}`,
-
-                "Content-Type":
-                  "application/json",
-
-                "Prefer":
-                  "return=minimal"
-              },
-
-              body: JSON.stringify({
-                status: newStatus
-              })
-            }
-          );
-
-        if (!response.ok) {
-
-          candidate.status =
-            oldStatus;
-
-          updateStats();
-          applyFilters();
-
-          throw new Error(
-            await response.text()
-          );
-        }
-
-        showToast(
-          `✓ Status atualizado para "${newStatus}".`
-        );
-
-      } catch (error) {
-
-        console.error(error);
-
-        showToast(
-          "Não foi possível salvar o status."
-        );
-      }
-    }
-
-
-    /* =====================================================
-       MODAL DE DETALHES
-    ===================================================== */
-
-    function openDetails(id) {
-
-      const candidate =
-        candidates.find(
-          item => item.id === id
-        );
-
-      if (!candidate) {
-        return;
-      }
-
-      document.getElementById(
-        "modalName"
-      ).textContent =
-        candidate.nome_completo ||
-        "Candidato";
-
-      document.getElementById(
-        "modalDate"
-      ).textContent =
-        `Candidatura recebida em ${formatDate(candidate.created_at)}`;
-
-      document.getElementById(
-        "modalBody"
-      ).innerHTML = `
-
-        <section class="modal-section">
-
-          <div class="modal-section-title">
-            Status atual
-          </div>
-
-          <div class="detail-box">
-
-            <div class="detail-label">
-              Situação
-            </div>
-
-            <div
-              class="detail-value"
-              style="
-                color:${getStatusColor(
-                  candidate.status || "Novo"
-                )};
-                font-weight:900;
-              "
-            >
-              ${escapeHTML(
-                candidate.status || "Novo"
-              )}
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <section class="modal-section">
-
-          <div class="modal-section-title">
-            Dados pessoais
-          </div>
-
-          <div class="details-grid">
-
-            <div class="detail-box">
-
-              <div class="detail-label">
-                Nome completo
               </div>
 
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.nome_completo
-                )}
-              </div>
+            </article>
 
-            </div>
+          `
+        )
+        .join("");
 
 
-            <div class="detail-box">
+  }catch(error){
 
-              <div class="detail-label">
-                Idade
-              </div>
+    console.error(error);
 
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.idade
-                )}
-              </div>
+    trashList.innerHTML = `
+      <div class="empty-box">
 
-            </div>
+        <div class="empty-icon">
+          ⚠️
+        </div>
 
+        <div class="empty-title">
+          Não foi possível carregar a lixeira
+        </div>
 
-            <div class="detail-box">
+        <div class="empty-text">
+          Verifique as permissões do Supabase.
+        </div>
 
-              <div class="detail-label">
-                Sexo
-              </div>
+      </div>
+    `;
+  }
+}
 
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.sexo
-                )}
-              </div>
 
-            </div>
+/* =========================================================
+   EVENTOS LIXEIRA
+========================================================= */
 
+trashList.addEventListener(
+  "click",
+  function(event){
 
-            <div class="detail-box">
-
-              <div class="detail-label">
-                Trabalhando atualmente
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.trabalhando_atualmente
-                )}
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <section class="modal-section">
-
-          <div class="modal-section-title">
-            Perfil profissional
-          </div>
-
-          <div class="details-grid">
-
-            <div class="detail-box">
-
-              <div class="detail-label">
-                Experiência em vendas
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.experiencia_vendas
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="detail-box">
-
-              <div class="detail-label">
-                Quando pode começar
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.inicio
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="detail-box full">
-
-              <div class="detail-label">
-                Experiência profissional
-              </div>
-
-              <div class="detail-value">
-                ${
-                  escapeHTML(
-                    candidate.experiencia
-                  ) || "-"
-                }
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-
-        <section class="modal-section">
-
-          <div class="modal-section-title">
-            Origem e motivação
-          </div>
-
-          <div class="details-grid">
-
-            <div class="detail-box">
-
-              <div class="detail-label">
-                Como soube da oportunidade
-              </div>
-
-              <div class="detail-value">
-                ${escapeHTML(
-                  candidate.como_soube
-                )}
-              </div>
-
-            </div>
-
-
-            <div class="detail-box full">
-
-              <div class="detail-label">
-                Por que quer trabalhar conosco
-              </div>
-
-              <div class="detail-value">
-                ${
-                  escapeHTML(
-                    candidate.motivo
-                  ) || "-"
-                }
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-      `;
-
-      detailsModal.style.display =
-        "flex";
-
-      document.body.style.overflow =
-        "hidden";
-    }
-
-
-    function closeDetails() {
-
-      detailsModal.style.display =
-        "none";
-
-      document.body.style.overflow =
-        "";
-    }
-
-
-    closeModal.addEventListener(
-      "click",
-      closeDetails
-    );
-
-
-    detailsModal.addEventListener(
-      "click",
-      function(event) {
-
-        if (
-          event.target ===
-          detailsModal
-        ) {
-          closeDetails();
-        }
-
-      }
-    );
-
-
-    document.addEventListener(
-      "keydown",
-      function(event) {
-
-        if (
-          event.key === "Escape"
-        ) {
-          closeDetails();
-        }
-
-      }
-    );
-
-
-    /* =====================================================
-       ATUALIZAR
-    ===================================================== */
-
-    refreshButton.addEventListener(
-      "click",
-      async function() {
-
-        refreshButton.disabled =
-          true;
-
-        refreshButton.textContent =
-          "Atualizando...";
-
-        await loadCandidates();
-
-        refreshButton.disabled =
-          false;
-
-        refreshButton.textContent =
-          "↻ Atualizar";
-
-        showToast(
-          "✓ Candidaturas atualizadas."
-        );
-      }
-    );
-
-
-    /* =====================================================
-       LOGOUT
-    ===================================================== */
-
-    logoutButton.addEventListener(
-      "click",
-      logout
-    );
-
-
-    function logout() {
-
-      accessToken =
-        "";
-
-      localStorage.removeItem(
-        "afinco_access_token"
+    const restore =
+      event.target.closest(
+        "[data-restore-id]"
       );
 
-      candidates = [];
+    if(restore){
 
-      filteredCandidates = [];
+      restoreCandidate(
+        restore.dataset.restoreId
+      );
 
-      adminScreen.style.display =
-        "none";
+      return;
+    }
 
-      loginScreen.style.display =
-        "flex";
 
-      loginForm.reset();
+    const deleteButton =
+      event.target.closest(
+        "[data-delete-id]"
+      );
+
+    if(deleteButton){
+
+      permanentlyDelete(
+        deleteButton.dataset.deleteId
+      );
+    }
+
+  }
+);
+
+
+/* =========================================================
+   RESTAURAR
+========================================================= */
+
+async function restoreCandidate(id){
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,
+        {
+          method:"PATCH",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=minimal"
+          },
+
+          body:JSON.stringify({
+            deleted_at:null
+          })
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+    }
+
+
+    showToast(
+      "♻️ Candidato restaurado."
+    );
+
+
+    await loadCandidates();
+
+    await loadTrash();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "⚠️ Não foi possível restaurar."
+    );
+  }
+}
+
+
+/* =========================================================
+   EXCLUIR DEFINITIVAMENTE
+========================================================= */
+
+async function permanentlyDelete(id){
+
+  const confirmed =
+    confirm(
+      "ATENÇÃO!\n\nEste candidato será apagado definitivamente do banco de dados.\n\nEssa ação NÃO poderá ser desfeita.\n\nDeseja continuar?"
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,
+        {
+          method:"DELETE",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`,
+
+            "Content-Type":
+              "application/json",
+
+            "Prefer":
+              "return=minimal"
+          }
+        }
+      );
+
+
+    if(!response.ok){
+
+      throw new Error(
+        await response.text()
+      );
+    }
+
+
+    showToast(
+      "❌ Candidato excluído definitivamente."
+    );
+
+
+    await loadTrash();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    showToast(
+      "⚠️ Não foi possível excluir definitivamente."
+    );
+  }
+}
+
+
+/* =========================================================
+   VOLTAR PARA CANDIDATURAS
+========================================================= */
+
+const backButton =
+  document.createElement(
+    "button"
+  );
+
+backButton.className =
+  "toolbar-button";
+
+backButton.textContent =
+  "← Voltar para candidaturas";
+
+backButton.style.marginBottom =
+  "18px";
+
+backButton.addEventListener(
+  "click",
+  function(){
+
+    trashSection.style.display =
+      "none";
+
+    candidateSection.style.display =
+      "block";
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+  }
+);
+
+trashSection.insertBefore(
+  backButton,
+  trashSection.firstChild
+);
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openDetails(id){
+
+  const candidate =
+    candidates.find(
+      item => item.id === id
+    );
+
+  if(!candidate){
+    return;
+  }
+
+
+  document.getElementById(
+    "modalName"
+  ).textContent =
+    candidate.nome_completo ||
+    "Candidato";
+
+
+  document.getElementById(
+    "modalDate"
+  ).textContent =
+    `Candidatura recebida em ${formatDate(
+      candidate.created_at
+    )}`;
+
+
+  document.getElementById(
+    "modalBody"
+  ).innerHTML = `
+
+    <section class="modal-section">
+
+      <div class="modal-section-title">
+        Status atual
+      </div>
+
+      <div class="detail-box">
+
+        <div class="detail-label">
+          Situação
+        </div>
+
+        <div
+          class="detail-value"
+          style="
+            color:${getStatusColor(
+              candidate.status || "Novo"
+            )};
+            font-weight:950;
+          "
+        >
+          ${escapeHTML(
+            candidate.status || "Novo"
+          )}
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="modal-section">
+
+      <div class="modal-section-title">
+        Dados pessoais
+      </div>
+
+      <div class="details-grid">
+
+        ${detail(
+          "Nome completo",
+          candidate.nome_completo
+        )}
+
+        ${detail(
+          "Idade",
+          candidate.idade
+        )}
+
+        ${detail(
+          "Sexo",
+          candidate.sexo
+        )}
+
+        ${detail(
+          "Trabalhando atualmente",
+          candidate.trabalhando_atualmente
+        )}
+
+      </div>
+
+    </section>
+
+
+    <section class="modal-section">
+
+      <div class="modal-section-title">
+        Perfil profissional
+      </div>
+
+      <div class="details-grid">
+
+        ${detail(
+          "Experiência em vendas",
+          candidate.experiencia_vendas
+        )}
+
+        ${detail(
+          "Quando pode começar",
+          candidate.inicio
+        )}
+
+        ${detail(
+          "Experiência profissional",
+          candidate.experiencia,
+          true
+        )}
+
+      </div>
+
+    </section>
+
+
+    <section class="modal-section">
+
+      <div class="modal-section-title">
+        Origem e motivação
+      </div>
+
+      <div class="details-grid">
+
+        ${detail(
+          "Como soube da oportunidade",
+          candidate.como_soube
+        )}
+
+        ${detail(
+          "Por que quer trabalhar conosco",
+          candidate.motivo,
+          true
+        )}
+
+      </div>
+
+    </section>
+
+  `;
+
+
+  detailsModal.style.display =
+    "flex";
+
+  document.body.style.overflow =
+    "hidden";
+}
+
+
+function detail(
+  label,
+  value,
+  full=false
+){
+
+  return `
+
+    <div
+      class="detail-box ${
+        full ? "full" : ""
+      }"
+    >
+
+      <div class="detail-label">
+        ${escapeHTML(label)}
+      </div>
+
+      <div class="detail-value">
+        ${
+          escapeHTML(value)
+          || "-"
+        }
+      </div>
+
+    </div>
+
+  `;
+}
+
+
+function closeDetails(){
+
+  detailsModal.style.display =
+    "none";
+
+  document.body.style.overflow =
+    "";
+}
+
+
+closeModal.addEventListener(
+  "click",
+  closeDetails
+);
+
+
+detailsModal.addEventListener(
+  "click",
+  function(event){
+
+    if(
+      event.target ===
+      detailsModal
+    ){
 
       closeDetails();
     }
 
+  }
+);
 
-    /* =====================================================
-       RECUPERAR SESSÃO
-    ===================================================== */
 
-    async function initialize() {
+document.addEventListener(
+  "keydown",
+  function(event){
 
-      if (!accessToken) {
-        return;
-      }
+    if(
+      event.key === "Escape"
+    ){
 
-      try {
+      closeDetails();
+    }
 
-        const response =
-          await fetch(
-            `${SUPABASE_URL}/auth/v1/user`,
-            {
-              method: "GET",
+  }
+);
 
-              headers: {
-                "apikey":
-                  SUPABASE_KEY,
 
-                "Authorization":
-                  `Bearer ${accessToken}`
-              }
-            }
-          );
+/* =========================================================
+   ATUALIZAR
+========================================================= */
 
-        if (!response.ok) {
+refreshButton.addEventListener(
+  "click",
+  async function(){
 
-          logout();
+    refreshButton.disabled =
+      true;
 
-          return;
+    refreshButton.textContent =
+      "Atualizando...";
+
+
+    await loadCandidates();
+
+
+    refreshButton.disabled =
+      false;
+
+    refreshButton.textContent =
+      "↻ Atualizar";
+
+
+    showToast(
+      "✓ Painel atualizado."
+    );
+  }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+logoutButton.addEventListener(
+  "click",
+  logout
+);
+
+
+function logout(){
+
+  accessToken =
+    "";
+
+  localStorage.removeItem(
+    "afinco_access_token"
+  );
+
+  candidates = [];
+
+  filteredCandidates = [];
+
+  adminScreen.style.display =
+    "none";
+
+  loginScreen.style.display =
+    "flex";
+
+  loginForm.reset();
+
+  closeDetails();
+}
+
+
+/* =========================================================
+   SESSÃO
+========================================================= */
+
+async function initialize(){
+
+  if(!accessToken){
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        `${SUPABASE_URL}/auth/v1/user`,
+        {
+          method:"GET",
+
+          headers:{
+            "apikey":
+              SUPABASE_KEY,
+
+            "Authorization":
+              `Bearer ${accessToken}`
+          }
         }
+      );
 
-        const user =
-          await response.json();
 
-        adminEmail.textContent =
-          user.email || "";
+    if(!response.ok){
 
-        loginScreen.style.display =
-          "none";
+      logout();
 
-        adminScreen.style.display =
-          "block";
-
-        await loadCandidates();
-
-      } catch (error) {
-
-        console.error(error);
-
-        logout();
-      }
+      return;
     }
 
 
-    /* =====================================================
-       INICIAR
-    ===================================================== */
+    const user =
+      await response.json();
 
-    initialize();
 
-  </script>
+    adminEmail.textContent =
+      user.email || "";
+
+
+    loginScreen.style.display =
+      "none";
+
+    adminScreen.style.display =
+      "block";
+
+
+    await loadCandidates();
+
+
+  }catch(error){
+
+    console.error(error);
+
+    logout();
+  }
+}
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
+initialize();
+
+</script>
 
 </body>
 </html>
