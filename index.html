@@ -1,44 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta
     name="description"
-    content="Faça parte da Afinco Imóveis. Conheça nossa oportunidade profissional, nosso ambiente e candidate-se."
+    content="Faça parte da Afinco Imóveis. Conheça nossa oportunidade profissional, nossa cultura e candidate-se."
   >
 
-  <meta
-    name="theme-color"
-    content="#0b0b0b"
-  >
+  <meta name="theme-color" content="#080808">
 
   <title>Faça parte da Afinco | Oportunidade Profissional</title>
 
   <link rel="icon" href="logo-afinco-imoveis.png">
 
   <style>
+
     :root {
       --bg: #080808;
       --bg-soft: #101010;
       --card: #141414;
       --card-2: #181818;
+
       --gold: #d6b56a;
       --gold-light: #f0d99a;
+
       --white: #ffffff;
       --text: #f4f4f4;
       --muted: #a6a6a6;
+
       --line: rgba(255,255,255,.09);
+
       --success: #72d69b;
       --danger: #ff7474;
+
       --radius: 22px;
-      --shadow: 0 25px 70px rgba(0,0,0,.35);
+
+      --shadow:
+        0 25px 70px rgba(0,0,0,.35);
     }
+
 
     * {
       box-sizing: border-box;
@@ -46,9 +50,11 @@
       padding: 0;
     }
 
+
     html {
       scroll-behavior: smooth;
     }
+
 
     body {
       font-family:
@@ -58,39 +64,69 @@
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
+
       background:
-        radial-gradient(circle at 80% 10%, rgba(214,181,106,.10), transparent 28%),
-        radial-gradient(circle at 10% 30%, rgba(255,255,255,.035), transparent 25%),
+        radial-gradient(
+          circle at 80% 10%,
+          rgba(214,181,106,.10),
+          transparent 28%
+        ),
+
+        radial-gradient(
+          circle at 10% 30%,
+          rgba(255,255,255,.035),
+          transparent 25%
+        ),
+
         var(--bg);
+
       color: var(--text);
+
       line-height: 1.6;
+
       overflow-x: hidden;
     }
 
+
     body::before {
       content: "";
+
       position: fixed;
+
       inset: 0;
+
       pointer-events: none;
+
       background:
         linear-gradient(
           90deg,
           rgba(255,255,255,.015) 1px,
           transparent 1px
         ),
+
         linear-gradient(
           rgba(255,255,255,.015) 1px,
           transparent 1px
         );
+
       background-size: 70px 70px;
-      mask-image: linear-gradient(to bottom, black, transparent 80%);
+
+      mask-image:
+        linear-gradient(
+          to bottom,
+          black,
+          transparent 80%
+        );
+
       z-index: -1;
     }
+
 
     a {
       color: inherit;
       text-decoration: none;
     }
+
 
     button,
     input,
@@ -99,413 +135,731 @@
       font: inherit;
     }
 
+
     .container {
-      width: min(1180px, calc(100% - 40px));
+      width: min(
+        1180px,
+        calc(100% - 40px)
+      );
+
       margin: auto;
     }
 
-    /* HEADER */
+
+    /* =========================================
+       HEADER
+    ========================================= */
 
     header {
       position: sticky;
+
       top: 0;
+
       z-index: 1000;
+
       backdrop-filter: blur(18px);
-      background: rgba(8,8,8,.82);
-      border-bottom: 1px solid var(--line);
+
+      background:
+        rgba(8,8,8,.82);
+
+      border-bottom:
+        1px solid var(--line);
     }
+
 
     .nav {
       min-height: 78px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: space-between;
+
       gap: 25px;
     }
 
+
     .logo {
       width: 145px;
+
       display: block;
     }
 
+
     .nav-links {
       display: flex;
+
       align-items: center;
+
       gap: 28px;
     }
 
+
     .nav-links a {
       color: #cfcfcf;
+
       font-size: 14px;
+
       transition: .25s;
     }
+
 
     .nav-links a:hover {
       color: var(--gold-light);
     }
 
+
     .nav-cta {
       padding: 12px 19px;
-      border: 1px solid rgba(214,181,106,.45);
+
+      border:
+        1px solid rgba(214,181,106,.45);
+
       border-radius: 999px;
-      color: var(--gold-light) !important;
+
+      color:
+        var(--gold-light) !important;
+
       font-weight: 700;
     }
 
+
     .menu-button {
       display: none;
+
       background: transparent;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       color: white;
+
       border-radius: 10px;
+
       padding: 9px 12px;
+
       cursor: pointer;
     }
 
-    /* HERO */
+
+    /* =========================================
+       HERO
+    ========================================= */
 
     .hero {
       min-height: 720px;
+
       display: grid;
-      grid-template-columns: 1.15fr .85fr;
+
+      grid-template-columns:
+        1.15fr .85fr;
+
       align-items: center;
+
       gap: 60px;
-      padding: 85px 0 80px;
+
+      padding:
+        85px 0 80px;
     }
+
 
     .eyebrow {
       display: inline-flex;
+
       align-items: center;
+
       gap: 9px;
-      border: 1px solid rgba(214,181,106,.3);
-      background: rgba(214,181,106,.07);
-      color: var(--gold-light);
-      padding: 9px 14px;
+
+      border:
+        1px solid rgba(214,181,106,.3);
+
+      background:
+        rgba(214,181,106,.07);
+
+      color:
+        var(--gold-light);
+
+      padding:
+        9px 14px;
+
       border-radius: 999px;
+
       font-size: 12px;
+
       font-weight: 800;
+
       text-transform: uppercase;
+
       letter-spacing: .08em;
+
       margin-bottom: 22px;
     }
 
+
     .dot {
       width: 7px;
+
       height: 7px;
+
       border-radius: 50%;
-      background: var(--gold);
-      box-shadow: 0 0 14px var(--gold);
+
+      background:
+        var(--gold);
+
+      box-shadow:
+        0 0 14px var(--gold);
     }
 
+
     h1 {
-      font-size: clamp(44px, 6vw, 78px);
+      font-size:
+        clamp(44px, 6vw, 78px);
+
       line-height: .98;
+
       letter-spacing: -3px;
+
       max-width: 760px;
+
       margin-bottom: 25px;
     }
 
+
     h1 span {
-      color: var(--gold-light);
+      color:
+        var(--gold-light);
     }
+
 
     .hero-text {
       max-width: 650px;
+
       color: #b9b9b9;
+
       font-size: 18px;
+
       line-height: 1.75;
+
       margin-bottom: 32px;
     }
 
+
     .hero-buttons {
       display: flex;
+
       gap: 13px;
+
       flex-wrap: wrap;
     }
 
+
     .btn {
       display: inline-flex;
+
       justify-content: center;
+
       align-items: center;
+
       min-height: 52px;
+
       padding: 0 23px;
+
       border-radius: 13px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       cursor: pointer;
+
       transition: .25s;
+
       font-weight: 800;
     }
 
+
     .btn-primary {
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold-light),
+          var(--gold)
+        );
+
       color: #111;
-      box-shadow: 0 12px 30px rgba(214,181,106,.16);
+
+      box-shadow:
+        0 12px 30px
+        rgba(214,181,106,.16);
     }
 
+
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 17px 40px rgba(214,181,106,.25);
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 17px 40px
+        rgba(214,181,106,.25);
     }
+
 
     .btn-secondary {
       color: white;
-      background: rgba(255,255,255,.035);
+
+      background:
+        rgba(255,255,255,.035);
     }
+
 
     .btn-secondary:hover {
-      background: rgba(255,255,255,.08);
+      background:
+        rgba(255,255,255,.08);
     }
 
-    /* HERO CARD */
+
+    /* =========================================
+       HERO CARD
+    ========================================= */
 
     .hero-card {
       position: relative;
+
       background:
-        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
-      border: 1px solid rgba(214,181,106,.25);
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.08),
+          rgba(255,255,255,.025)
+        );
+
+      border:
+        1px solid rgba(214,181,106,.25);
+
       border-radius: 28px;
+
       padding: 35px;
-      box-shadow: var(--shadow);
+
+      box-shadow:
+        var(--shadow);
+
       overflow: hidden;
     }
 
+
     .hero-card::before {
       content: "";
+
       position: absolute;
+
       width: 260px;
+
       height: 260px;
+
       right: -120px;
+
       top: -120px;
+
       border-radius: 50%;
-      background: rgba(214,181,106,.13);
+
+      background:
+        rgba(214,181,106,.13);
+
       filter: blur(10px);
     }
 
+
     .money {
-      font-size: clamp(55px, 7vw, 80px);
+      font-size:
+        clamp(55px, 7vw, 80px);
+
       line-height: 1;
+
       font-weight: 950;
-      color: var(--gold-light);
+
+      color:
+        var(--gold-light);
+
       letter-spacing: -4px;
     }
 
+
     .money-label {
       color: #c6c6c6;
-      margin: 8px 0 27px;
+
+      margin:
+        8px 0 27px;
     }
+
 
     .offer-list {
       list-style: none;
+
       display: grid;
+
       gap: 15px;
     }
 
+
     .offer-list li {
       display: flex;
+
       gap: 11px;
+
       color: #ddd;
+
       font-size: 14px;
     }
 
+
     .check {
-      color: var(--gold-light);
+      color:
+        var(--gold-light);
+
       font-weight: 900;
     }
+
 
     .no-limit {
       margin-top: 28px;
+
       padding-top: 22px;
-      border-top: 1px solid var(--line);
-      color: var(--gold-light);
+
+      border-top:
+        1px solid var(--line);
+
+      color:
+        var(--gold-light);
+
       font-weight: 900;
+
       letter-spacing: .06em;
+
       font-size: 13px;
     }
 
-    /* STATS */
+
+    /* =========================================
+       STATS
+    ========================================= */
 
     .stats {
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: rgba(255,255,255,.018);
+      border-top:
+        1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.018);
     }
+
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4,1fr);
+
+      grid-template-columns:
+        repeat(3,1fr);
     }
 
+
     .stat {
-      padding: 28px 20px;
+      padding:
+        28px 20px;
+
       text-align: center;
-      border-right: 1px solid var(--line);
+
+      border-right:
+        1px solid var(--line);
     }
+
 
     .stat:last-child {
       border-right: 0;
     }
 
+
     .stat strong {
       display: block;
-      color: var(--gold-light);
+
+      color:
+        var(--gold-light);
+
       font-size: 25px;
+
       margin-bottom: 3px;
     }
 
+
     .stat span {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 12px;
     }
 
-    /* GENERAL */
+
+    /* =========================================
+       GENERAL
+    ========================================= */
 
     section {
-      padding: 105px 0;
+      padding:
+        105px 0;
     }
+
 
     .section-head {
       max-width: 760px;
+
       margin-bottom: 45px;
     }
 
+
     .section-kicker {
-      color: var(--gold-light);
+      color:
+        var(--gold-light);
+
       text-transform: uppercase;
+
       letter-spacing: .14em;
+
       font-size: 11px;
+
       font-weight: 900;
+
       margin-bottom: 13px;
     }
 
+
     h2 {
-      font-size: clamp(34px, 5vw, 54px);
+      font-size:
+        clamp(34px, 5vw, 54px);
+
       line-height: 1.03;
+
       letter-spacing: -2px;
+
       margin-bottom: 17px;
     }
 
+
     .section-head p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 16px;
+
       line-height: 1.75;
     }
 
-    /* CARDS */
+
+    /* =========================================
+       CARDS
+    ========================================= */
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+
+      grid-template-columns:
+        repeat(3,1fr);
+
       gap: 17px;
     }
 
+
     .card {
-      background: linear-gradient(145deg, var(--card-2), var(--card));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+      background:
+        linear-gradient(
+          145deg,
+          var(--card-2),
+          var(--card)
+        );
+
+      border:
+        1px solid var(--line);
+
+      border-radius:
+        var(--radius);
+
       padding: 29px;
+
       transition: .3s;
     }
 
+
     .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(214,181,106,.3);
+      transform:
+        translateY(-5px);
+
+      border-color:
+        rgba(214,181,106,.3);
     }
 
+
     .card-number {
-      color: var(--gold);
+      color:
+        var(--gold);
+
       font-weight: 900;
+
       font-size: 12px;
+
       margin-bottom: 35px;
     }
 
+
     .card h3 {
       font-size: 21px;
+
       margin-bottom: 10px;
     }
 
+
     .card p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 14px;
+
       line-height: 1.7;
     }
 
-    /* ROLE */
+
+    /* =========================================
+       ROLE
+    ========================================= */
 
     .role-grid {
       display: grid;
-      grid-template-columns: .9fr 1.1fr;
+
+      grid-template-columns:
+        .9fr 1.1fr;
+
       gap: 55px;
+
       align-items: center;
     }
 
+
     .role-panel {
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.025);
+      border:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.025);
+
       border-radius: 26px;
+
       padding: 35px;
     }
 
+
     .role-title {
       font-size: 31px;
+
       margin-bottom: 13px;
     }
 
+
     .role-panel p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       line-height: 1.75;
     }
 
+
     .role-points {
       display: grid;
+
       gap: 14px;
+
       margin-top: 27px;
     }
 
+
     .role-point {
       display: flex;
+
       align-items: flex-start;
+
       gap: 13px;
+
       padding: 15px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius: 14px;
-      background: rgba(255,255,255,.02);
+
+      background:
+        rgba(255,255,255,.02);
     }
+
 
     .role-point strong {
       display: block;
+
       margin-bottom: 3px;
     }
 
+
     .role-point span {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 13px;
     }
 
-    /* EARNINGS */
+
+    /* =========================================
+       EARNINGS
+    ========================================= */
 
     .earnings {
       background:
-        radial-gradient(circle at 50% 0%, rgba(214,181,106,.08), transparent 45%),
+        radial-gradient(
+          circle at 50% 0%,
+          rgba(214,181,106,.08),
+          transparent 45%
+        ),
+
         rgba(255,255,255,.018);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
+
+      border-top:
+        1px solid var(--line);
+
+      border-bottom:
+        1px solid var(--line);
     }
+
 
     .earnings-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+
+      grid-template-columns:
+        1fr 1fr;
+
       gap: 18px;
     }
 
+
     .earning-card {
       padding: 32px;
+
       border-radius: 22px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       background: #101010;
     }
 
+
     .earning-card.highlight {
-      border-color: rgba(214,181,106,.35);
+      border-color:
+        rgba(214,181,106,.35);
+
       background:
         linear-gradient(
           145deg,
@@ -514,451 +868,820 @@
         );
     }
 
+
     .earning-card h3 {
       margin-bottom: 10px;
+
       font-size: 22px;
     }
 
+
     .earning-card p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 14px;
+
       line-height: 1.7;
     }
 
+
     .earning-big {
       font-size: 46px;
+
       line-height: 1;
-      color: var(--gold-light);
+
+      color:
+        var(--gold-light);
+
       font-weight: 950;
+
       margin-bottom: 10px;
     }
 
+
     .disclaimer {
       margin-top: 18px;
+
       color: #777;
+
       font-size: 11px;
+
       line-height: 1.6;
     }
 
-    /* FLOW */
+
+    /* =========================================
+       FLOW
+    ========================================= */
 
     .flow {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+
+      grid-template-columns:
+        repeat(3,1fr);
+
       gap: 15px;
     }
 
+
     .flow-item {
       position: relative;
+
       padding: 28px;
-      border: 1px solid var(--line);
+
+      border:
+        1px solid var(--line);
+
       border-radius: 20px;
-      background: rgba(255,255,255,.02);
+
+      background:
+        rgba(255,255,255,.02);
     }
+
 
     .flow-item strong {
       display: block;
-      color: var(--gold-light);
+
+      color:
+        var(--gold-light);
+
       font-size: 12px;
+
       margin-bottom: 16px;
+
       text-transform: uppercase;
+
       letter-spacing: .1em;
     }
+
 
     .flow-item h3 {
       margin-bottom: 9px;
     }
 
+
     .flow-item p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 14px;
     }
 
-    /* FIT */
+
+    /* =========================================
+       FIT
+    ========================================= */
 
     .fit-grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
+
+      grid-template-columns:
+        repeat(2,1fr);
+
       gap: 17px;
     }
 
+
     .fit-card {
-      border: 1px solid var(--line);
-      background: var(--card);
+      border:
+        1px solid var(--line);
+
+      background:
+        var(--card);
+
       border-radius: 20px;
+
       padding: 25px;
     }
+
 
     .fit-card h3 {
       margin-bottom: 8px;
     }
 
+
     .fit-card p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 14px;
     }
 
-    /* VIDEOS */
+
+    /* =========================================
+       VIDEOS
+       MAIOR DESTAQUE
+    ========================================= */
+
+    .videos-section {
+      padding-top: 115px;
+      padding-bottom: 125px;
+    }
+
 
     .videos-grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
-      gap: 20px;
+
+      grid-template-columns:
+        repeat(2,1fr);
+
+      gap: 30px;
+
+      width: 100%;
     }
 
+
     .video-card {
-      border: 1px solid var(--line);
-      background: #111;
-      border-radius: 22px;
-      padding: 15px;
+      border:
+        1px solid var(--line);
+
+      background:
+        linear-gradient(
+          145deg,
+          #151515,
+          #0e0e0e
+        );
+
+      border-radius: 26px;
+
+      padding: 17px;
+
       overflow: hidden;
+
+      box-shadow:
+        0 25px 65px
+        rgba(0,0,0,.28);
+
+      transition:
+        .3s;
     }
+
+
+    .video-card:hover {
+      transform:
+        translateY(-5px);
+
+      border-color:
+        rgba(214,181,106,.35);
+
+      box-shadow:
+        0 30px 80px
+        rgba(0,0,0,.4);
+    }
+
 
     .video-card video {
       width: 100%;
+
+      aspect-ratio: 16 / 10;
+
+      min-height: 430px;
+
       display: block;
-      border-radius: 14px;
-      background: #050505;
+
+      border-radius: 18px;
+
+      background:
+        #050505;
+
+      object-fit: cover;
     }
+
 
     .video-info {
-      padding: 18px 8px 7px;
+      padding:
+        23px 9px 10px;
     }
+
 
     .video-info h3 {
-      margin-bottom: 5px;
+      margin-bottom: 7px;
+
+      font-size: 23px;
     }
+
 
     .video-info p {
-      color: var(--muted);
-      font-size: 13px;
+      color:
+        var(--muted);
+
+      font-size: 14px;
+
+      line-height: 1.6;
     }
 
-    /* PROCESS */
+
+    /* =========================================
+       PROCESS
+    ========================================= */
 
     .process {
       display: grid;
-      grid-template-columns: repeat(3,1fr);
+
+      grid-template-columns:
+        repeat(3,1fr);
+
       gap: 18px;
     }
 
+
     .process-item {
       text-align: center;
-      padding: 35px 25px;
+
+      padding:
+        35px 25px;
+
       border-radius: 22px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.025);
+
+      border:
+        1px solid var(--line);
+
+      background:
+        rgba(255,255,255,.025);
     }
+
 
     .process-number {
       width: 45px;
+
       height: 45px;
+
       display: grid;
+
       place-items: center;
-      margin: 0 auto 18px;
+
+      margin:
+        0 auto 18px;
+
       border-radius: 50%;
-      background: rgba(214,181,106,.1);
-      border: 1px solid rgba(214,181,106,.3);
-      color: var(--gold-light);
+
+      background:
+        rgba(214,181,106,.1);
+
+      border:
+        1px solid rgba(214,181,106,.3);
+
+      color:
+        var(--gold-light);
+
       font-weight: 900;
     }
 
+
     .process-item p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 14px;
+
       margin-top: 7px;
     }
 
-    /* FORM */
+
+    /* =========================================
+       FORM
+    ========================================= */
 
     .form-section {
       padding-top: 90px;
+
       padding-bottom: 120px;
     }
 
+
     .form-wrapper {
       display: grid;
-      grid-template-columns: .72fr 1.28fr;
+
+      grid-template-columns:
+        .72fr 1.28fr;
+
       gap: 20px;
+
       align-items: stretch;
     }
 
+
     .form-side {
-      border: 1px solid rgba(214,181,106,.25);
+      border:
+        1px solid rgba(214,181,106,.25);
+
       border-radius: 26px;
+
       padding: 35px;
+
       background:
-        radial-gradient(circle at 90% 10%, rgba(214,181,106,.12), transparent 35%),
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(214,181,106,.12),
+          transparent 35%
+        ),
+
         #111;
     }
+
 
     .form-side h2 {
       font-size: 39px;
     }
 
+
     .form-side p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 14px;
+
       line-height: 1.75;
     }
 
+
     .form-side-list {
       list-style: none;
+
       display: grid;
+
       gap: 13px;
+
       margin-top: 27px;
     }
 
+
     .form-side-list li {
       color: #ddd;
+
       font-size: 14px;
+
       display: flex;
+
       gap: 10px;
     }
 
+
     .form-box {
-      border: 1px solid var(--line);
-      background: #111;
+      border:
+        1px solid var(--line);
+
+      background:
+        #111;
+
       border-radius: 26px;
+
       padding: 35px;
     }
+
 
     .form-header {
       margin-bottom: 25px;
     }
 
+
     .form-header h3 {
       font-size: 25px;
+
       margin-bottom: 5px;
     }
 
+
     .form-header p {
-      color: var(--muted);
+      color:
+        var(--muted);
+
       font-size: 13px;
     }
 
+
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(2,1fr);
+
+      grid-template-columns:
+        repeat(2,1fr);
+
       gap: 17px;
     }
 
+
     .field {
       display: flex;
+
       flex-direction: column;
+
       gap: 7px;
     }
 
+
     .field.full {
-      grid-column: 1 / -1;
+      grid-column:
+        1 / -1;
     }
+
 
     label {
       font-size: 12px;
+
       font-weight: 800;
+
       color: #ddd;
     }
 
+
     .required {
-      color: var(--gold-light);
+      color:
+        var(--gold-light);
     }
+
 
     .optional {
       color: #777;
+
       font-weight: 500;
     }
+
 
     input,
     select,
     textarea {
       width: 100%;
-      border: 1px solid rgba(255,255,255,.1);
-      background: #090909;
+
+      border:
+        1px solid rgba(255,255,255,.1);
+
+      background:
+        #090909;
+
       color: white;
+
       border-radius: 12px;
+
       outline: none;
-      padding: 13px 14px;
-      transition: .2s;
+
+      padding:
+        13px 14px;
+
+      transition:
+        .2s;
     }
+
 
     input,
     select {
       min-height: 48px;
     }
 
+
     textarea {
       min-height: 115px;
+
       resize: vertical;
     }
+
 
     input::placeholder,
     textarea::placeholder {
       color: #666;
     }
 
+
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: rgba(214,181,106,.65);
-      box-shadow: 0 0 0 3px rgba(214,181,106,.07);
+      border-color:
+        rgba(214,181,106,.65);
+
+      box-shadow:
+        0 0 0 3px
+        rgba(214,181,106,.07);
     }
+
 
     .field-help {
       color: #6f6f6f;
+
       font-size: 11px;
     }
+
 
     .form-footer {
       margin-top: 22px;
     }
 
+
     .submit-button {
       width: 100%;
+
       min-height: 56px;
+
       border: 0;
+
       border-radius: 13px;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold-light),
+          var(--gold)
+        );
+
       color: #111;
+
       font-weight: 950;
+
       cursor: pointer;
+
       transition: .25s;
     }
 
+
     .submit-button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 35px rgba(214,181,106,.2);
+      transform:
+        translateY(-2px);
+
+      box-shadow:
+        0 14px 35px
+        rgba(214,181,106,.2);
     }
+
 
     .submit-button:disabled {
       opacity: .65;
+
       cursor: wait;
     }
 
+
     .form-note {
       margin-top: 12px;
+
       color: #696969;
+
       font-size: 11px;
+
       text-align: center;
+
       line-height: 1.5;
     }
+
 
     .form-message {
       display: none;
+
       margin-top: 15px;
+
       padding: 14px;
+
       border-radius: 12px;
+
       font-size: 13px;
+
       line-height: 1.5;
     }
 
+
     .form-message.success {
       display: block;
-      background: rgba(114,214,155,.08);
-      border: 1px solid rgba(114,214,155,.25);
-      color: var(--success);
+
+      background:
+        rgba(114,214,155,.08);
+
+      border:
+        1px solid rgba(114,214,155,.25);
+
+      color:
+        var(--success);
     }
+
 
     .form-message.error {
       display: block;
-      background: rgba(255,116,116,.08);
-      border: 1px solid rgba(255,116,116,.25);
-      color: var(--danger);
+
+      background:
+        rgba(255,116,116,.08);
+
+      border:
+        1px solid rgba(255,116,116,.25);
+
+      color:
+        var(--danger);
     }
 
-    /* CTA */
+
+    /* =========================================
+       FINAL CTA
+    ========================================= */
 
     .final-cta {
-      padding: 95px 0;
+      padding:
+        95px 0;
+
       text-align: center;
-      border-top: 1px solid var(--line);
+
+      border-top:
+        1px solid var(--line);
+
       background:
-        radial-gradient(circle at center, rgba(214,181,106,.10), transparent 50%);
+        radial-gradient(
+          circle at center,
+          rgba(214,181,106,.10),
+          transparent 50%
+        );
     }
+
 
     .final-cta h2 {
       max-width: 800px;
-      margin: 0 auto 17px;
+
+      margin:
+        0 auto 17px;
     }
+
 
     .final-cta p {
       max-width: 600px;
-      margin: 0 auto 28px;
-      color: var(--muted);
+
+      margin:
+        0 auto 28px;
+
+      color:
+        var(--muted);
     }
 
-    /* FOOTER */
+
+    /* =========================================
+       FOOTER
+    ========================================= */
 
     footer {
-      border-top: 1px solid var(--line);
-      padding: 30px 0;
+      border-top:
+        1px solid var(--line);
+
+      padding:
+        30px 0;
+
       color: #666;
+
       font-size: 12px;
+
       text-align: center;
     }
 
-    /* FLOATING CTA */
+
+    /* =========================================
+       FLOATING CTA
+    ========================================= */
 
     .floating-cta {
       position: fixed;
+
       right: 22px;
+
       bottom: 22px;
+
       z-index: 900;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+
+      background:
+        linear-gradient(
+          135deg,
+          var(--gold-light),
+          var(--gold)
+        );
+
       color: #111;
-      padding: 14px 19px;
+
+      padding:
+        14px 19px;
+
       border-radius: 999px;
+
       font-size: 13px;
+
       font-weight: 950;
-      box-shadow: 0 12px 35px rgba(0,0,0,.4);
-      transition: .25s;
+
+      box-shadow:
+        0 12px 35px
+        rgba(0,0,0,.4);
+
+      transition:
+        .25s;
     }
+
 
     .floating-cta:hover {
-      transform: translateY(-3px);
+      transform:
+        translateY(-3px);
     }
 
-    /* REVEAL */
+
+    /* =========================================
+       REVEAL
+    ========================================= */
 
     .reveal {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .7s ease, transform .7s ease;
+
+      transform:
+        translateY(18px);
+
+      transition:
+        opacity .7s ease,
+        transform .7s ease;
     }
+
 
     .reveal.visible {
       opacity: 1;
-      transform: translateY(0);
+
+      transform:
+        translateY(0);
     }
 
-    /* RESPONSIVE */
+
+    /* =========================================
+       RESPONSIVE
+    ========================================= */
 
     @media (max-width: 900px) {
 
       .nav-links {
         position: absolute;
+
         top: 78px;
+
         left: 20px;
+
         right: 20px;
+
         display: none;
+
         flex-direction: column;
+
         align-items: stretch;
+
         padding: 18px;
-        background: #111;
-        border: 1px solid var(--line);
+
+        background:
+          #111;
+
+        border:
+          1px solid var(--line);
+
         border-radius: 17px;
       }
+
 
       .nav-links.open {
         display: flex;
       }
 
+
       .nav-links a {
         padding: 11px;
       }
 
+
       .menu-button {
         display: block;
       }
+
 
       .hero,
       .role-grid,
@@ -966,9 +1689,11 @@
         grid-template-columns: 1fr;
       }
 
+
       .hero {
         padding-top: 65px;
       }
+
 
       .cards,
       .process,
@@ -976,17 +1701,17 @@
         grid-template-columns: 1fr;
       }
 
+
       .stats-grid {
-        grid-template-columns: repeat(2,1fr);
+        grid-template-columns:
+          repeat(3,1fr);
       }
 
-      .stat:nth-child(2) {
-        border-right: 0;
+
+      .stat {
+        border-bottom: 0;
       }
 
-      .stat:nth-child(-n+2) {
-        border-bottom: 1px solid var(--line);
-      }
 
       .videos-grid,
       .earnings-grid,
@@ -994,51 +1719,96 @@
         grid-template-columns: 1fr;
       }
 
+
+      .video-card video {
+        min-height: 0;
+
+        aspect-ratio:
+          16 / 10;
+      }
+
+
       .form-wrapper {
         gap: 15px;
       }
     }
 
+
     @media (max-width: 600px) {
 
       .container {
-        width: min(100% - 26px, 1180px);
+        width:
+          min(
+            100% - 26px,
+            1180px
+          );
       }
+
 
       .logo {
         width: 125px;
       }
 
+
       .hero {
         min-height: auto;
-        padding: 55px 0 65px;
+
+        padding:
+          55px 0 65px;
+
         gap: 35px;
       }
 
+
       h1 {
         font-size: 46px;
-        letter-spacing: -2.5px;
+
+        letter-spacing:
+          -2.5px;
       }
+
 
       .hero-text {
         font-size: 15px;
       }
 
+
       section {
-        padding: 75px 0;
+        padding:
+          75px 0;
       }
+
 
       .stats-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns:
+          1fr 1fr;
       }
+
 
       .stat {
-        padding: 23px 10px;
+        padding:
+          23px 10px;
+
+        border-right:
+          1px solid var(--line);
       }
 
-      .stat strong {
-        font-size: 21px;
+
+      .stat:nth-child(2) {
+        border-right: 0;
       }
+
+
+      .stat:last-child {
+        grid-column:
+          1 / -1;
+
+        border-top:
+          1px solid var(--line);
+
+        border-right: 0;
+      }
+
 
       .hero-card,
       .form-side,
@@ -1046,46 +1816,91 @@
         padding: 25px;
       }
 
+
       .form-grid {
         grid-template-columns: 1fr;
       }
+
 
       .field.full {
         grid-column: auto;
       }
 
+
       .floating-cta {
         right: 13px;
+
         bottom: 13px;
+
         left: 13px;
+
         text-align: center;
       }
+
 
       .hero-buttons {
         flex-direction: column;
       }
 
+
       .hero-buttons .btn {
         width: 100%;
       }
+
+
+      .video-card {
+        padding: 12px;
+
+        border-radius: 20px;
+      }
+
+
+      .video-card video {
+        min-height: 0;
+
+        aspect-ratio:
+          16 / 10;
+
+        border-radius: 14px;
+      }
+
+
+      .video-info {
+        padding:
+          18px 7px 7px;
+      }
+
+
+      .video-info h3 {
+        font-size: 20px;
+      }
     }
+
   </style>
 </head>
 
+
 <body>
 
-  <!-- HEADER -->
+
+  <!-- =========================================
+       HEADER
+  ========================================= -->
 
   <header>
+
     <div class="container nav">
 
       <a href="#inicio">
+
         <img
           src="logo-afinco-imoveis.png"
           alt="Afinco Imóveis"
           class="logo"
         >
+
       </a>
+
 
       <button
         class="menu-button"
@@ -1096,44 +1911,92 @@
         ☰
       </button>
 
-      <nav class="nav-links" id="navLinks">
-        <a href="#inicio">Início</a>
-        <a href="#oportunidade">Oportunidade</a>
-        <a href="#afinco">Por que Afinco</a>
-        <a href="#videos">Vídeos</a>
-        <a href="#processo">Processo</a>
-        <a href="#cadastro" class="nav-cta">Quero me candidatar →</a>
+
+      <nav
+        class="nav-links"
+        id="navLinks"
+      >
+
+        <a href="#inicio">
+          Início
+        </a>
+
+        <a href="#oportunidade">
+          Oportunidade
+        </a>
+
+        <a href="#afinco">
+          Por que Afinco
+        </a>
+
+        <a href="#videos">
+          Vídeos
+        </a>
+
+        <a href="#processo">
+          Processo
+        </a>
+
+        <a
+          href="#cadastro"
+          class="nav-cta"
+        >
+          Quero me candidatar →
+        </a>
+
       </nav>
 
     </div>
+
   </header>
 
 
   <main>
 
-    <!-- HERO -->
 
-    <section class="container hero" id="inicio">
+    <!-- =========================================
+         HERO
+    ========================================= -->
+
+    <section
+      class="container hero"
+      id="inicio"
+    >
 
       <div class="reveal">
 
         <div class="eyebrow">
+
           <span class="dot"></span>
+
           Oportunidade aberta • Modelo PJ
+
         </div>
 
+
         <h1>
+
           Seu próximo nível
-          <span>pode começar aqui.</span>
+
+          <span>
+            pode começar aqui.
+          </span>
+
         </h1>
 
+
         <p class="hero-text">
-          Estamos buscando pessoas com vontade de crescer, aprender,
-          vender e construir uma nova história profissional.
+
+          Estamos buscando pessoas com vontade de crescer,
+          aprender, vender e construir uma nova história
+          profissional.
+
           Se você quer entrar em um ambiente de performance,
-          desenvolvimento e oportunidade real de ganhos, conheça a
-          oportunidade da Afinco.
+          desenvolvimento e oportunidade real de ganhos,
+          conheça a oportunidade da Afinco.
+
         </p>
+
 
         <div class="hero-buttons">
 
@@ -1143,6 +2006,7 @@
           >
             Quero me candidatar →
           </a>
+
 
           <a
             href="#oportunidade"
@@ -1162,33 +2026,59 @@
           +R$4 MIL
         </div>
 
+
         <div class="money-label">
           ganhos iniciais em média
         </div>
 
+
         <ul class="offer-list">
 
-          <li>
-            <span class="check">✓</span>
-            <span>Modelo de contratação <strong>PJ</strong></span>
-          </li>
 
           <li>
-            <span class="check">✓</span>
-            <span>Recepção e administração dos leads prospectados por nossas campanhas</span>
+
+            <span class="check">
+              ✓
+            </span>
+
+            <span>
+              Modelo de contratação
+              <strong>PJ</strong>
+            </span>
+
           </li>
 
-          <li>
-            <span class="check">✓</span>
-            <span>Comissões + bonificações</span>
-          </li>
 
           <li>
-            <span class="check">✓</span>
-            <span>Segunda a sexta, das 09h às 19h</span>
+
+            <span class="check">
+              ✓
+            </span>
+
+            <span>
+              Recepção e administração
+              dos leads prospectados por
+              nossas campanhas
+            </span>
+
           </li>
+
+
+          <li>
+
+            <span class="check">
+              ✓
+            </span>
+
+            <span>
+              Comissões + bonificações
+            </span>
+
+          </li>
+
 
         </ul>
+
 
         <div class="no-limit">
           SEM TETO DE GANHOS
@@ -1199,42 +2089,67 @@
     </section>
 
 
-    <!-- NUMBERS -->
+    <!-- =========================================
+         STATS
+    ========================================= -->
 
     <div class="stats">
 
       <div class="container stats-grid">
 
-        <div class="stat">
-          <strong>PJ</strong>
-          <span>Modelo da oportunidade</span>
-        </div>
 
         <div class="stat">
-          <strong>09h–19h</strong>
-          <span>Segunda a sexta</span>
+
+          <strong>
+            PJ
+          </strong>
+
+          <span>
+            Modelo da oportunidade
+          </span>
+
         </div>
 
-        <div class="stat">
-          <strong>+R$4 mil</strong>
-          <span>Média inicial de ganhos</span>
-        </div>
 
         <div class="stat">
-          <strong>∞</strong>
-          <span>Sem teto de ganhos</span>
+
+          <strong>
+            +R$4 mil
+          </strong>
+
+          <span>
+            Média inicial de ganhos
+          </span>
+
         </div>
+
+
+        <div class="stat">
+
+          <strong>
+            ∞
+          </strong>
+
+          <span>
+            Sem teto de ganhos
+          </span>
+
+        </div>
+
 
       </div>
 
     </div>
 
 
-    <!-- OPORTUNIDADE -->
+    <!-- =========================================
+         OPORTUNIDADE
+    ========================================= -->
 
     <section id="oportunidade">
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1242,15 +2157,27 @@
             A oportunidade
           </div>
 
+
           <h2>
-            Não é só uma vaga.<br>
-            É uma possibilidade de evolução.
+
+            Não é só uma vaga.
+
+            <br>
+
+            É uma possibilidade
+            de evolução.
+
           </h2>
 
+
           <p>
-            A proposta é simples: você entra para um ambiente onde
-            existe estrutura, campanhas, leads prospectados e espaço
-            para desenvolver sua performance comercial.
+
+            A proposta é simples:
+            você entra para um ambiente onde
+            existe estrutura, campanhas,
+            leads prospectados e espaço para
+            desenvolver sua performance comercial.
+
           </p>
 
         </div>
@@ -1258,17 +2185,26 @@
 
         <div class="cards">
 
+
           <article class="card reveal">
 
-            <div class="card-number">01 — CRESCIMENTO</div>
+            <div class="card-number">
+              01 — CRESCIMENTO
+            </div>
+
 
             <h3>
               Evolua profissionalmente
             </h3>
 
+
             <p>
-              Desenvolva comunicação, negociação, atendimento,
-              relacionamento com clientes e visão comercial.
+
+              Desenvolva comunicação,
+              negociação, atendimento,
+              relacionamento com clientes
+              e visão comercial.
+
             </p>
 
           </article>
@@ -1276,15 +2212,22 @@
 
           <article class="card reveal">
 
-            <div class="card-number">02 — PERFORMANCE</div>
+            <div class="card-number">
+              02 — PERFORMANCE
+            </div>
+
 
             <h3>
               Seu resultado importa
             </h3>
 
+
             <p>
-              A remuneração está conectada à sua performance,
-              com possibilidade de comissões e bonificações.
+
+              A remuneração está conectada
+              à sua performance, com possibilidade
+              de comissões e bonificações.
+
             </p>
 
           </article>
@@ -1292,18 +2235,26 @@
 
           <article class="card reveal">
 
-            <div class="card-number">03 — OPORTUNIDADE</div>
+            <div class="card-number">
+              03 — OPORTUNIDADE
+            </div>
+
 
             <h3>
               Construa seu próximo nível
             </h3>
 
+
             <p>
-              Para quem quer sair do automático e buscar uma trajetória
-              profissional com mais possibilidades.
+
+              Para quem quer sair do automático
+              e buscar uma trajetória profissional
+              com mais possibilidades.
+
             </p>
 
           </article>
+
 
         </div>
 
@@ -1312,11 +2263,14 @@
     </section>
 
 
-    <!-- FUNÇÃO -->
+    <!-- =========================================
+         FUNÇÃO
+    ========================================= -->
 
     <section id="funcao">
 
       <div class="container role-grid">
+
 
         <div class="reveal">
 
@@ -1324,15 +2278,27 @@
             O que você fará
           </div>
 
+
           <h2>
-            Atendimento com foco em oportunidade.
+            Atendimento com foco
+            em oportunidade.
           </h2>
 
-          <p style="color:#999;line-height:1.8;">
-            A operação conta com campanhas responsáveis pela
-            prospecção de leads. Seu papel será receber, organizar,
-            administrar e trabalhar esses contatos dentro do processo
-            comercial.
+
+          <p
+            style="
+              color:#999;
+              line-height:1.8;
+            "
+          >
+
+            A operação conta com campanhas
+            responsáveis pela prospecção de leads.
+
+            Seu papel será receber, organizar,
+            administrar e trabalhar esses contatos
+            dentro do processo comercial.
+
           </p>
 
         </div>
@@ -1340,46 +2306,89 @@
 
         <div class="role-panel reveal">
 
+
           <div class="role-title">
             Na prática
           </div>
 
+
           <p>
-            Você estará inserido em uma rotina comercial estruturada,
-            acompanhando os leads e dando sequência aos contatos.
+
+            Você estará inserido em uma rotina
+            comercial estruturada, acompanhando
+            os leads e dando sequência aos contatos.
+
           </p>
+
 
           <div class="role-points">
 
-            <div class="role-point">
-              <div class="check">✓</div>
-              <div>
-                <strong>Recepção dos leads</strong>
-                <span>
-                  Receba os contatos prospectados pelas campanhas.
-                </span>
-              </div>
-            </div>
 
             <div class="role-point">
-              <div class="check">✓</div>
-              <div>
-                <strong>Administração</strong>
-                <span>
-                  Organize e acompanhe cada oportunidade.
-                </span>
+
+              <div class="check">
+                ✓
               </div>
+
+              <div>
+
+                <strong>
+                  Recepção dos leads
+                </strong>
+
+                <span>
+                  Receba os contatos prospectados
+                  pelas campanhas.
+                </span>
+
+              </div>
+
             </div>
 
+
             <div class="role-point">
-              <div class="check">✓</div>
-              <div>
-                <strong>Atendimento comercial</strong>
-                <span>
-                  Entenda o cliente e avance o processo de venda.
-                </span>
+
+              <div class="check">
+                ✓
               </div>
+
+              <div>
+
+                <strong>
+                  Administração
+                </strong>
+
+                <span>
+                  Organize e acompanhe
+                  cada oportunidade.
+                </span>
+
+              </div>
+
             </div>
+
+
+            <div class="role-point">
+
+              <div class="check">
+                ✓
+              </div>
+
+              <div>
+
+                <strong>
+                  Atendimento comercial
+                </strong>
+
+                <span>
+                  Entenda o cliente e avance
+                  o processo de venda.
+                </span>
+
+              </div>
+
+            </div>
+
 
           </div>
 
@@ -1390,11 +2399,14 @@
     </section>
 
 
-    <!-- GANHOS -->
+    <!-- =========================================
+         GANHOS
+    ========================================= -->
 
     <section class="earnings">
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1402,14 +2414,24 @@
             Modelo de ganhos
           </div>
 
+
           <h2>
-            Quanto mais você performa,<br>
+
+            Quanto mais você performa,
+
+            <br>
+
             maior pode ser o resultado.
+
           </h2>
 
+
           <p>
-            A oportunidade trabalha com ganhos iniciais em média
-            superiores a R$4.000, além de comissões e bonificações.
+
+            A oportunidade trabalha com ganhos
+            iniciais em média superiores a R$4.000,
+            além de comissões e bonificações.
+
           </p>
 
         </div>
@@ -1417,25 +2439,38 @@
 
         <div class="earnings-grid">
 
+
           <div class="earning-card highlight reveal">
+
 
             <div class="earning-big">
               +R$4.000
             </div>
 
+
             <h3>
               Ganhos iniciais em média
             </h3>
 
+
             <p>
-              Uma referência média inicial para quem entra na operação,
-              considerando o modelo de remuneração da oportunidade.
+
+              Uma referência média inicial
+              para quem entra na operação,
+              considerando o modelo de remuneração
+              da oportunidade.
+
             </p>
 
+
             <div class="disclaimer">
-              *Média de ganhos não representa garantia de remuneração.
-              Os resultados podem variar conforme desempenho,
-              comissões, bonificações e condições da operação.
+
+              *Média de ganhos não representa
+              garantia de remuneração.
+              Os resultados podem variar conforme
+              desempenho, comissões, bonificações
+              e condições da operação.
+
             </div>
 
           </div>
@@ -1443,15 +2478,23 @@
 
           <div class="earning-card reveal">
 
+
             <h3>
               Sem teto de ganhos
             </h3>
 
+
             <p>
-              O modelo não estabelece um teto máximo de ganhos.
-              Existe possibilidade de aumentar os resultados conforme
-              a evolução da performance comercial.
+
+              O modelo não estabelece um teto
+              máximo de ganhos.
+
+              Existe possibilidade de aumentar
+              os resultados conforme a evolução
+              da performance comercial.
+
             </p>
+
 
             <div class="no-limit">
               PERFORMANCE → RESULTADO
@@ -1459,6 +2502,7 @@
 
           </div>
 
+
         </div>
 
       </div>
@@ -1466,11 +2510,14 @@
     </section>
 
 
-    <!-- FLUXO -->
+    <!-- =========================================
+         FLUXO
+    ========================================= -->
 
     <section>
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1478,8 +2525,12 @@
             Como funciona
           </div>
 
+
           <h2>
-            Um processo comercial pensado para gerar movimento.
+
+            Um processo comercial
+            pensado para gerar movimento.
+
           </h2>
 
         </div>
@@ -1487,16 +2538,22 @@
 
         <div class="flow">
 
+
           <div class="flow-item reveal">
 
-            <strong>01 • Campanhas</strong>
+            <strong>
+              01 • Campanhas
+            </strong>
+
 
             <h3>
               Prospecção
             </h3>
 
+
             <p>
-              Nossas campanhas trabalham na geração de leads.
+              Nossas campanhas trabalham
+              na geração de leads.
             </p>
 
           </div>
@@ -1504,14 +2561,19 @@
 
           <div class="flow-item reveal">
 
-            <strong>02 • Atendimento</strong>
+            <strong>
+              02 • Atendimento
+            </strong>
+
 
             <h3>
               Recepção
             </h3>
 
+
             <p>
-              Você recebe e administra os contatos que chegam.
+              Você recebe e administra
+              os contatos que chegam.
             </p>
 
           </div>
@@ -1519,17 +2581,23 @@
 
           <div class="flow-item reveal">
 
-            <strong>03 • Performance</strong>
+            <strong>
+              03 • Performance
+            </strong>
+
 
             <h3>
               Conversão
             </h3>
 
+
             <p>
-              O objetivo é transformar oportunidades em negócios.
+              O objetivo é transformar
+              oportunidades em negócios.
             </p>
 
           </div>
+
 
         </div>
 
@@ -1538,11 +2606,14 @@
     </section>
 
 
-    <!-- AFINCO -->
+    <!-- =========================================
+         AFINCO
+    ========================================= -->
 
     <section id="afinco">
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1550,13 +2621,19 @@
             Por que Afinco
           </div>
 
+
           <h2>
-            Ambiente para quem quer jogar sério.
+            Ambiente para quem
+            quer jogar sério.
           </h2>
 
+
           <p>
-            Uma cultura baseada em crescimento, performance e
-            desenvolvimento de pessoas.
+
+            Uma cultura baseada em crescimento,
+            performance e desenvolvimento
+            de pessoas.
+
           </p>
 
         </div>
@@ -1564,17 +2641,25 @@
 
         <div class="cards">
 
+
           <article class="card reveal">
 
-            <div class="card-number">01</div>
+            <div class="card-number">
+              01
+            </div>
+
 
             <h3>
               Ambiente
             </h3>
 
+
             <p>
-              Um ambiente comercial dinâmico para quem gosta de
-              movimento, contato com pessoas e desafios.
+
+              Um ambiente comercial dinâmico
+              para quem gosta de movimento,
+              contato com pessoas e desafios.
+
             </p>
 
           </article>
@@ -1582,15 +2667,22 @@
 
           <article class="card reveal">
 
-            <div class="card-number">02</div>
+            <div class="card-number">
+              02
+            </div>
+
 
             <h3>
               Performance
             </h3>
 
+
             <p>
+
               Aqui resultado não passa despercebido.
-              Evolução e performance fazem parte da rotina.
+              Evolução e performance fazem parte
+              da rotina.
+
             </p>
 
           </article>
@@ -1598,18 +2690,26 @@
 
           <article class="card reveal">
 
-            <div class="card-number">03</div>
+            <div class="card-number">
+              03
+            </div>
+
 
             <h3>
               Propósito
             </h3>
 
+
             <p>
-              A oportunidade é para quem quer construir algo maior
-              do que simplesmente cumprir uma rotina.
+
+              A oportunidade é para quem quer
+              construir algo maior do que
+              simplesmente cumprir uma rotina.
+
             </p>
 
           </article>
+
 
         </div>
 
@@ -1618,11 +2718,14 @@
     </section>
 
 
-    <!-- PERFIL -->
+    <!-- =========================================
+         PERFIL
+    ========================================= -->
 
     <section>
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1630,9 +2733,12 @@
             Será que é para você?
           </div>
 
+
           <h2>
+
             Se você se identifica com isso,
             vale dar o próximo passo.
+
           </h2>
 
         </div>
@@ -1640,37 +2746,70 @@
 
         <div class="fit-grid">
 
-          <div class="fit-card reveal">
-            <h3>🔥 Gosta de desafios</h3>
-            <p>
-              Você não se acomoda facilmente e gosta de buscar
-              resultados maiores.
-            </p>
-          </div>
 
           <div class="fit-card reveal">
-            <h3>🗣️ Sabe se comunicar</h3>
+
+            <h3>
+              🔥 Gosta de desafios
+            </h3>
+
             <p>
-              Gosta de conversar, entender pessoas e criar
-              relacionamento.
+
+              Você não se acomoda facilmente
+              e gosta de buscar resultados maiores.
+
             </p>
+
           </div>
 
-          <div class="fit-card reveal">
-            <h3>📈 Quer crescer</h3>
-            <p>
-              Tem vontade de aprender e construir uma trajetória
-              profissional diferente.
-            </p>
-          </div>
 
           <div class="fit-card reveal">
-            <h3>🎯 Tem atitude</h3>
+
+            <h3>
+              🗣️ Sabe se comunicar
+            </h3>
+
             <p>
-              Entende que resultado exige consistência, disciplina
-              e ação.
+
+              Gosta de conversar, entender pessoas
+              e criar relacionamento.
+
             </p>
+
           </div>
+
+
+          <div class="fit-card reveal">
+
+            <h3>
+              📈 Quer crescer
+            </h3>
+
+            <p>
+
+              Tem vontade de aprender e construir
+              uma trajetória profissional diferente.
+
+            </p>
+
+          </div>
+
+
+          <div class="fit-card reveal">
+
+            <h3>
+              🎯 Tem atitude
+            </h3>
+
+            <p>
+
+              Entende que resultado exige
+              consistência, disciplina e ação.
+
+            </p>
+
+          </div>
+
 
         </div>
 
@@ -1679,11 +2818,17 @@
     </section>
 
 
-    <!-- VÍDEOS -->
+    <!-- =========================================
+         VÍDEOS
+    ========================================= -->
 
-    <section id="videos">
+    <section
+      id="videos"
+      class="videos-section"
+    >
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1691,14 +2836,23 @@
             Conheça melhor
           </div>
 
+
           <h2>
-            Antes de se candidatar,<br>
+
+            Antes de se candidatar,
+
+            <br>
+
             veja um pouco mais.
+
           </h2>
 
+
           <p>
-            Conheça melhor o ambiente, a visão e o contexto da
-            oportunidade.
+
+            Conheça melhor o ambiente,
+            a visão e o contexto da oportunidade.
+
           </p>
 
         </div>
@@ -1706,19 +2860,25 @@
 
         <div class="videos-grid">
 
+
           <article class="video-card reveal">
+
 
             <video
               controls
               preload="metadata"
               playsinline
             >
+
               <source
                 src="video-plano-crescimento.mp4"
                 type="video/mp4"
               >
+
               Seu navegador não suporta vídeo.
+
             </video>
+
 
             <div class="video-info">
 
@@ -1726,8 +2886,12 @@
                 Plano de crescimento
               </h3>
 
+
               <p>
-                Entenda a visão de crescimento e desenvolvimento.
+
+                Entenda a visão de crescimento
+                e desenvolvimento.
+
               </p>
 
             </div>
@@ -1737,17 +2901,22 @@
 
           <article class="video-card reveal">
 
+
             <video
               controls
               preload="metadata"
               playsinline
             >
+
               <source
                 src="video-referencia-nacional.mp4"
                 type="video/mp4"
               >
+
               Seu navegador não suporta vídeo.
+
             </video>
+
 
             <div class="video-info">
 
@@ -1755,13 +2924,18 @@
                 Referência nacional
               </h3>
 
+
               <p>
-                Conheça um pouco mais sobre a estrutura e o contexto.
+
+                Conheça um pouco mais sobre
+                a estrutura e o contexto.
+
               </p>
 
             </div>
 
           </article>
+
 
         </div>
 
@@ -1770,11 +2944,14 @@
     </section>
 
 
-    <!-- PROCESSO -->
+    <!-- =========================================
+         PROCESSO
+    ========================================= -->
 
     <section id="processo">
 
       <div class="container">
+
 
         <div class="section-head reveal">
 
@@ -1782,14 +2959,19 @@
             Próximos passos
           </div>
 
+
           <h2>
             É simples começar.
           </h2>
 
+
           <p>
-            Faça seu cadastro. Nossa equipe analisa as informações
-            e, caso seu perfil esteja alinhado à oportunidade,
-            entraremos em contato.
+
+            Faça seu cadastro.
+            Nossa equipe analisa as informações
+            e, caso seu perfil esteja alinhado à
+            oportunidade, entraremos em contato.
+
           </p>
 
         </div>
@@ -1797,18 +2979,22 @@
 
         <div class="process">
 
+
           <div class="process-item reveal">
 
             <div class="process-number">
               1
             </div>
 
+
             <h3>
               Cadastre-se
             </h3>
 
+
             <p>
-              Preencha suas informações no formulário.
+              Preencha suas informações
+              no formulário.
             </p>
 
           </div>
@@ -1820,12 +3006,15 @@
               2
             </div>
 
+
             <h3>
               Análise
             </h3>
 
+
             <p>
-              Nossa equipe avalia seu cadastro.
+              Nossa equipe avalia
+              seu cadastro.
             </p>
 
           </div>
@@ -1837,16 +3026,22 @@
               3
             </div>
 
+
             <h3>
               Contato
             </h3>
 
+
             <p>
-              Se houver alinhamento, nossa equipe poderá entrar
+
+              Se houver alinhamento,
+              nossa equipe poderá entrar
               em contato para os próximos passos.
+
             </p>
 
           </div>
+
 
         </div>
 
@@ -1855,7 +3050,9 @@
     </section>
 
 
-    <!-- FORMULÁRIO -->
+    <!-- =========================================
+         FORMULÁRIO
+    ========================================= -->
 
     <section
       class="form-section"
@@ -1864,49 +3061,85 @@
 
       <div class="container form-wrapper">
 
+
         <div class="form-side reveal">
+
 
           <div class="section-kicker">
             Sua próxima oportunidade
           </div>
 
+
           <h2>
             Agora é com você.
           </h2>
 
+
           <p>
-            Preencha o cadastro com atenção. Queremos conhecer
-            você, sua experiência e o que busca para sua próxima
-            etapa profissional.
+
+            Preencha o cadastro com atenção.
+            Queremos conhecer você, sua experiência
+            e o que busca para sua próxima etapa
+            profissional.
+
           </p>
 
 
           <ul class="form-side-list">
 
-            <li>
-              <span class="check">✓</span>
-              <span>Modelo PJ</span>
-            </li>
 
             <li>
-              <span class="check">✓</span>
-              <span>Segunda a sexta, 09h às 19h</span>
+
+              <span class="check">
+                ✓
+              </span>
+
+              <span>
+                Modelo PJ
+              </span>
+
             </li>
 
-            <li>
-              <span class="check">✓</span>
-              <span>Ganhos iniciais em média de +R$4.000</span>
-            </li>
 
             <li>
-              <span class="check">✓</span>
-              <span>Comissões + bonificações</span>
+
+              <span class="check">
+                ✓
+              </span>
+
+              <span>
+                Ganhos iniciais em média
+                de +R$4.000
+              </span>
+
             </li>
 
+
             <li>
-              <span class="check">✓</span>
-              <span>Sem teto de ganhos</span>
+
+              <span class="check">
+                ✓
+              </span>
+
+              <span>
+                Comissões + bonificações
+              </span>
+
             </li>
+
+
+            <li>
+
+              <span class="check">
+                ✓
+              </span>
+
+              <span>
+                Sem teto de ganhos
+              </span>
+
+            </li>
+
 
           </ul>
 
@@ -1915,14 +3148,19 @@
 
         <div class="form-box reveal">
 
+
           <div class="form-header">
 
             <h3>
               Cadastro de candidatura
             </h3>
 
+
             <p>
-              Preencha os campos abaixo para enviar sua candidatura.
+
+              Preencha os campos abaixo
+              para enviar sua candidatura.
+
             </p>
 
           </div>
@@ -1933,6 +3171,7 @@
             novalidate
           >
 
+
             <div class="form-grid">
 
 
@@ -1941,9 +3180,15 @@
               <div class="field full">
 
                 <label for="nome">
+
                   Nome completo
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <input
                   type="text"
@@ -1962,9 +3207,15 @@
               <div class="field">
 
                 <label for="idade">
+
                   Idade
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <input
                   type="number"
@@ -1984,9 +3235,15 @@
               <div class="field">
 
                 <label for="sexo">
+
                   Sexo
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <select
                   id="sexo"
@@ -2024,9 +3281,15 @@
               <div class="field">
 
                 <label for="trabalhando">
+
                   Está trabalhando atualmente?
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <select
                   id="trabalhando"
@@ -2056,9 +3319,15 @@
               <div class="field">
 
                 <label for="origem">
+
                   Como ficou sabendo da oportunidade?
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <select
                   id="origem"
@@ -2120,9 +3389,15 @@
               <div class="field">
 
                 <label for="inicio">
+
                   Quando poderia começar?
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <select
                   id="inicio"
@@ -2160,9 +3435,15 @@
               <div class="field">
 
                 <label for="vendas">
+
                   Já trabalhou com vendas?
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <select
                   id="vendas"
@@ -2192,9 +3473,15 @@
               <div class="field full">
 
                 <label for="experiencia">
+
                   Conte um pouco da sua experiência
-                  <span class="optional">(opcional)</span>
+
+                  <span class="optional">
+                    (opcional)
+                  </span>
+
                 </label>
+
 
                 <textarea
                   id="experiencia"
@@ -2202,8 +3489,12 @@
                   placeholder="Experiências profissionais, vendas, atendimento, liderança, etc."
                 ></textarea>
 
+
                 <div class="field-help">
-                  Quanto melhor conhecermos sua experiência, melhor poderemos avaliar seu perfil.
+
+                  Quanto melhor conhecermos sua experiência,
+                  melhor poderemos avaliar seu perfil.
+
                 </div>
 
               </div>
@@ -2214,9 +3505,15 @@
               <div class="field full">
 
                 <label for="motivo">
+
                   Por que você quer fazer parte da Afinco?
-                  <span class="required">*</span>
+
+                  <span class="required">
+                    *
+                  </span>
+
                 </label>
+
 
                 <textarea
                   id="motivo"
@@ -2233,12 +3530,16 @@
 
             <div class="form-footer">
 
+
               <button
                 type="submit"
                 class="submit-button"
               >
+
                 Enviar minha candidatura →
+
               </button>
+
 
               <div
                 id="formMessage"
@@ -2246,10 +3547,15 @@
                 role="alert"
               ></div>
 
+
               <div class="form-note">
-                Seus dados serão utilizados para análise da candidatura
-                e eventual contato referente à oportunidade.
+
+                Seus dados serão utilizados para análise
+                da candidatura e eventual contato referente
+                à oportunidade.
+
               </div>
+
 
             </div>
 
@@ -2262,52 +3568,73 @@
     </section>
 
 
-    <!-- FINAL CTA -->
+    <!-- =========================================
+         FINAL CTA
+    ========================================= -->
 
     <section class="final-cta">
 
       <div class="container reveal">
 
+
         <div class="section-kicker">
           O próximo passo depende de você
         </div>
 
+
         <h2>
+
           Talvez essa seja a oportunidade
           que você estava esperando.
+
         </h2>
 
+
         <p>
-          Se você tem vontade de crescer e está disposto a fazer
-          acontecer, coloque seu nome no jogo.
+
+          Se você tem vontade de crescer
+          e está disposto a fazer acontecer,
+          coloque seu nome no jogo.
+
         </p>
+
 
         <a
           href="#cadastro"
           class="btn btn-primary"
         >
+
           Fazer minha candidatura →
+
         </a>
 
       </div>
 
     </section>
 
+
   </main>
 
 
-  <!-- FOOTER -->
+  <!-- =========================================
+       FOOTER
+  ========================================= -->
 
   <footer>
 
     <div class="container">
-      © 2026 Afinco Imóveis • Oportunidade profissional
+
+      © 2026 Afinco Imóveis
+      • Oportunidade profissional
+
     </div>
 
   </footer>
 
 
-  <!-- CTA FLUTUANTE -->
+  <!-- =========================================
+       CTA FLUTUANTE
+  ========================================= -->
 
   <a
     href="#cadastro"
@@ -2319,22 +3646,53 @@
 
   <script>
 
+
     /* =========================================
        MENU MOBILE
     ========================================= */
 
-    const menuButton = document.getElementById("menuButton");
-    const navLinks = document.getElementById("navLinks");
+    const menuButton =
+      document.getElementById(
+        "menuButton"
+      );
 
-    menuButton.addEventListener("click", function () {
-      navLinks.classList.toggle("open");
-    });
 
-    navLinks.querySelectorAll("a").forEach(function (link) {
-      link.addEventListener("click", function () {
-        navLinks.classList.remove("open");
-      });
-    });
+    const navLinks =
+      document.getElementById(
+        "navLinks"
+      );
+
+
+    menuButton.addEventListener(
+      "click",
+      function () {
+
+        navLinks.classList.toggle(
+          "open"
+        );
+
+      }
+    );
+
+
+    navLinks
+      .querySelectorAll("a")
+      .forEach(
+        function (link) {
+
+          link.addEventListener(
+            "click",
+            function () {
+
+              navLinks.classList.remove(
+                "open"
+              );
+
+            }
+          );
+
+        }
+      );
 
 
     /* =========================================
@@ -2342,23 +3700,35 @@
     ========================================= */
 
     const revealElements =
-      document.querySelectorAll(".reveal");
+      document.querySelectorAll(
+        ".reveal"
+      );
+
 
     const observer =
       new IntersectionObserver(
         function (entries) {
 
-          entries.forEach(function (entry) {
+          entries.forEach(
+            function (entry) {
 
-            if (entry.isIntersecting) {
+              if (
+                entry.isIntersecting
+              ) {
 
-              entry.target.classList.add("visible");
+                entry.target.classList.add(
+                  "visible"
+                );
 
-              observer.unobserve(entry.target);
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
 
             }
-
-          });
+          );
 
         },
         {
@@ -2366,27 +3736,40 @@
         }
       );
 
-    revealElements.forEach(function (element) {
-      observer.observe(element);
-    });
+
+    revealElements.forEach(
+      function (element) {
+
+        observer.observe(
+          element
+        );
+
+      }
+    );
 
 
     /* =========================================
        SUPABASE
-       NÃO ALTERAR
     ========================================= */
 
     const SUPABASE_URL =
       "https://suxumbvzokoezwxouyeg.supabase.co";
 
+
     const SUPABASE_KEY =
-      "sb_publishable_1N3VgWZFmYC6UKTYdW_xYw_dwsa91AZ";
+      "sb_publishable_1N3VgWZFmYC6UKTYdW_xYwsa91AZ";
+
 
     const form =
-      document.getElementById("candidaturaForm");
+      document.getElementById(
+        "candidaturaForm"
+      );
+
 
     const formMessage =
-      document.getElementById("formMessage");
+      document.getElementById(
+        "formMessage"
+      );
 
 
     /* =========================================
@@ -2408,7 +3791,9 @@
 
         /* VALIDAÇÃO */
 
-        if (!form.checkValidity()) {
+        if (
+          !form.checkValidity()
+        ) {
 
           form.reportValidity();
 
@@ -2419,12 +3804,14 @@
 
         botao.disabled = true;
 
+
         botao.textContent =
           "Enviando candidatura...";
 
 
         formMessage.className =
           "form-message";
+
 
         formMessage.textContent =
           "";
@@ -2440,6 +3827,7 @@
               .value
               .trim(),
 
+
           idade:
             parseInt(
               document
@@ -2448,34 +3836,43 @@
               10
             ),
 
+
           sexo:
             document
               .getElementById("sexo")
               .value,
+
 
           trabalhando_atualmente:
             document
               .getElementById("trabalhando")
               .value,
 
+
           como_soube:
             document
               .getElementById("origem")
               .value,
 
+
           inicio:
-            form.elements["inicio"].value,
+            form.elements[
+              "inicio"
+            ].value,
+
 
           experiencia_vendas:
             document
               .getElementById("vendas")
               .value,
 
+
           experiencia:
             document
               .getElementById("experiencia")
               .value
               .trim(),
+
 
           motivo:
             document
@@ -2488,6 +3885,7 @@
 
         try {
 
+
           const resposta =
             await fetch(
               SUPABASE_URL +
@@ -2495,6 +3893,7 @@
               {
 
                 method: "POST",
+
 
                 headers: {
 
@@ -2509,22 +3908,29 @@
 
                 },
 
+
                 body:
-                  JSON.stringify(dados)
+                  JSON.stringify(
+                    dados
+                  )
 
               }
             );
 
 
-          if (!resposta.ok) {
+          if (
+            !resposta.ok
+          ) {
 
             const erro =
               await resposta.text();
+
 
             console.error(
               "Erro Supabase:",
               erro
             );
+
 
             throw new Error(
               "Falha ao enviar candidatura."
@@ -2538,8 +3944,10 @@
           formMessage.className =
             "form-message success";
 
+
           formMessage.textContent =
             "✓ Candidatura enviada com sucesso! Em breve nossa equipe poderá entrar em contato.";
+
 
           form.reset();
 
@@ -2550,7 +3958,11 @@
           });
 
 
-        } catch (erro) {
+        }
+
+
+        catch (erro) {
+
 
           console.error(
             "Erro ao enviar candidatura:",
@@ -2561,12 +3973,18 @@
           formMessage.className =
             "form-message error";
 
+
           formMessage.textContent =
             "Não foi possível enviar sua candidatura agora. Tente novamente em alguns instantes.";
 
-        } finally {
+        }
+
+
+        finally {
+
 
           botao.disabled = false;
+
 
           botao.textContent =
             "Enviar minha candidatura →";
@@ -2578,5 +3996,7 @@
 
   </script>
 
+
 </body>
+
 </html>
