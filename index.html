@@ -2,32 +2,42 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Faça parte da Afinco Imóveis | Oportunidade PJ</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
-    content="Faça parte da Afinco Imóveis. Vaga PJ para recepção e administração de leads prospectados por nossas campanhas, com comissões, bonificações e ganhos iniciais em média de +R$4.000."
+    content="Faça parte da Afinco Imóveis. Conheça nossa oportunidade profissional, nosso ambiente e candidate-se."
   >
+
+  <meta
+    name="theme-color"
+    content="#0b0b0b"
+  >
+
+  <title>Faça parte da Afinco | Oportunidade Profissional</title>
+
+  <link rel="icon" href="logo-afinco-imoveis.png">
 
   <style>
     :root {
       --bg: #080808;
       --bg-soft: #101010;
-      --card: #151515;
-      --card-2: #1b1b1b;
-      --gold: #d7ad55;
-      --gold-light: #f1d48a;
+      --card: #141414;
+      --card-2: #181818;
+      --gold: #d6b56a;
+      --gold-light: #f0d99a;
       --white: #ffffff;
-      --text: #eeeeee;
+      --text: #f4f4f4;
       --muted: #a6a6a6;
-      --border: rgba(255,255,255,.09);
-      --green: #55d68a;
-      --danger: #ff7272;
-      --shadow: 0 25px 80px rgba(0,0,0,.45);
+      --line: rgba(255,255,255,.09);
+      --success: #72d69b;
+      --danger: #ff7474;
       --radius: 22px;
-      --max: 1180px;
+      --shadow: 0 25px 70px rgba(0,0,0,.35);
     }
 
     * {
@@ -41,10 +51,16 @@
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
       background:
-        radial-gradient(circle at 80% 0%, rgba(215,173,85,.12), transparent 28%),
-        radial-gradient(circle at 0% 30%, rgba(255,255,255,.04), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(214,181,106,.10), transparent 28%),
+        radial-gradient(circle at 10% 30%, rgba(255,255,255,.035), transparent 25%),
         var(--bg);
       color: var(--text);
       line-height: 1.6;
@@ -56,22 +72,24 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background:
+        linear-gradient(
+          90deg,
+          rgba(255,255,255,.015) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          rgba(255,255,255,.015) 1px,
+          transparent 1px
+        );
       background-size: 70px 70px;
-      mask-image: linear-gradient(to bottom, black, transparent 75%);
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
       z-index: -1;
     }
 
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
     }
 
     button,
@@ -82,55 +100,8 @@
     }
 
     .container {
-      width: min(var(--max), calc(100% - 40px));
+      width: min(1180px, calc(100% - 40px));
       margin: auto;
-    }
-
-    .gold {
-      color: var(--gold-light);
-    }
-
-    .section {
-      padding: 105px 0;
-      position: relative;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 3.5rem);
-      line-height: 1.05;
-      letter-spacing: -1.8px;
-      margin-bottom: 18px;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      max-width: 680px;
-      font-size: 1.05rem;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(215,173,85,.35);
-      background: rgba(215,173,85,.08);
-      color: var(--gold-light);
-      border-radius: 999px;
-      padding: 8px 14px;
-      font-size: .78rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1.3px;
-      margin-bottom: 22px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-      box-shadow: 0 0 12px rgba(85,214,138,.7);
     }
 
     /* HEADER */
@@ -139,13 +110,13 @@
       position: sticky;
       top: 0;
       z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,.07);
-      background: rgba(8,8,8,.86);
       backdrop-filter: blur(18px);
+      background: rgba(8,8,8,.82);
+      border-bottom: 1px solid var(--line);
     }
 
     .nav {
-      min-height: 76px;
+      min-height: 78px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -154,17 +125,18 @@
 
     .logo {
       width: 145px;
+      display: block;
     }
 
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 26px;
-      color: #cfcfcf;
-      font-size: .9rem;
+      gap: 28px;
     }
 
     .nav-links a {
+      color: #cfcfcf;
+      font-size: 14px;
       transition: .25s;
     }
 
@@ -173,241 +145,288 @@
     }
 
     .nav-cta {
-      background: var(--white);
-      color: #090909;
-      padding: 11px 17px;
-      border-radius: 12px;
-      font-weight: 800;
-      transition: .25s;
+      padding: 12px 19px;
+      border: 1px solid rgba(214,181,106,.45);
+      border-radius: 999px;
+      color: var(--gold-light) !important;
+      font-weight: 700;
     }
 
-    .nav-cta:hover {
-      transform: translateY(-2px);
-      background: var(--gold-light);
+    .menu-button {
+      display: none;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: white;
+      border-radius: 10px;
+      padding: 9px 12px;
+      cursor: pointer;
     }
 
     /* HERO */
 
     .hero {
       min-height: 720px;
-      display: flex;
-      align-items: center;
-      padding: 90px 0 75px;
-      position: relative;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 520px;
-      height: 520px;
-      border-radius: 50%;
-      right: -250px;
-      top: 50px;
-      background: rgba(215,173,85,.09);
-      filter: blur(90px);
-      pointer-events: none;
-    }
-
-    .hero-grid {
       display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 65px;
+      grid-template-columns: 1.15fr .85fr;
       align-items: center;
+      gap: 60px;
+      padding: 85px 0 80px;
     }
 
-    .hero h1 {
-      font-size: clamp(3rem, 7vw, 6.5rem);
-      line-height: .92;
-      letter-spacing: -5px;
-      max-width: 800px;
-      margin-bottom: 28px;
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(214,181,106,.3);
+      background: rgba(214,181,106,.07);
+      color: var(--gold-light);
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 22px;
     }
 
-    .hero h1 span {
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 14px var(--gold);
+    }
+
+    h1 {
+      font-size: clamp(44px, 6vw, 78px);
+      line-height: .98;
+      letter-spacing: -3px;
+      max-width: 760px;
+      margin-bottom: 25px;
+    }
+
+    h1 span {
       color: var(--gold-light);
     }
 
     .hero-text {
-      color: #b8b8b8;
       max-width: 650px;
-      font-size: 1.12rem;
+      color: #b9b9b9;
+      font-size: 18px;
+      line-height: 1.75;
       margin-bottom: 32px;
     }
 
     .hero-buttons {
       display: flex;
-      flex-wrap: wrap;
       gap: 13px;
+      flex-wrap: wrap;
     }
 
     .btn {
-      border: none;
-      cursor: pointer;
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      gap: 9px;
-      padding: 15px 22px;
+      min-height: 52px;
+      padding: 0 23px;
       border-radius: 13px;
-      font-weight: 900;
+      border: 1px solid var(--line);
+      cursor: pointer;
       transition: .25s;
+      font-weight: 800;
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #f0d28a, #bd8d35);
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
       color: #111;
-      box-shadow: 0 15px 40px rgba(215,173,85,.16);
+      box-shadow: 0 12px 30px rgba(214,181,106,.16);
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 20px 50px rgba(215,173,85,.25);
+      transform: translateY(-2px);
+      box-shadow: 0 17px 40px rgba(214,181,106,.25);
     }
 
     .btn-secondary {
-      background: rgba(255,255,255,.05);
-      border: 1px solid var(--border);
       color: white;
+      background: rgba(255,255,255,.035);
     }
 
     .btn-secondary:hover {
-      background: rgba(255,255,255,.1);
+      background: rgba(255,255,255,.08);
     }
 
-    .hero-info {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 30px;
-    }
+    /* HERO CARD */
 
-    .pill {
-      padding: 8px 12px;
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.035);
-      border-radius: 999px;
-      color: #d3d3d3;
-      font-size: .83rem;
-    }
-
-    /* OFFER CARD */
-
-    .offer-card {
+    .hero-card {
       position: relative;
       background:
-        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025)),
-        var(--card);
-      border: 1px solid rgba(215,173,85,.28);
-      border-radius: 30px;
-      padding: 38px;
+        linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.025));
+      border: 1px solid rgba(214,181,106,.25);
+      border-radius: 28px;
+      padding: 35px;
       box-shadow: var(--shadow);
       overflow: hidden;
     }
 
-    .offer-card::before {
+    .hero-card::before {
       content: "";
       position: absolute;
-      width: 250px;
-      height: 250px;
-      top: -130px;
-      right: -100px;
+      width: 260px;
+      height: 260px;
+      right: -120px;
+      top: -120px;
       border-radius: 50%;
-      background: rgba(215,173,85,.16);
-      filter: blur(25px);
-    }
-
-    .offer-label {
-      color: #aaa;
-      font-size: .78rem;
-      text-transform: uppercase;
-      letter-spacing: 1.8px;
-      font-weight: 800;
+      background: rgba(214,181,106,.13);
+      filter: blur(10px);
     }
 
     .money {
-      font-size: clamp(4rem, 9vw, 6.7rem);
-      line-height: .9;
-      letter-spacing: -5px;
+      font-size: clamp(55px, 7vw, 80px);
+      line-height: 1;
       font-weight: 950;
       color: var(--gold-light);
-      margin: 12px 0 5px;
+      letter-spacing: -4px;
     }
 
-    .money-caption {
-      color: #ddd;
-      font-size: 1rem;
-      margin-bottom: 30px;
+    .money-label {
+      color: #c6c6c6;
+      margin: 8px 0 27px;
     }
 
     .offer-list {
       list-style: none;
       display: grid;
-      gap: 13px;
-      margin-bottom: 28px;
+      gap: 15px;
     }
 
     .offer-list li {
       display: flex;
-      align-items: flex-start;
       gap: 11px;
-      color: #dedede;
+      color: #ddd;
+      font-size: 14px;
     }
 
-    .offer-list li::before {
-      content: "✓";
-      color: var(--green);
+    .check {
+      color: var(--gold-light);
       font-weight: 900;
     }
 
-    .no-ceiling {
-      border-top: 1px solid var(--border);
-      padding-top: 24px;
-    }
-
-    .no-ceiling strong {
-      display: block;
-      font-size: 1.55rem;
-      color: white;
-    }
-
-    .no-ceiling span {
-      color: var(--muted);
-      font-size: .88rem;
+    .no-limit {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--gold-light);
+      font-weight: 900;
+      letter-spacing: .06em;
+      font-size: 13px;
     }
 
     /* STATS */
 
     .stats {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      background: rgba(255,255,255,.025);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.018);
     }
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(4,1fr);
     }
 
     .stat {
-      padding: 30px 20px;
-      border-right: 1px solid var(--border);
+      padding: 28px 20px;
+      text-align: center;
+      border-right: 1px solid var(--line);
     }
 
     .stat:last-child {
-      border-right: none;
+      border-right: 0;
     }
 
     .stat strong {
       display: block;
-      font-size: 2rem;
       color: var(--gold-light);
-      margin-bottom: 5px;
+      font-size: 25px;
+      margin-bottom: 3px;
     }
 
     .stat span {
       color: var(--muted);
-      font-size: .86rem;
+      font-size: 12px;
+    }
+
+    /* GENERAL */
+
+    section {
+      padding: 105px 0;
+    }
+
+    .section-head {
+      max-width: 760px;
+      margin-bottom: 45px;
+    }
+
+    .section-kicker {
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      font-size: 11px;
+      font-weight: 900;
+      margin-bottom: 13px;
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 54px);
+      line-height: 1.03;
+      letter-spacing: -2px;
+      margin-bottom: 17px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    /* CARDS */
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 17px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, var(--card-2), var(--card));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 29px;
+      transition: .3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(214,181,106,.3);
+    }
+
+    .card-number {
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 12px;
+      margin-bottom: 35px;
+    }
+
+    .card h3 {
+      font-size: 21px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
     }
 
     /* ROLE */
@@ -415,217 +434,195 @@
     .role-grid {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
-      gap: 60px;
-      align-items: start;
+      gap: 55px;
+      align-items: center;
     }
 
-    .role-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 30px;
+    .role-panel {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
+      border-radius: 26px;
+      padding: 35px;
     }
 
-    .role-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 15px;
+    .role-title {
+      font-size: 31px;
+      margin-bottom: 13px;
     }
 
-    .role-card p {
+    .role-panel p {
       color: var(--muted);
+      line-height: 1.75;
     }
 
-    .role-list {
+    .role-points {
       display: grid;
-      gap: 15px;
+      gap: 14px;
+      margin-top: 27px;
     }
 
-    .role-item {
+    .role-point {
       display: flex;
-      gap: 15px;
-      padding: 18px;
-      background: rgba(255,255,255,.035);
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      align-items: flex-start;
+      gap: 13px;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
     }
 
-    .role-number {
-      min-width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: 11px;
-      background: rgba(215,173,85,.12);
-      color: var(--gold-light);
-      font-weight: 900;
-    }
-
-    .role-item h4 {
+    .role-point strong {
+      display: block;
       margin-bottom: 3px;
     }
 
-    .role-item p {
+    .role-point span {
       color: var(--muted);
-      font-size: .9rem;
+      font-size: 13px;
     }
 
     /* EARNINGS */
 
-    .earning-box {
+    .earnings {
+      background:
+        radial-gradient(circle at 50% 0%, rgba(214,181,106,.08), transparent 45%),
+        rgba(255,255,255,.018);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .earnings-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 40px;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
     }
 
     .earning-card {
-      background: linear-gradient(145deg, #181818, #101010);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 30px;
-      min-height: 190px;
+      padding: 32px;
+      border-radius: 22px;
+      border: 1px solid var(--line);
+      background: #101010;
     }
 
-    .earning-card .icon {
-      font-size: 1.7rem;
-      margin-bottom: 20px;
+    .earning-card.highlight {
+      border-color: rgba(214,181,106,.35);
+      background:
+        linear-gradient(
+          145deg,
+          rgba(214,181,106,.10),
+          rgba(255,255,255,.02)
+        );
     }
 
     .earning-card h3 {
-      font-size: 1.25rem;
-      margin-bottom: 7px;
+      margin-bottom: 10px;
+      font-size: 22px;
     }
 
     .earning-card p {
       color: var(--muted);
-      font-size: .92rem;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .earning-big {
+      font-size: 46px;
+      line-height: 1;
+      color: var(--gold-light);
+      font-weight: 950;
+      margin-bottom: 10px;
+    }
+
+    .disclaimer {
+      margin-top: 18px;
+      color: #777;
+      font-size: 11px;
+      line-height: 1.6;
     }
 
     /* FLOW */
 
     .flow {
-      background: #0c0c0c;
-    }
-
-    .flow-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
-      margin-top: 50px;
+      grid-template-columns: repeat(3,1fr);
+      gap: 15px;
     }
 
-    .flow-step {
+    .flow-item {
       position: relative;
-      padding: 27px;
-      border: 1px solid var(--border);
+      padding: 28px;
+      border: 1px solid var(--line);
       border-radius: 20px;
-      background: var(--card);
+      background: rgba(255,255,255,.02);
     }
 
-    .flow-step:not(:last-child)::after {
-      content: "→";
-      position: absolute;
-      right: -16px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: var(--gold);
-      color: #111;
-      font-weight: 900;
-      z-index: 2;
-    }
-
-    .flow-step strong {
+    .flow-item strong {
       display: block;
       color: var(--gold-light);
-      font-size: .76rem;
+      font-size: 12px;
+      margin-bottom: 16px;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+      letter-spacing: .1em;
     }
 
-    .flow-step h3 {
+    .flow-item h3 {
+      margin-bottom: 9px;
+    }
+
+    .flow-item p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* FIT */
+
+    .fit-grid {
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 17px;
+    }
+
+    .fit-card {
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 20px;
+      padding: 25px;
+    }
+
+    .fit-card h3 {
       margin-bottom: 8px;
     }
 
-    .flow-step p {
+    .fit-card p {
       color: var(--muted);
-      font-size: .88rem;
-    }
-
-    /* BENEFITS */
-
-    .benefits-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 45px;
-    }
-
-    .benefit {
-      padding: 30px;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.025);
-      transition: .25s;
-    }
-
-    .benefit:hover {
-      transform: translateY(-5px);
-      border-color: rgba(215,173,85,.3);
-    }
-
-    .benefit-icon {
-      width: 48px;
-      height: 48px;
-      display: grid;
-      place-items: center;
-      border-radius: 14px;
-      background: rgba(215,173,85,.1);
-      color: var(--gold-light);
-      font-size: 1.25rem;
-      margin-bottom: 22px;
-    }
-
-    .benefit h3 {
-      margin-bottom: 8px;
-    }
-
-    .benefit p {
-      color: var(--muted);
-      font-size: .91rem;
+      font-size: 14px;
     }
 
     /* VIDEOS */
 
     .videos-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 22px;
-      margin-top: 45px;
+      grid-template-columns: repeat(2,1fr);
+      gap: 20px;
     }
 
     .video-card {
-      overflow: hidden;
-      background: var(--card);
-      border: 1px solid var(--border);
+      border: 1px solid var(--line);
+      background: #111;
       border-radius: 22px;
+      padding: 15px;
+      overflow: hidden;
     }
 
     .video-card video {
       width: 100%;
       display: block;
-      background: #000;
-      aspect-ratio: 16 / 9;
-      object-fit: cover;
+      border-radius: 14px;
+      background: #050505;
     }
 
     .video-info {
-      padding: 20px;
+      padding: 18px 8px 7px;
     }
 
     .video-info h3 {
@@ -634,106 +631,115 @@
 
     .video-info p {
       color: var(--muted);
-      font-size: .88rem;
+      font-size: 13px;
     }
 
     /* PROCESS */
 
-    .process-grid {
+    .process {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3,1fr);
       gap: 18px;
-      margin-top: 45px;
     }
 
-    .process {
-      position: relative;
-      padding: 30px;
-      background: var(--card);
-      border: 1px solid var(--border);
+    .process-item {
+      text-align: center;
+      padding: 35px 25px;
       border-radius: 22px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.025);
     }
 
     .process-number {
-      font-size: 3.5rem;
-      font-weight: 950;
-      color: rgba(215,173,85,.22);
-      line-height: 1;
-      margin-bottom: 20px;
+      width: 45px;
+      height: 45px;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 18px;
+      border-radius: 50%;
+      background: rgba(214,181,106,.1);
+      border: 1px solid rgba(214,181,106,.3);
+      color: var(--gold-light);
+      font-weight: 900;
     }
 
-    .process h3 {
-      margin-bottom: 8px;
-    }
-
-    .process p {
+    .process-item p {
       color: var(--muted);
-      font-size: .91rem;
+      font-size: 14px;
+      margin-top: 7px;
     }
 
     /* FORM */
 
-    .apply-section {
-      background:
-        radial-gradient(circle at 15% 30%, rgba(215,173,85,.1), transparent 30%),
-        #0d0d0d;
+    .form-section {
+      padding-top: 90px;
+      padding-bottom: 120px;
     }
 
-    .apply-grid {
+    .form-wrapper {
       display: grid;
       grid-template-columns: .72fr 1.28fr;
-      gap: 35px;
-      align-items: start;
+      gap: 20px;
+      align-items: stretch;
     }
 
-    .apply-intro {
-      position: sticky;
-      top: 105px;
+    .form-side {
+      border: 1px solid rgba(214,181,106,.25);
+      border-radius: 26px;
+      padding: 35px;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(214,181,106,.12), transparent 35%),
+        #111;
     }
 
-    .apply-intro h2 {
-      font-size: clamp(2.2rem, 4vw, 4rem);
-      line-height: 1;
-      letter-spacing: -2px;
-      margin-bottom: 18px;
+    .form-side h2 {
+      font-size: 39px;
     }
 
-    .apply-intro p {
+    .form-side p {
       color: var(--muted);
+      font-size: 14px;
+      line-height: 1.75;
+    }
+
+    .form-side-list {
+      list-style: none;
+      display: grid;
+      gap: 13px;
+      margin-top: 27px;
+    }
+
+    .form-side-list li {
+      color: #ddd;
+      font-size: 14px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-box {
+      border: 1px solid var(--line);
+      background: #111;
+      border-radius: 26px;
+      padding: 35px;
+    }
+
+    .form-header {
       margin-bottom: 25px;
     }
 
-    .apply-note {
-      padding: 18px;
-      border: 1px solid rgba(215,173,85,.2);
-      border-radius: 15px;
-      background: rgba(215,173,85,.06);
-      color: #ddd;
-      font-size: .9rem;
+    .form-header h3 {
+      font-size: 25px;
+      margin-bottom: 5px;
     }
 
-    form {
-      background: #151515;
-      border: 1px solid var(--border);
-      border-radius: 26px;
-      padding: 32px;
-      box-shadow: var(--shadow);
-    }
-
-    .form-title {
-      font-size: 1.6rem;
-      margin-bottom: 7px;
-    }
-
-    .form-subtitle {
+    .form-header p {
       color: var(--muted);
-      font-size: .9rem;
-      margin-bottom: 28px;
+      font-size: 13px;
     }
 
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2,1fr);
       gap: 17px;
     }
 
@@ -748,9 +754,18 @@
     }
 
     label {
-      font-size: .82rem;
+      font-size: 12px;
       font-weight: 800;
-      color: #d7d7d7;
+      color: #ddd;
+    }
+
+    .required {
+      color: var(--gold-light);
+    }
+
+    .optional {
+      color: #777;
+      font-weight: 500;
     }
 
     input,
@@ -758,106 +773,196 @@
     textarea {
       width: 100%;
       border: 1px solid rgba(255,255,255,.1);
-      background: #0e0e0e;
+      background: #090909;
       color: white;
       border-radius: 12px;
-      padding: 13px 14px;
       outline: none;
+      padding: 13px 14px;
       transition: .2s;
+    }
+
+    input,
+    select {
+      min-height: 48px;
+    }
+
+    textarea {
+      min-height: 115px;
+      resize: vertical;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #666;
     }
 
     input:focus,
     select:focus,
     textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 3px rgba(215,173,85,.08);
+      border-color: rgba(214,181,106,.65);
+      box-shadow: 0 0 0 3px rgba(214,181,106,.07);
     }
 
-    textarea {
-      min-height: 120px;
-      resize: vertical;
+    .field-help {
+      color: #6f6f6f;
+      font-size: 11px;
     }
 
-    select option {
-      background: #111;
-    }
-
-    .submit-btn {
-      width: 100%;
+    .form-footer {
       margin-top: 22px;
-      padding: 16px;
-      font-size: 1rem;
     }
 
-    .privacy {
-      color: #777;
+    .submit-button {
+      width: 100%;
+      min-height: 56px;
+      border: 0;
+      border-radius: 13px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #111;
+      font-weight: 950;
+      cursor: pointer;
+      transition: .25s;
+    }
+
+    .submit-button:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(214,181,106,.2);
+    }
+
+    .submit-button:disabled {
+      opacity: .65;
+      cursor: wait;
+    }
+
+    .form-note {
+      margin-top: 12px;
+      color: #696969;
+      font-size: 11px;
       text-align: center;
-      font-size: .73rem;
-      margin-top: 13px;
+      line-height: 1.5;
     }
 
-    /* FINAL CTA */
+    .form-message {
+      display: none;
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .form-message.success {
+      display: block;
+      background: rgba(114,214,155,.08);
+      border: 1px solid rgba(114,214,155,.25);
+      color: var(--success);
+    }
+
+    .form-message.error {
+      display: block;
+      background: rgba(255,116,116,.08);
+      border: 1px solid rgba(255,116,116,.25);
+      color: var(--danger);
+    }
+
+    /* CTA */
 
     .final-cta {
-      padding: 100px 0;
+      padding: 95px 0;
       text-align: center;
-    }
-
-    .final-box {
-      position: relative;
-      overflow: hidden;
-      padding: 75px 35px;
-      border-radius: 30px;
-      border: 1px solid rgba(215,173,85,.25);
+      border-top: 1px solid var(--line);
       background:
-        radial-gradient(circle at 50% 0%, rgba(215,173,85,.16), transparent 45%),
-        linear-gradient(145deg, #181818, #0f0f0f);
+        radial-gradient(circle at center, rgba(214,181,106,.10), transparent 50%);
     }
 
-    .final-box h2 {
-      font-size: clamp(2.5rem, 5vw, 5rem);
-      line-height: .95;
-      letter-spacing: -3px;
-      margin-bottom: 20px;
+    .final-cta h2 {
+      max-width: 800px;
+      margin: 0 auto 17px;
     }
 
-    .final-box p {
-      color: var(--muted);
-      max-width: 650px;
+    .final-cta p {
+      max-width: 600px;
       margin: 0 auto 28px;
+      color: var(--muted);
     }
 
     /* FOOTER */
 
     footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid var(--line);
       padding: 30px 0;
-      color: #777;
-      font-size: .8rem;
+      color: #666;
+      font-size: 12px;
+      text-align: center;
     }
 
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
+    /* FLOATING CTA */
+
+    .floating-cta {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 900;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold));
+      color: #111;
+      padding: 14px 19px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 950;
+      box-shadow: 0 12px 35px rgba(0,0,0,.4);
+      transition: .25s;
     }
 
-    .footer-logo {
-      width: 115px;
-      opacity: .85;
+    .floating-cta:hover {
+      transform: translateY(-3px);
+    }
+
+    /* REVEAL */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* RESPONSIVE */
 
-    @media (max-width: 950px) {
+    @media (max-width: 900px) {
+
       .nav-links {
+        position: absolute;
+        top: 78px;
+        left: 20px;
+        right: 20px;
         display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 18px;
+        background: #111;
+        border: 1px solid var(--line);
+        border-radius: 17px;
       }
 
-      .hero-grid,
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 11px;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .hero,
       .role-grid,
-      .apply-grid {
+      .form-wrapper {
         grid-template-columns: 1fr;
       }
 
@@ -865,99 +970,103 @@
         padding-top: 65px;
       }
 
-      .apply-intro {
-        position: static;
+      .cards,
+      .process,
+      .flow {
+        grid-template-columns: 1fr;
       }
 
       .stats-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2,1fr);
       }
 
       .stat:nth-child(2) {
-        border-right: none;
+        border-right: 0;
       }
 
       .stat:nth-child(-n+2) {
-        border-bottom: 1px solid var(--border);
+        border-bottom: 1px solid var(--line);
       }
 
-      .flow-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .flow-step::after {
-        display: none !important;
-      }
-
-      .benefits-grid,
-      .earning-box {
+      .videos-grid,
+      .earnings-grid,
+      .fit-grid {
         grid-template-columns: 1fr;
+      }
+
+      .form-wrapper {
+        gap: 15px;
       }
     }
 
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
+
       .container {
-        width: min(100% - 26px, var(--max));
+        width: min(100% - 26px, 1180px);
       }
 
-      .section {
+      .logo {
+        width: 125px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 55px 0 65px;
+        gap: 35px;
+      }
+
+      h1 {
+        font-size: 46px;
+        letter-spacing: -2.5px;
+      }
+
+      .hero-text {
+        font-size: 15px;
+      }
+
+      section {
         padding: 75px 0;
       }
 
-      .hero h1 {
-        font-size: clamp(3rem, 17vw, 5rem);
-        letter-spacing: -3px;
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
       }
 
-      .offer-card {
-        padding: 26px;
+      .stat {
+        padding: 23px 10px;
       }
 
-      .money {
-        font-size: 4.5rem;
+      .stat strong {
+        font-size: 21px;
       }
 
-      .stats-grid,
-      .flow-grid,
-      .process-grid,
-      .videos-grid,
+      .hero-card,
+      .form-side,
+      .form-box {
+        padding: 25px;
+      }
+
       .form-grid {
         grid-template-columns: 1fr;
       }
 
-      .stat {
-        border-right: none !important;
-        border-bottom: 1px solid var(--border);
+      .field.full {
+        grid-column: auto;
       }
 
-      .stat:last-child {
-        border-bottom: none;
-      }
-
-      form {
-        padding: 22px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
+      .floating-cta {
+        right: 13px;
+        bottom: 13px;
+        left: 13px;
         text-align: center;
       }
 
-      .nav-cta {
-        padding: 10px 13px;
-        font-size: .8rem;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
+      .hero-buttons {
+        flex-direction: column;
       }
 
-      *,
-      *::before,
-      *::after {
-        transition: none !important;
+      .hero-buttons .btn {
+        width: 100%;
       }
     }
   </style>
@@ -966,106 +1075,135 @@
 <body>
 
   <!-- HEADER -->
+
   <header>
     <div class="container nav">
-      <a href="#inicio" aria-label="Afinco Imóveis">
-        <img src="logo-afinco-imoveis.png" alt="Afinco Imóveis" class="logo">
+
+      <a href="#inicio">
+        <img
+          src="logo-afinco-imoveis.png"
+          alt="Afinco Imóveis"
+          class="logo"
+        >
       </a>
 
-      <nav class="nav-links">
+      <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+        aria-label="Abrir menu"
+      >
+        ☰
+      </button>
+
+      <nav class="nav-links" id="navLinks">
         <a href="#inicio">Início</a>
         <a href="#oportunidade">Oportunidade</a>
-        <a href="#funcao">A função</a>
         <a href="#afinco">Por que Afinco</a>
         <a href="#videos">Vídeos</a>
         <a href="#processo">Processo</a>
+        <a href="#cadastro" class="nav-cta">Quero me candidatar →</a>
       </nav>
 
-      <a href="#cadastro" class="nav-cta">Quero me candidatar →</a>
     </div>
   </header>
 
 
-  <!-- HERO -->
   <main>
 
-    <section class="hero" id="inicio">
-      <div class="container hero-grid">
+    <!-- HERO -->
 
-        <div>
-          <div class="eyebrow">Oportunidade aberta • Modelo PJ</div>
+    <section class="container hero" id="inicio">
 
-          <h1>
-            Seu próximo nível
-            <span>pode começar aqui.</span>
-          </h1>
+      <div class="reveal">
 
-          <p class="hero-text">
-            Estamos buscando pessoas com vontade de crescer, aprender,
-            vender e construir uma nova história profissional junto com a
-            Afinco Imóveis.
-          </p>
-
-          <div class="hero-buttons">
-            <a href="#cadastro" class="btn btn-primary">
-              Quero fazer parte →
-            </a>
-
-            <a href="#oportunidade" class="btn btn-secondary">
-              Conhecer a oportunidade
-            </a>
-          </div>
-
-          <div class="hero-info">
-            <span class="pill">PJ</span>
-            <span class="pill">Seg–sexta • 09h–19h</span>
-            <span class="pill">Comissões</span>
-            <span class="pill">Bonificações</span>
-          </div>
+        <div class="eyebrow">
+          <span class="dot"></span>
+          Oportunidade aberta • Modelo PJ
         </div>
 
+        <h1>
+          Seu próximo nível
+          <span>pode começar aqui.</span>
+        </h1>
 
-        <div class="offer-card">
-          <span class="offer-label">Ganhos iniciais em média</span>
+        <p class="hero-text">
+          Estamos buscando pessoas com vontade de crescer, aprender,
+          vender e construir uma nova história profissional.
+          Se você quer entrar em um ambiente de performance,
+          desenvolvimento e oportunidade real de ganhos, conheça a
+          oportunidade da Afinco.
+        </p>
 
-          <div class="money">+R$4 mil</div>
+        <div class="hero-buttons">
 
-          <p class="money-caption">
-            Uma oportunidade para quem quer crescer de verdade.
-          </p>
+          <a
+            href="#cadastro"
+            class="btn btn-primary"
+          >
+            Quero me candidatar →
+          </a>
 
-          <ul class="offer-list">
-            <li>Recepção e administração dos leads prospectados</li>
-            <li>Leads gerados pelas nossas próprias campanhas</li>
-            <li>Comissões por resultados</li>
-            <li>Bonificações por performance</li>
-          </ul>
+          <a
+            href="#oportunidade"
+            class="btn btn-secondary"
+          >
+            Conhecer a oportunidade
+          </a>
 
-          <div class="no-ceiling">
-            <strong>SEM TETO DE GANHOS.</strong>
-            <span>
-              Quanto maior o resultado, maior pode ser o seu ganho.
-            </span>
-          </div>
         </div>
 
       </div>
+
+
+      <div class="hero-card reveal">
+
+        <div class="money">
+          +R$4 MIL
+        </div>
+
+        <div class="money-label">
+          ganhos iniciais em média
+        </div>
+
+        <ul class="offer-list">
+
+          <li>
+            <span class="check">✓</span>
+            <span>Modelo de contratação <strong>PJ</strong></span>
+          </li>
+
+          <li>
+            <span class="check">✓</span>
+            <span>Recepção e administração dos leads prospectados por nossas campanhas</span>
+          </li>
+
+          <li>
+            <span class="check">✓</span>
+            <span>Comissões + bonificações</span>
+          </li>
+
+          <li>
+            <span class="check">✓</span>
+            <span>Segunda a sexta, das 09h às 19h</span>
+          </li>
+
+        </ul>
+
+        <div class="no-limit">
+          SEM TETO DE GANHOS
+        </div>
+
+      </div>
+
     </section>
 
 
     <!-- NUMBERS -->
-    <section class="stats">
+
+    <div class="stats">
+
       <div class="container stats-grid">
-
-        <div class="stat">
-          <strong>+R$4K</strong>
-          <span>Ganhos iniciais em média</span>
-        </div>
-
-        <div class="stat">
-          <strong>∞</strong>
-          <span>Sem teto de ganhos</span>
-        </div>
 
         <div class="stat">
           <strong>PJ</strong>
@@ -1073,755 +1211,1370 @@
         </div>
 
         <div class="stat">
-          <strong>09–19</strong>
+          <strong>09h–19h</strong>
           <span>Segunda a sexta</span>
         </div>
 
+        <div class="stat">
+          <strong>+R$4 mil</strong>
+          <span>Média inicial de ganhos</span>
+        </div>
+
+        <div class="stat">
+          <strong>∞</strong>
+          <span>Sem teto de ganhos</span>
+        </div>
+
       </div>
-    </section>
+
+    </div>
 
 
     <!-- OPORTUNIDADE -->
-    <section class="section" id="oportunidade">
+
+    <section id="oportunidade">
+
       <div class="container">
 
-        <div class="eyebrow">A oportunidade</div>
+        <div class="section-head reveal">
 
-        <div class="role-grid">
-
-          <div>
-            <h2 class="section-title">
-              Você não vai ficar
-              <span class="gold">correndo atrás de lead.</span>
-            </h2>
-
-            <p class="section-subtitle">
-              A Afinco investe em campanhas para prospectar pessoas
-              interessadas. Seu papel é receber, administrar e trabalhar
-              esses contatos com foco em resultado.
-            </p>
+          <div class="section-kicker">
+            A oportunidade
           </div>
 
-          <div class="role-card">
-            <h3>O que torna essa oportunidade diferente?</h3>
+          <h2>
+            Não é só uma vaga.<br>
+            É uma possibilidade de evolução.
+          </h2>
+
+          <p>
+            A proposta é simples: você entra para um ambiente onde
+            existe estrutura, campanhas, leads prospectados e espaço
+            para desenvolver sua performance comercial.
+          </p>
+
+        </div>
+
+
+        <div class="cards">
+
+          <article class="card reveal">
+
+            <div class="card-number">01 — CRESCIMENTO</div>
+
+            <h3>
+              Evolua profissionalmente
+            </h3>
 
             <p>
-              Você entra em uma operação onde existe estrutura de
-              prospecção, geração de leads e possibilidade de crescimento
-              baseada em performance.
+              Desenvolva comunicação, negociação, atendimento,
+              relacionamento com clientes e visão comercial.
             </p>
-          </div>
+
+          </article>
+
+
+          <article class="card reveal">
+
+            <div class="card-number">02 — PERFORMANCE</div>
+
+            <h3>
+              Seu resultado importa
+            </h3>
+
+            <p>
+              A remuneração está conectada à sua performance,
+              com possibilidade de comissões e bonificações.
+            </p>
+
+          </article>
+
+
+          <article class="card reveal">
+
+            <div class="card-number">03 — OPORTUNIDADE</div>
+
+            <h3>
+              Construa seu próximo nível
+            </h3>
+
+            <p>
+              Para quem quer sair do automático e buscar uma trajetória
+              profissional com mais possibilidades.
+            </p>
+
+          </article>
 
         </div>
 
       </div>
+
     </section>
 
 
     <!-- FUNÇÃO -->
-    <section class="section" id="funcao">
-      <div class="container">
 
-        <div class="eyebrow">Na prática</div>
+    <section id="funcao">
 
-        <h2 class="section-title">
-          O que você vai <span class="gold">fazer?</span>
-        </h2>
+      <div class="container role-grid">
 
-        <p class="section-subtitle">
-          Uma função para quem gosta de pessoas, comunicação,
-          organização e principalmente resultado.
-        </p>
+        <div class="reveal">
 
-        <div class="role-list" style="margin-top:45px;">
-
-          <div class="role-item">
-            <div class="role-number">01</div>
-            <div>
-              <h4>Receber os leads</h4>
-              <p>
-                Atender e organizar os contatos que chegam através das
-                campanhas de prospecção da Afinco.
-              </p>
-            </div>
+          <div class="section-kicker">
+            O que você fará
           </div>
 
-          <div class="role-item">
-            <div class="role-number">02</div>
-            <div>
-              <h4>Administrar os contatos</h4>
-              <p>
-                Fazer o acompanhamento dos leads e manter o processo
-                organizado.
-              </p>
-            </div>
+          <h2>
+            Atendimento com foco em oportunidade.
+          </h2>
+
+          <p style="color:#999;line-height:1.8;">
+            A operação conta com campanhas responsáveis pela
+            prospecção de leads. Seu papel será receber, organizar,
+            administrar e trabalhar esses contatos dentro do processo
+            comercial.
+          </p>
+
+        </div>
+
+
+        <div class="role-panel reveal">
+
+          <div class="role-title">
+            Na prática
           </div>
 
-          <div class="role-item">
-            <div class="role-number">03</div>
-            <div>
-              <h4>Entender a necessidade do cliente</h4>
-              <p>
-                Conversar, identificar oportunidades e direcionar o
-                atendimento.
-              </p>
-            </div>
-          </div>
+          <p>
+            Você estará inserido em uma rotina comercial estruturada,
+            acompanhando os leads e dando sequência aos contatos.
+          </p>
 
-          <div class="role-item">
-            <div class="role-number">04</div>
-            <div>
-              <h4>Buscar resultado</h4>
-              <p>
-                Transformar atendimento em oportunidade e oportunidade
-                em resultado.
-              </p>
+          <div class="role-points">
+
+            <div class="role-point">
+              <div class="check">✓</div>
+              <div>
+                <strong>Recepção dos leads</strong>
+                <span>
+                  Receba os contatos prospectados pelas campanhas.
+                </span>
+              </div>
             </div>
+
+            <div class="role-point">
+              <div class="check">✓</div>
+              <div>
+                <strong>Administração</strong>
+                <span>
+                  Organize e acompanhe cada oportunidade.
+                </span>
+              </div>
+            </div>
+
+            <div class="role-point">
+              <div class="check">✓</div>
+              <div>
+                <strong>Atendimento comercial</strong>
+                <span>
+                  Entenda o cliente e avance o processo de venda.
+                </span>
+              </div>
+            </div>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
 
     <!-- GANHOS -->
-    <section class="section" id="ganhos">
+
+    <section class="earnings">
+
       <div class="container">
 
-        <div class="eyebrow">Modelo de ganhos</div>
+        <div class="section-head reveal">
 
-        <h2 class="section-title">
-          Seu resultado pode
-          <span class="gold">crescer junto com você.</span>
-        </h2>
-
-        <p class="section-subtitle">
-          A oportunidade é baseada em ganhos por performance, com
-          comissões e bonificações.
-        </p>
-
-        <div class="earning-box">
-
-          <div class="earning-card">
-            <div class="icon">💰</div>
-            <h3>+R$4.000</h3>
-            <p>
-              Ganhos iniciais em média, conforme a performance.
-            </p>
+          <div class="section-kicker">
+            Modelo de ganhos
           </div>
 
-          <div class="earning-card">
-            <div class="icon">📈</div>
-            <h3>Sem teto</h3>
+          <h2>
+            Quanto mais você performa,<br>
+            maior pode ser o resultado.
+          </h2>
+
+          <p>
+            A oportunidade trabalha com ganhos iniciais em média
+            superiores a R$4.000, além de comissões e bonificações.
+          </p>
+
+        </div>
+
+
+        <div class="earnings-grid">
+
+          <div class="earning-card highlight reveal">
+
+            <div class="earning-big">
+              +R$4.000
+            </div>
+
+            <h3>
+              Ganhos iniciais em média
+            </h3>
+
             <p>
-              Não existe um teto de ganhos. O crescimento acompanha seus
-              resultados.
+              Uma referência média inicial para quem entra na operação,
+              considerando o modelo de remuneração da oportunidade.
             </p>
+
+            <div class="disclaimer">
+              *Média de ganhos não representa garantia de remuneração.
+              Os resultados podem variar conforme desempenho,
+              comissões, bonificações e condições da operação.
+            </div>
+
           </div>
 
-          <div class="earning-card">
-            <div class="icon">🏆</div>
-            <h3>Bonificações</h3>
+
+          <div class="earning-card reveal">
+
+            <h3>
+              Sem teto de ganhos
+            </h3>
+
             <p>
-              Além das comissões, existem possibilidades de bonificação
-              relacionadas à performance.
+              O modelo não estabelece um teto máximo de ganhos.
+              Existe possibilidade de aumentar os resultados conforme
+              a evolução da performance comercial.
             </p>
+
+            <div class="no-limit">
+              PERFORMANCE → RESULTADO
+            </div>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
 
     <!-- FLUXO -->
-    <section class="section flow">
+
+    <section>
+
       <div class="container">
 
-        <div class="eyebrow">Como funciona a operação</div>
+        <div class="section-head reveal">
 
-        <h2 class="section-title">
-          Existe um fluxo por trás
-          <span class="gold">do resultado.</span>
-        </h2>
-
-        <p class="section-subtitle">
-          Você não está entrando sozinho em uma sala esperando alguém
-          aparecer. Existe uma estrutura de prospecção.
-        </p>
-
-        <div class="flow-grid">
-
-          <div class="flow-step">
-            <strong>01 • Afinco</strong>
-            <h3>Campanhas</h3>
-            <p>
-              A empresa realiza campanhas para gerar novas oportunidades.
-            </p>
+          <div class="section-kicker">
+            Como funciona
           </div>
 
-          <div class="flow-step">
-            <strong>02 • Entrada</strong>
-            <h3>Leads</h3>
+          <h2>
+            Um processo comercial pensado para gerar movimento.
+          </h2>
+
+        </div>
+
+
+        <div class="flow">
+
+          <div class="flow-item reveal">
+
+            <strong>01 • Campanhas</strong>
+
+            <h3>
+              Prospecção
+            </h3>
+
             <p>
-              Pessoas interessadas chegam através dessas campanhas.
+              Nossas campanhas trabalham na geração de leads.
             </p>
+
           </div>
 
-          <div class="flow-step">
-            <strong>03 • Você</strong>
-            <h3>Atendimento</h3>
+
+          <div class="flow-item reveal">
+
+            <strong>02 • Atendimento</strong>
+
+            <h3>
+              Recepção
+            </h3>
+
             <p>
-              Você recebe, organiza e administra esses contatos.
+              Você recebe e administra os contatos que chegam.
             </p>
+
           </div>
 
-          <div class="flow-step">
-            <strong>04 • Resultado</strong>
-            <h3>Performance</h3>
+
+          <div class="flow-item reveal">
+
+            <strong>03 • Performance</strong>
+
+            <h3>
+              Conversão
+            </h3>
+
             <p>
-              O objetivo é transformar oportunidades em resultados.
+              O objetivo é transformar oportunidades em negócios.
             </p>
+
           </div>
 
         </div>
 
       </div>
+
     </section>
 
 
     <!-- AFINCO -->
-    <section class="section" id="afinco">
+
+    <section id="afinco">
+
       <div class="container">
 
-        <div class="eyebrow">Por que Afinco?</div>
+        <div class="section-head reveal">
 
-        <h2 class="section-title">
-          Aqui, crescimento não é
-          <span class="gold">só discurso.</span>
-        </h2>
-
-        <p class="section-subtitle">
-          Queremos pessoas que tenham ambição, disposição para aprender
-          e vontade de construir algo maior.
-        </p>
-
-        <div class="benefits-grid">
-
-          <div class="benefit">
-            <div class="benefit-icon">🚀</div>
-            <h3>Crescimento</h3>
-            <p>
-              Ambiente para quem quer evoluir profissionalmente e assumir
-              novos desafios.
-            </p>
+          <div class="section-kicker">
+            Por que Afinco
           </div>
 
-          <div class="benefit">
-            <div class="benefit-icon">🎯</div>
-            <h3>Performance</h3>
-            <p>
-              Resultados importam. Sua dedicação pode refletir diretamente
-              nos seus ganhos.
-            </p>
-          </div>
+          <h2>
+            Ambiente para quem quer jogar sério.
+          </h2>
 
-          <div class="benefit">
-            <div class="benefit-icon">🤝</div>
-            <h3>Ambiente</h3>
-            <p>
-              Trabalho em equipe, troca de experiências e busca constante
-              por evolução.
-            </p>
-          </div>
+          <p>
+            Uma cultura baseada em crescimento, performance e
+            desenvolvimento de pessoas.
+          </p>
 
-          <div class="benefit">
-            <div class="benefit-icon">🔥</div>
-            <h3>Ambição</h3>
-            <p>
-              Para quem não quer se acomodar e está disposto a buscar
-              algo extraordinário.
-            </p>
-          </div>
+        </div>
 
-          <div class="benefit">
-            <div class="benefit-icon">💡</div>
-            <h3>Aprendizado</h3>
-            <p>
-              Você desenvolve comunicação, atendimento, negociação e
-              visão comercial.
-            </p>
-          </div>
 
-          <div class="benefit">
-            <div class="benefit-icon">🏅</div>
-            <h3>Reconhecimento</h3>
+        <div class="cards">
+
+          <article class="card reveal">
+
+            <div class="card-number">01</div>
+
+            <h3>
+              Ambiente
+            </h3>
+
             <p>
-              Performance gera resultado e resultado abre espaço para
-              novas oportunidades.
+              Um ambiente comercial dinâmico para quem gosta de
+              movimento, contato com pessoas e desafios.
             </p>
-          </div>
+
+          </article>
+
+
+          <article class="card reveal">
+
+            <div class="card-number">02</div>
+
+            <h3>
+              Performance
+            </h3>
+
+            <p>
+              Aqui resultado não passa despercebido.
+              Evolução e performance fazem parte da rotina.
+            </p>
+
+          </article>
+
+
+          <article class="card reveal">
+
+            <div class="card-number">03</div>
+
+            <h3>
+              Propósito
+            </h3>
+
+            <p>
+              A oportunidade é para quem quer construir algo maior
+              do que simplesmente cumprir uma rotina.
+            </p>
+
+          </article>
 
         </div>
 
       </div>
+
     </section>
 
 
-    <!-- VIDEOS -->
-    <section class="section" id="videos">
+    <!-- PERFIL -->
+
+    <section>
+
       <div class="container">
 
-        <div class="eyebrow">Conheça mais</div>
+        <div class="section-head reveal">
 
-        <h2 class="section-title">
-          Antes de entrar,
-          <span class="gold">conheça a Afinco.</span>
-        </h2>
-
-        <p class="section-subtitle">
-          Assista aos vídeos e entenda um pouco mais sobre nossa visão,
-          crescimento e posicionamento.
-        </p>
-
-        <div class="videos-grid">
-
-          <div class="video-card">
-            <video controls preload="metadata">
-              <source src="video-plano-crescimento.mp4" type="video/mp4">
-              Seu navegador não suporta vídeo.
-            </video>
-
-            <div class="video-info">
-              <h3>Plano de crescimento</h3>
-              <p>
-                Entenda nossa visão sobre evolução e crescimento.
-              </p>
-            </div>
+          <div class="section-kicker">
+            Será que é para você?
           </div>
 
-          <div class="video-card">
-            <video controls preload="metadata">
-              <source src="video-referencia-nacional.mp4" type="video/mp4">
-              Seu navegador não suporta vídeo.
-            </video>
+          <h2>
+            Se você se identifica com isso,
+            vale dar o próximo passo.
+          </h2>
 
-            <div class="video-info">
-              <h3>Referência nacional</h3>
-              <p>
-                Conheça um pouco mais sobre o posicionamento da Afinco.
-              </p>
-            </div>
+        </div>
+
+
+        <div class="fit-grid">
+
+          <div class="fit-card reveal">
+            <h3>🔥 Gosta de desafios</h3>
+            <p>
+              Você não se acomoda facilmente e gosta de buscar
+              resultados maiores.
+            </p>
+          </div>
+
+          <div class="fit-card reveal">
+            <h3>🗣️ Sabe se comunicar</h3>
+            <p>
+              Gosta de conversar, entender pessoas e criar
+              relacionamento.
+            </p>
+          </div>
+
+          <div class="fit-card reveal">
+            <h3>📈 Quer crescer</h3>
+            <p>
+              Tem vontade de aprender e construir uma trajetória
+              profissional diferente.
+            </p>
+          </div>
+
+          <div class="fit-card reveal">
+            <h3>🎯 Tem atitude</h3>
+            <p>
+              Entende que resultado exige consistência, disciplina
+              e ação.
+            </p>
           </div>
 
         </div>
 
       </div>
+
+    </section>
+
+
+    <!-- VÍDEOS -->
+
+    <section id="videos">
+
+      <div class="container">
+
+        <div class="section-head reveal">
+
+          <div class="section-kicker">
+            Conheça melhor
+          </div>
+
+          <h2>
+            Antes de se candidatar,<br>
+            veja um pouco mais.
+          </h2>
+
+          <p>
+            Conheça melhor o ambiente, a visão e o contexto da
+            oportunidade.
+          </p>
+
+        </div>
+
+
+        <div class="videos-grid">
+
+          <article class="video-card reveal">
+
+            <video
+              controls
+              preload="metadata"
+              playsinline
+            >
+              <source
+                src="video-plano-crescimento.mp4"
+                type="video/mp4"
+              >
+              Seu navegador não suporta vídeo.
+            </video>
+
+            <div class="video-info">
+
+              <h3>
+                Plano de crescimento
+              </h3>
+
+              <p>
+                Entenda a visão de crescimento e desenvolvimento.
+              </p>
+
+            </div>
+
+          </article>
+
+
+          <article class="video-card reveal">
+
+            <video
+              controls
+              preload="metadata"
+              playsinline
+            >
+              <source
+                src="video-referencia-nacional.mp4"
+                type="video/mp4"
+              >
+              Seu navegador não suporta vídeo.
+            </video>
+
+            <div class="video-info">
+
+              <h3>
+                Referência nacional
+              </h3>
+
+              <p>
+                Conheça um pouco mais sobre a estrutura e o contexto.
+              </p>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
     </section>
 
 
     <!-- PROCESSO -->
-    <section class="section" id="processo">
+
+    <section id="processo">
+
       <div class="container">
 
-        <div class="eyebrow">Próximos passos</div>
+        <div class="section-head reveal">
 
-        <h2 class="section-title">
-          É simples começar.
-        </h2>
-
-        <p class="section-subtitle">
-          Faça seu cadastro e deixe nossa equipe conhecer você.
-        </p>
-
-        <div class="process-grid">
-
-          <div class="process">
-            <div class="process-number">01</div>
-            <h3>Cadastre-se</h3>
-            <p>
-              Preencha o formulário com suas informações e conte um
-              pouco sobre você.
-            </p>
+          <div class="section-kicker">
+            Próximos passos
           </div>
-
-          <div class="process">
-            <div class="process-number">02</div>
-            <h3>Análise</h3>
-            <p>
-              Nossa equipe analisa seu perfil e suas informações.
-            </p>
-          </div>
-
-          <div class="process">
-            <div class="process-number">03</div>
-            <h3>Contato</h3>
-            <p>
-              Se houver compatibilidade, nossa equipe entra em contato
-              para os próximos passos.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- CADASTRO -->
-    <section class="section apply-section" id="cadastro">
-      <div class="container apply-grid">
-
-        <div class="apply-intro">
-
-          <div class="eyebrow">Sua oportunidade começa aqui</div>
 
           <h2>
-            Talvez essa seja a
-            <span class="gold">virada que você estava esperando.</span>
+            É simples começar.
           </h2>
 
           <p>
-            Se você tem vontade de crescer, aprender e buscar resultados,
-            faça seu cadastro.
+            Faça seu cadastro. Nossa equipe analisa as informações
+            e, caso seu perfil esteja alinhado à oportunidade,
+            entraremos em contato.
           </p>
-
-          <div class="apply-note">
-            <strong>Modelo PJ</strong><br>
-            Segunda a sexta, das 09h às 19h.<br><br>
-            Ganhos iniciais em média de +R$4.000,
-            comissões, bonificações e sem teto de ganhos.
-          </div>
 
         </div>
 
 
-        <form id="candidaturaForm">
+        <div class="process">
 
-          <h3 class="form-title">Faça sua candidatura</h3>
+          <div class="process-item reveal">
 
-          <p class="form-subtitle">
-            Preencha os dados abaixo. É rápido.
-          </p>
-
-          <div class="form-grid">
-
-            <div class="field full">
-              <label for="nome">Nome completo</label>
-              <input
-                id="nome"
-                type="text"
-                name="nome"
-                placeholder="Digite seu nome completo"
-                required
-              >
+            <div class="process-number">
+              1
             </div>
 
+            <h3>
+              Cadastre-se
+            </h3>
 
-            <div class="field">
-              <label for="idade">Idade</label>
-              <input
-                id="idade"
-                type="number"
-                name="idade"
-                min="18"
-                placeholder="Ex.: 25"
-                required
-              >
-            </div>
-
-
-            <div class="field">
-              <label for="sexo">Sexo</label>
-              <select id="sexo" required>
-                <option value="">Selecione</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Feminino">Feminino</option>
-                <option value="Outro">Outro</option>
-              </select>
-            </div>
-
-
-            <div class="field">
-              <label for="trabalhando">Trabalhando atualmente?</label>
-              <select id="trabalhando" required>
-                <option value="">Selecione</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não</option>
-              </select>
-            </div>
-
-
-            <div class="field">
-              <label for="origem">Como ficou sabendo da oportunidade?</label>
-              <select id="origem" required>
-                <option value="">Selecione</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Facebook">Facebook</option>
-                <option value="WhatsApp">WhatsApp</option>
-                <option value="Indicação">Indicação</option>
-                <option value="OLX">OLX</option>
-                <option value="Indeed">Indeed</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="TikTok">TikTok</option>
-                <option value="Google">Google</option>
-                <option value="Outro">Outro</option>
-              </select>
-            </div>
-
-
-            <div class="field">
-              <label for="inicio">Quando poderia iniciar?</label>
-              <select id="inicio" name="inicio" required>
-                <option value="">Selecione</option>
-                <option value="Imediatamente">Imediatamente</option>
-                <option value="Em até 7 dias">Em até 7 dias</option>
-                <option value="Em até 15 dias">Em até 15 dias</option>
-                <option value="Em até 30 dias">Em até 30 dias</option>
-              </select>
-            </div>
-
-
-            <div class="field full">
-              <label for="vendas">
-                Você possui experiência com vendas?
-              </label>
-
-              <select id="vendas" required>
-                <option value="">Selecione</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não</option>
-              </select>
-            </div>
-
-
-            <div class="field full">
-              <label for="experiencia">
-                Conte um pouco sobre sua experiência
-              </label>
-
-              <textarea
-                id="experiencia"
-                placeholder="Experiências profissionais, vendas, atendimento..."
-              ></textarea>
-            </div>
-
-
-            <div class="field full">
-              <label for="motivo">
-                Por que você quer fazer parte da Afinco?
-              </label>
-
-              <textarea
-                id="motivo"
-                placeholder="Conte um pouco sobre sua motivação..."
-              ></textarea>
-            </div>
+            <p>
+              Preencha suas informações no formulário.
+            </p>
 
           </div>
 
 
-          <button
-            type="submit"
-            class="btn btn-primary submit-btn"
-          >
-            Enviar minha candidatura →
-          </button>
+          <div class="process-item reveal">
 
-          <p class="privacy">
-            Ao enviar, suas informações serão encaminhadas para análise
-            da equipe responsável pela oportunidade.
-          </p>
+            <div class="process-number">
+              2
+            </div>
 
-        </form>
+            <h3>
+              Análise
+            </h3>
+
+            <p>
+              Nossa equipe avalia seu cadastro.
+            </p>
+
+          </div>
+
+
+          <div class="process-item reveal">
+
+            <div class="process-number">
+              3
+            </div>
+
+            <h3>
+              Contato
+            </h3>
+
+            <p>
+              Se houver alinhamento, nossa equipe poderá entrar
+              em contato para os próximos passos.
+            </p>
+
+          </div>
+
+        </div>
 
       </div>
+
+    </section>
+
+
+    <!-- FORMULÁRIO -->
+
+    <section
+      class="form-section"
+      id="cadastro"
+    >
+
+      <div class="container form-wrapper">
+
+        <div class="form-side reveal">
+
+          <div class="section-kicker">
+            Sua próxima oportunidade
+          </div>
+
+          <h2>
+            Agora é com você.
+          </h2>
+
+          <p>
+            Preencha o cadastro com atenção. Queremos conhecer
+            você, sua experiência e o que busca para sua próxima
+            etapa profissional.
+          </p>
+
+
+          <ul class="form-side-list">
+
+            <li>
+              <span class="check">✓</span>
+              <span>Modelo PJ</span>
+            </li>
+
+            <li>
+              <span class="check">✓</span>
+              <span>Segunda a sexta, 09h às 19h</span>
+            </li>
+
+            <li>
+              <span class="check">✓</span>
+              <span>Ganhos iniciais em média de +R$4.000</span>
+            </li>
+
+            <li>
+              <span class="check">✓</span>
+              <span>Comissões + bonificações</span>
+            </li>
+
+            <li>
+              <span class="check">✓</span>
+              <span>Sem teto de ganhos</span>
+            </li>
+
+          </ul>
+
+        </div>
+
+
+        <div class="form-box reveal">
+
+          <div class="form-header">
+
+            <h3>
+              Cadastro de candidatura
+            </h3>
+
+            <p>
+              Preencha os campos abaixo para enviar sua candidatura.
+            </p>
+
+          </div>
+
+
+          <form
+            id="candidaturaForm"
+            novalidate
+          >
+
+            <div class="form-grid">
+
+
+              <!-- NOME -->
+
+              <div class="field full">
+
+                <label for="nome">
+                  Nome completo
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome_completo"
+                  placeholder="Digite seu nome completo"
+                  autocomplete="name"
+                  required
+                >
+
+              </div>
+
+
+              <!-- IDADE -->
+
+              <div class="field">
+
+                <label for="idade">
+                  Idade
+                  <span class="required">*</span>
+                </label>
+
+                <input
+                  type="number"
+                  id="idade"
+                  name="idade"
+                  placeholder="Ex.: 25"
+                  min="18"
+                  max="100"
+                  required
+                >
+
+              </div>
+
+
+              <!-- SEXO -->
+
+              <div class="field">
+
+                <label for="sexo">
+                  Sexo
+                  <span class="required">*</span>
+                </label>
+
+                <select
+                  id="sexo"
+                  name="sexo"
+                  required
+                >
+
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="Masculino">
+                    Masculino
+                  </option>
+
+                  <option value="Feminino">
+                    Feminino
+                  </option>
+
+                  <option value="Outro">
+                    Outro
+                  </option>
+
+                  <option value="Prefiro não informar">
+                    Prefiro não informar
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- TRABALHANDO -->
+
+              <div class="field">
+
+                <label for="trabalhando">
+                  Está trabalhando atualmente?
+                  <span class="required">*</span>
+                </label>
+
+                <select
+                  id="trabalhando"
+                  name="trabalhando_atualmente"
+                  required
+                >
+
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="Sim">
+                    Sim
+                  </option>
+
+                  <option value="Não">
+                    Não
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- ORIGEM -->
+
+              <div class="field">
+
+                <label for="origem">
+                  Como ficou sabendo da oportunidade?
+                  <span class="required">*</span>
+                </label>
+
+                <select
+                  id="origem"
+                  name="como_soube"
+                  required
+                >
+
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="Instagram">
+                    Instagram
+                  </option>
+
+                  <option value="Facebook">
+                    Facebook
+                  </option>
+
+                  <option value="WhatsApp">
+                    WhatsApp
+                  </option>
+
+                  <option value="Indicação">
+                    Indicação
+                  </option>
+
+                  <option value="OLX">
+                    OLX
+                  </option>
+
+                  <option value="Indeed">
+                    Indeed
+                  </option>
+
+                  <option value="LinkedIn">
+                    LinkedIn
+                  </option>
+
+                  <option value="TikTok">
+                    TikTok
+                  </option>
+
+                  <option value="Google">
+                    Google
+                  </option>
+
+                  <option value="Outro">
+                    Outro
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- INÍCIO -->
+
+              <div class="field">
+
+                <label for="inicio">
+                  Quando poderia começar?
+                  <span class="required">*</span>
+                </label>
+
+                <select
+                  id="inicio"
+                  name="inicio"
+                  required
+                >
+
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="Imediatamente">
+                    Imediatamente
+                  </option>
+
+                  <option value="Em até 7 dias">
+                    Em até 7 dias
+                  </option>
+
+                  <option value="Em até 15 dias">
+                    Em até 15 dias
+                  </option>
+
+                  <option value="Em até 30 dias">
+                    Em até 30 dias
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- EXPERIÊNCIA VENDAS -->
+
+              <div class="field">
+
+                <label for="vendas">
+                  Já trabalhou com vendas?
+                  <span class="required">*</span>
+                </label>
+
+                <select
+                  id="vendas"
+                  name="experiencia_vendas"
+                  required
+                >
+
+                  <option value="">
+                    Selecione
+                  </option>
+
+                  <option value="Sim">
+                    Sim
+                  </option>
+
+                  <option value="Não">
+                    Não
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- EXPERIÊNCIA -->
+
+              <div class="field full">
+
+                <label for="experiencia">
+                  Conte um pouco da sua experiência
+                  <span class="optional">(opcional)</span>
+                </label>
+
+                <textarea
+                  id="experiencia"
+                  name="experiencia"
+                  placeholder="Experiências profissionais, vendas, atendimento, liderança, etc."
+                ></textarea>
+
+                <div class="field-help">
+                  Quanto melhor conhecermos sua experiência, melhor poderemos avaliar seu perfil.
+                </div>
+
+              </div>
+
+
+              <!-- MOTIVO -->
+
+              <div class="field full">
+
+                <label for="motivo">
+                  Por que você quer fazer parte da Afinco?
+                  <span class="required">*</span>
+                </label>
+
+                <textarea
+                  id="motivo"
+                  name="motivo"
+                  placeholder="Conte brevemente o que busca para sua próxima etapa profissional."
+                  required
+                ></textarea>
+
+              </div>
+
+
+            </div>
+
+
+            <div class="form-footer">
+
+              <button
+                type="submit"
+                class="submit-button"
+              >
+                Enviar minha candidatura →
+              </button>
+
+              <div
+                id="formMessage"
+                class="form-message"
+                role="alert"
+              ></div>
+
+              <div class="form-note">
+                Seus dados serão utilizados para análise da candidatura
+                e eventual contato referente à oportunidade.
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
     </section>
 
 
     <!-- FINAL CTA -->
+
     <section class="final-cta">
-      <div class="container">
 
-        <div class="final-box">
+      <div class="container reveal">
 
-          <div class="eyebrow">O próximo passo depende de você</div>
-
-          <h2>
-            Arrisque-se a viver
-            <span class="gold">o extraordinário.</span>
-          </h2>
-
-          <p>
-            Se você acredita que pode entregar mais, crescer mais e
-            conquistar mais, talvez seja hora de começar.
-          </p>
-
-          <a href="#cadastro" class="btn btn-primary">
-            Quero me candidatar →
-          </a>
-
+        <div class="section-kicker">
+          O próximo passo depende de você
         </div>
 
+        <h2>
+          Talvez essa seja a oportunidade
+          que você estava esperando.
+        </h2>
+
+        <p>
+          Se você tem vontade de crescer e está disposto a fazer
+          acontecer, coloque seu nome no jogo.
+        </p>
+
+        <a
+          href="#cadastro"
+          class="btn btn-primary"
+        >
+          Fazer minha candidatura →
+        </a>
+
       </div>
+
     </section>
 
   </main>
 
 
   <!-- FOOTER -->
+
   <footer>
-    <div class="container footer-inner">
 
-      <img
-        src="logo-afinco-imoveis.png"
-        alt="Afinco Imóveis"
-        class="footer-logo"
-      >
-
-      <span>
-        © Afinco Imóveis — Oportunidade profissional
-      </span>
-
+    <div class="container">
+      © 2026 Afinco Imóveis • Oportunidade profissional
     </div>
+
   </footer>
 
 
-  <!-- SUPABASE / FORMULÁRIO -->
+  <!-- CTA FLUTUANTE -->
+
+  <a
+    href="#cadastro"
+    class="floating-cta"
+  >
+    Quero me candidatar →
+  </a>
+
+
   <script>
 
-    const SUPABASE_URL = "https://suxumbvzokoezwxouyeg.supabase.co";
+    /* =========================================
+       MENU MOBILE
+    ========================================= */
+
+    const menuButton = document.getElementById("menuButton");
+    const navLinks = document.getElementById("navLinks");
+
+    menuButton.addEventListener("click", function () {
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        navLinks.classList.remove("open");
+      });
+    });
+
+
+    /* =========================================
+       ANIMAÇÕES
+    ========================================= */
+
+    const revealElements =
+      document.querySelectorAll(".reveal");
+
+    const observer =
+      new IntersectionObserver(
+        function (entries) {
+
+          entries.forEach(function (entry) {
+
+            if (entry.isIntersecting) {
+
+              entry.target.classList.add("visible");
+
+              observer.unobserve(entry.target);
+
+            }
+
+          });
+
+        },
+        {
+          threshold: 0.10
+        }
+      );
+
+    revealElements.forEach(function (element) {
+      observer.observe(element);
+    });
+
+
+    /* =========================================
+       SUPABASE
+       NÃO ALTERAR
+    ========================================= */
+
+    const SUPABASE_URL =
+      "https://suxumbvzokoezwxouyeg.supabase.co";
 
     const SUPABASE_KEY =
       "sb_publishable_1N3VgWZFmYC6UKTYdW_xYw_dwsa91AZ";
 
-    const form = document.getElementById("candidaturaForm");
+    const form =
+      document.getElementById("candidaturaForm");
+
+    const formMessage =
+      document.getElementById("formMessage");
 
 
-    form.addEventListener("submit", async function(event) {
+    /* =========================================
+       ENVIO DA CANDIDATURA
+    ========================================= */
 
-      event.preventDefault();
+    form.addEventListener(
+      "submit",
+      async function (event) {
 
-      const botao =
-        form.querySelector('button[type="submit"]');
-
-      botao.disabled = true;
-      botao.textContent = "Enviando...";
-
-
-      const dados = {
-
-        nome_completo:
-          document.getElementById("nome").value.trim(),
-
-        idade:
-          parseInt(
-            document.getElementById("idade").value,
-            10
-          ),
-
-        sexo:
-          document.getElementById("sexo").value,
-
-        trabalhando_atualmente:
-          document.getElementById("trabalhando").value,
-
-        como_soube:
-          document.getElementById("origem").value,
-
-        inicio:
-          form.elements["inicio"].value,
-
-        experiencia_vendas:
-          document.getElementById("vendas").value,
-
-        experiencia:
-          document.getElementById("experiencia").value.trim(),
-
-        motivo:
-          document.getElementById("motivo").value.trim()
-
-      };
+        event.preventDefault();
 
 
-      try {
-
-        const resposta = await fetch(
-
-          SUPABASE_URL +
-          "/rest/v1/candidaturas",
-
-          {
-            method: "POST",
-
-            headers: {
-
-              "apikey": SUPABASE_KEY,
-
-              "Content-Type":
-                "application/json",
-
-              "Prefer":
-                "return=minimal"
-
-            },
-
-            body:
-              JSON.stringify(dados)
-
-          }
-
-        );
-
-
-        if (!resposta.ok) {
-
-          const erro =
-            await resposta.text();
-
-          console.error(
-            "Erro Supabase:",
-            erro
+        const botao =
+          form.querySelector(
+            'button[type="submit"]'
           );
 
-          throw new Error(
-            "Falha ao enviar candidatura."
-          );
+
+        /* VALIDAÇÃO */
+
+        if (!form.checkValidity()) {
+
+          form.reportValidity();
+
+          return;
 
         }
 
 
-        alert(
-          "Candidatura enviada com sucesso! Em breve nossa equipe poderá entrar em contato."
-        );
-
-
-        form.reset();
-
-
-      } catch (erro) {
-
-        console.error(
-          "Erro ao enviar candidatura:",
-          erro
-        );
-
-        alert(
-          "Não foi possível enviar sua candidatura agora. Tente novamente."
-        );
-
-
-      } finally {
-
-        botao.disabled = false;
+        botao.disabled = true;
 
         botao.textContent =
-          "Enviar minha candidatura →";
+          "Enviando candidatura...";
+
+
+        formMessage.className =
+          "form-message";
+
+        formMessage.textContent =
+          "";
+
+
+        /* DADOS */
+
+        const dados = {
+
+          nome_completo:
+            document
+              .getElementById("nome")
+              .value
+              .trim(),
+
+          idade:
+            parseInt(
+              document
+                .getElementById("idade")
+                .value,
+              10
+            ),
+
+          sexo:
+            document
+              .getElementById("sexo")
+              .value,
+
+          trabalhando_atualmente:
+            document
+              .getElementById("trabalhando")
+              .value,
+
+          como_soube:
+            document
+              .getElementById("origem")
+              .value,
+
+          inicio:
+            form.elements["inicio"].value,
+
+          experiencia_vendas:
+            document
+              .getElementById("vendas")
+              .value,
+
+          experiencia:
+            document
+              .getElementById("experiencia")
+              .value
+              .trim(),
+
+          motivo:
+            document
+              .getElementById("motivo")
+              .value
+              .trim()
+
+        };
+
+
+        try {
+
+          const resposta =
+            await fetch(
+              SUPABASE_URL +
+              "/rest/v1/candidaturas",
+              {
+
+                method: "POST",
+
+                headers: {
+
+                  "apikey":
+                    SUPABASE_KEY,
+
+                  "Content-Type":
+                    "application/json",
+
+                  "Prefer":
+                    "return=minimal"
+
+                },
+
+                body:
+                  JSON.stringify(dados)
+
+              }
+            );
+
+
+          if (!resposta.ok) {
+
+            const erro =
+              await resposta.text();
+
+            console.error(
+              "Erro Supabase:",
+              erro
+            );
+
+            throw new Error(
+              "Falha ao enviar candidatura."
+            );
+
+          }
+
+
+          /* SUCESSO */
+
+          formMessage.className =
+            "form-message success";
+
+          formMessage.textContent =
+            "✓ Candidatura enviada com sucesso! Em breve nossa equipe poderá entrar em contato.";
+
+          form.reset();
+
+
+          formMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+
+
+        } catch (erro) {
+
+          console.error(
+            "Erro ao enviar candidatura:",
+            erro
+          );
+
+
+          formMessage.className =
+            "form-message error";
+
+          formMessage.textContent =
+            "Não foi possível enviar sua candidatura agora. Tente novamente em alguns instantes.";
+
+        } finally {
+
+          botao.disabled = false;
+
+          botao.textContent =
+            "Enviar minha candidatura →";
+
+        }
 
       }
-
-    });
+    );
 
   </script>
 
