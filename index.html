@@ -2,79 +2,121 @@
 <html lang="pt-BR">
 
 <head>
+
   <meta charset="UTF-8">
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <meta
     name="description"
     content="Faça parte da Afinco Imóveis. Conheça nossa oportunidade profissional, nossa cultura e candidate-se."
   >
 
-  <meta name="theme-color" content="#080808">
+  <meta
+    name="theme-color"
+    content="#080808"
+  >
 
-  <title>Faça parte da Afinco | Oportunidade Profissional</title>
+  <title>
+    Afinco Imóveis | Faça Parte do Extraordinário
+  </title>
 
-  <link rel="icon" href="logo-afinco-imoveis.png">
+  <link
+    rel="icon"
+    href="logo-afinco-imoveis.png"
+  >
+
 
   <style>
 
+    /* =====================================================
+       VARIÁVEIS
+    ===================================================== */
+
     :root {
+
       --bg: #080808;
-      --bg-soft: #101010;
-      --card: #141414;
-      --card-2: #181818;
+
+      --bg-soft: #0d0d0d;
+
+      --card: #121212;
+
+      --card-2: #171717;
 
       --gold: #d6b56a;
-      --gold-light: #f0d99a;
+
+      --gold-light: #f1d99a;
+
+      --gold-dark: #9f7c35;
 
       --white: #ffffff;
-      --text: #f4f4f4;
-      --muted: #a6a6a6;
+
+      --text: #f5f5f5;
+
+      --muted: #a4a4a4;
+
+      --muted-dark: #707070;
 
       --line: rgba(255,255,255,.09);
 
-      --success: #72d69b;
+      --success: #66d99a;
+
       --danger: #ff7474;
 
       --radius: 22px;
 
+      --max: 1180px;
+
       --shadow:
-        0 25px 70px rgba(0,0,0,.35);
+        0 25px 75px rgba(0,0,0,.4);
+
     }
 
 
+    /* =====================================================
+       RESET
+    ===================================================== */
+
     * {
+
       box-sizing: border-box;
+
       margin: 0;
+
       padding: 0;
+
     }
 
 
     html {
+
       scroll-behavior: smooth;
+
     }
 
 
     body {
+
       font-family:
         Inter,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
+        Arial,
+        Helvetica,
         sans-serif;
 
       background:
+
         radial-gradient(
-          circle at 80% 10%,
-          rgba(214,181,106,.10),
+          circle at 80% 0%,
+          rgba(214,181,106,.12),
           transparent 28%
         ),
 
         radial-gradient(
-          circle at 10% 30%,
-          rgba(255,255,255,.035),
+          circle at 0% 40%,
+          rgba(255,255,255,.03),
           transparent 25%
         ),
 
@@ -85,10 +127,12 @@
       line-height: 1.6;
 
       overflow-x: hidden;
+
     }
 
 
     body::before {
+
       content: "";
 
       position: fixed;
@@ -98,14 +142,15 @@
       pointer-events: none;
 
       background:
+
         linear-gradient(
           90deg,
-          rgba(255,255,255,.015) 1px,
+          rgba(255,255,255,.012) 1px,
           transparent 1px
         ),
 
         linear-gradient(
-          rgba(255,255,255,.015) 1px,
+          rgba(255,255,255,.012) 1px,
           transparent 1px
         );
 
@@ -115,16 +160,36 @@
         linear-gradient(
           to bottom,
           black,
-          transparent 80%
+          transparent 82%
         );
 
       z-index: -1;
+
+    }
+
+
+    body.menu-open {
+
+      overflow: hidden;
+
     }
 
 
     a {
+
       color: inherit;
+
       text-decoration: none;
+
+    }
+
+
+    img {
+
+      max-width: 100%;
+
+      display: block;
+
     }
 
 
@@ -132,43 +197,60 @@
     input,
     select,
     textarea {
+
       font: inherit;
+
+    }
+
+
+    button {
+
+      cursor: pointer;
+
     }
 
 
     .container {
-      width: min(
-        1180px,
-        calc(100% - 40px)
-      );
 
-      margin: auto;
+      width:
+        min(
+          var(--max),
+          calc(100% - 40px)
+        );
+
+      margin:
+        0 auto;
+
     }
 
 
-    /* =========================================
+    /* =====================================================
        HEADER
-    ========================================= */
+    ===================================================== */
 
     header {
+
       position: sticky;
 
       top: 0;
 
       z-index: 1000;
 
-      backdrop-filter: blur(18px);
-
       background:
-        rgba(8,8,8,.82);
+        rgba(8,8,8,.84);
+
+      backdrop-filter:
+        blur(18px);
 
       border-bottom:
         1px solid var(--line);
+
     }
 
 
     .nav {
-      min-height: 78px;
+
+      min-height: 76px;
 
       display: flex;
 
@@ -177,208 +259,287 @@
       justify-content: space-between;
 
       gap: 25px;
+
     }
 
 
     .logo {
+
       width: 145px;
 
-      display: block;
+      flex-shrink: 0;
+
     }
 
 
     .nav-links {
+
       display: flex;
 
       align-items: center;
 
-      gap: 28px;
+      gap: 26px;
+
     }
 
 
     .nav-links a {
-      color: #cfcfcf;
 
-      font-size: 14px;
+      color: #d2d2d2;
+
+      font-size: 13px;
+
+      font-weight: 600;
 
       transition: .25s;
+
     }
 
 
     .nav-links a:hover {
-      color: var(--gold-light);
+
+      color:
+        var(--gold-light);
+
     }
 
 
     .nav-cta {
-      padding: 12px 19px;
+
+      padding:
+        11px 17px;
 
       border:
-        1px solid rgba(214,181,106,.45);
+        1px solid
+        rgba(214,181,106,.42);
 
       border-radius: 999px;
 
       color:
         var(--gold-light) !important;
 
-      font-weight: 700;
     }
 
 
     .menu-button {
+
       display: none;
 
-      background: transparent;
+      width: 43px;
+
+      height: 43px;
 
       border:
         1px solid var(--line);
 
+      background:
+        rgba(255,255,255,.03);
+
+      border-radius: 11px;
+
       color: white;
 
-      border-radius: 10px;
+      font-size: 20px;
 
-      padding: 9px 12px;
-
-      cursor: pointer;
     }
 
 
-    /* =========================================
+    /* =====================================================
        HERO
-    ========================================= */
+    ===================================================== */
 
     .hero {
-      min-height: 720px;
+
+      min-height: 730px;
 
       display: grid;
 
       grid-template-columns:
-        1.15fr .85fr;
+        1.14fr .86fr;
 
       align-items: center;
 
-      gap: 60px;
+      gap: 62px;
 
       padding:
-        85px 0 80px;
+        90px 0 85px;
+
     }
 
 
     .eyebrow {
+
       display: inline-flex;
 
       align-items: center;
 
       gap: 9px;
 
+      padding:
+        9px 14px;
+
       border:
-        1px solid rgba(214,181,106,.3);
+        1px solid
+        rgba(214,181,106,.3);
 
       background:
         rgba(214,181,106,.07);
 
+      border-radius: 999px;
+
       color:
         var(--gold-light);
 
-      padding:
-        9px 14px;
+      text-transform:
+        uppercase;
 
-      border-radius: 999px;
+      letter-spacing:
+        .08em;
 
-      font-size: 12px;
+      font-size:
+        11px;
 
-      font-weight: 800;
+      font-weight:
+        900;
 
-      text-transform: uppercase;
+      margin-bottom:
+        21px;
 
-      letter-spacing: .08em;
-
-      margin-bottom: 22px;
     }
 
 
     .dot {
+
       width: 7px;
 
       height: 7px;
 
-      border-radius: 50%;
-
       background:
         var(--gold);
 
+      border-radius:
+        50%;
+
       box-shadow:
-        0 0 14px var(--gold);
+        0 0 14px
+        var(--gold);
+
     }
 
 
-    h1 {
+    .hero h1 {
+
+      max-width:
+        800px;
+
       font-size:
-        clamp(44px, 6vw, 78px);
+        clamp(
+          45px,
+          6.4vw,
+          79px
+        );
 
-      line-height: .98;
+      line-height:
+        .94;
 
-      letter-spacing: -3px;
+      letter-spacing:
+        -3.5px;
 
-      max-width: 760px;
+      margin-bottom:
+        26px;
 
-      margin-bottom: 25px;
     }
 
 
-    h1 span {
+    .hero h1 span {
+
       color:
         var(--gold-light);
+
     }
 
 
     .hero-text {
-      max-width: 650px;
 
-      color: #b9b9b9;
+      max-width:
+        670px;
 
-      font-size: 18px;
+      color:
+        #bdbdbd;
 
-      line-height: 1.75;
+      font-size:
+        18px;
 
-      margin-bottom: 32px;
+      line-height:
+        1.75;
+
+      margin-bottom:
+        32px;
+
     }
 
 
     .hero-buttons {
-      display: flex;
 
-      gap: 13px;
+      display:
+        flex;
 
-      flex-wrap: wrap;
+      flex-wrap:
+        wrap;
+
+      gap:
+        12px;
+
     }
 
 
     .btn {
-      display: inline-flex;
 
-      justify-content: center;
+      min-height:
+        52px;
 
-      align-items: center;
+      padding:
+        0 22px;
 
-      min-height: 52px;
+      display:
+        inline-flex;
 
-      padding: 0 23px;
+      justify-content:
+        center;
 
-      border-radius: 13px;
+      align-items:
+        center;
+
+      gap:
+        8px;
+
+      border-radius:
+        13px;
 
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-      cursor: pointer;
+      font-size:
+        13px;
 
-      transition: .25s;
+      font-weight:
+        900;
 
-      font-weight: 800;
+      transition:
+        .25s;
+
+      cursor:
+        pointer;
+
     }
 
 
     .btn-primary {
+
+      color:
+        #111;
+
       background:
         linear-gradient(
           135deg,
@@ -386,288 +547,424 @@
           var(--gold)
         );
 
-      color: #111;
-
       box-shadow:
-        0 12px 30px
+        0 14px 38px
         rgba(214,181,106,.16);
+
     }
 
 
     .btn-primary:hover {
+
       transform:
-        translateY(-2px);
+        translateY(-3px);
 
       box-shadow:
-        0 17px 40px
-        rgba(214,181,106,.25);
+        0 18px 45px
+        rgba(214,181,106,.27);
+
     }
 
 
     .btn-secondary {
-      color: white;
+
+      color:
+        #fff;
 
       background:
         rgba(255,255,255,.035);
+
     }
 
 
     .btn-secondary:hover {
+
       background:
         rgba(255,255,255,.08);
+
     }
 
 
-    /* =========================================
-       HERO CARD
-    ========================================= */
+    /* =====================================================
+       HERO OFFER
+    ===================================================== */
 
     .hero-card {
-      position: relative;
+
+      position:
+        relative;
+
+      padding:
+        36px;
+
+      border:
+        1px solid
+        rgba(214,181,106,.28);
+
+      border-radius:
+        29px;
 
       background:
         linear-gradient(
           145deg,
-          rgba(255,255,255,.08),
-          rgba(255,255,255,.025)
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.018)
         );
-
-      border:
-        1px solid rgba(214,181,106,.25);
-
-      border-radius: 28px;
-
-      padding: 35px;
 
       box-shadow:
         var(--shadow);
 
-      overflow: hidden;
+      overflow:
+        hidden;
+
     }
 
 
     .hero-card::before {
+
       content: "";
 
-      position: absolute;
+      position:
+        absolute;
 
-      width: 260px;
+      width:
+        280px;
 
-      height: 260px;
+      height:
+        280px;
 
-      right: -120px;
+      top:
+        -145px;
 
-      top: -120px;
+      right:
+        -110px;
 
-      border-radius: 50%;
+      border-radius:
+        50%;
 
       background:
         rgba(214,181,106,.13);
 
-      filter: blur(10px);
+      filter:
+        blur(12px);
+
     }
 
 
     .money {
+
+      position:
+        relative;
+
       font-size:
-        clamp(55px, 7vw, 80px);
+        clamp(
+          52px,
+          6.7vw,
+          78px
+        );
 
-      line-height: 1;
+      line-height:
+        .9;
 
-      font-weight: 950;
+      letter-spacing:
+        -4px;
+
+      font-weight:
+        950;
 
       color:
         var(--gold-light);
 
-      letter-spacing: -4px;
+      margin-bottom:
+        7px;
+
     }
 
 
     .money-label {
-      color: #c6c6c6;
 
-      margin:
-        8px 0 27px;
+      color:
+        #c5c5c5;
+
+      font-size:
+        14px;
+
+      margin-bottom:
+        28px;
+
     }
 
 
     .offer-list {
-      list-style: none;
 
-      display: grid;
+      list-style:
+        none;
 
-      gap: 15px;
+      display:
+        grid;
+
+      gap:
+        15px;
+
     }
 
 
     .offer-list li {
-      display: flex;
 
-      gap: 11px;
+      display:
+        flex;
 
-      color: #ddd;
+      align-items:
+        flex-start;
 
-      font-size: 14px;
+      gap:
+        11px;
+
+      color:
+        #ddd;
+
+      font-size:
+        14px;
+
+      line-height:
+        1.5;
+
     }
 
 
     .check {
+
+      flex-shrink:
+        0;
+
       color:
         var(--gold-light);
 
-      font-weight: 900;
+      font-weight:
+        950;
+
     }
 
 
     .no-limit {
-      margin-top: 28px;
 
-      padding-top: 22px;
+      margin-top:
+        28px;
+
+      padding-top:
+        22px;
 
       border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
       color:
         var(--gold-light);
 
-      font-weight: 900;
+      font-size:
+        14px;
 
-      letter-spacing: .06em;
+      font-weight:
+        950;
 
-      font-size: 13px;
+      letter-spacing:
+        .08em;
+
     }
 
 
-    /* =========================================
+    /* =====================================================
        STATS
-    ========================================= */
+    ===================================================== */
 
     .stats {
+
       border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
       border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
       background:
         rgba(255,255,255,.018);
+
     }
 
 
     .stats-grid {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(3,1fr);
+
     }
 
 
     .stat {
-      padding:
-        28px 20px;
 
-      text-align: center;
+      padding:
+        30px 20px;
+
+      text-align:
+        center;
 
       border-right:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
     }
 
 
     .stat:last-child {
-      border-right: 0;
+
+      border-right:
+        0;
+
     }
 
 
     .stat strong {
-      display: block;
+
+      display:
+        block;
 
       color:
         var(--gold-light);
 
-      font-size: 25px;
+      font-size:
+        27px;
 
-      margin-bottom: 3px;
+      line-height:
+        1.1;
+
+      margin-bottom:
+        5px;
+
     }
 
 
     .stat span {
+
       color:
         var(--muted);
 
-      font-size: 12px;
+      font-size:
+        12px;
+
     }
 
 
-    /* =========================================
-       GENERAL
-    ========================================= */
+    /* =====================================================
+       SECTIONS
+    ===================================================== */
 
     section {
+
       padding:
         105px 0;
+
+      position:
+        relative;
+
     }
 
 
     .section-head {
-      max-width: 760px;
 
-      margin-bottom: 45px;
+      max-width:
+        800px;
+
+      margin-bottom:
+        48px;
+
     }
 
 
     .section-kicker {
+
       color:
         var(--gold-light);
 
-      text-transform: uppercase;
+      font-size:
+        11px;
 
-      letter-spacing: .14em;
+      font-weight:
+        950;
 
-      font-size: 11px;
+      text-transform:
+        uppercase;
 
-      font-weight: 900;
+      letter-spacing:
+        .15em;
 
-      margin-bottom: 13px;
+      margin-bottom:
+        12px;
+
     }
 
 
-    h2 {
+    .section-head h2 {
+
       font-size:
-        clamp(34px, 5vw, 54px);
+        clamp(
+          35px,
+          5vw,
+          55px
+        );
 
-      line-height: 1.03;
+      line-height:
+        1.02;
 
-      letter-spacing: -2px;
+      letter-spacing:
+        -2px;
 
-      margin-bottom: 17px;
+      margin-bottom:
+        17px;
+
     }
 
 
     .section-head p {
+
       color:
         var(--muted);
 
-      font-size: 16px;
+      font-size:
+        16px;
 
-      line-height: 1.75;
+      line-height:
+        1.75;
+
     }
 
 
-    /* =========================================
+    /* =====================================================
        CARDS
-    ========================================= */
+    ===================================================== */
 
     .cards {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(3,1fr);
 
-      gap: 17px;
+      gap:
+        17px;
+
     }
 
 
     .card {
+
+      padding:
+        30px;
+
       background:
         linear-gradient(
           145deg,
@@ -676,187 +973,258 @@
         );
 
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
       border-radius:
         var(--radius);
 
-      padding: 29px;
+      transition:
+        .3s;
 
-      transition: .3s;
     }
 
 
     .card:hover {
+
       transform:
         translateY(-5px);
 
       border-color:
-        rgba(214,181,106,.3);
+        rgba(214,181,106,.32);
+
     }
 
 
     .card-number {
+
       color:
         var(--gold);
 
-      font-weight: 900;
+      font-size:
+        11px;
 
-      font-size: 12px;
+      font-weight:
+        950;
 
-      margin-bottom: 35px;
+      letter-spacing:
+        .08em;
+
+      margin-bottom:
+        35px;
+
     }
 
 
     .card h3 {
-      font-size: 21px;
 
-      margin-bottom: 10px;
+      font-size:
+        20px;
+
+      margin-bottom:
+        9px;
+
     }
 
 
     .card p {
+
       color:
         var(--muted);
 
-      font-size: 14px;
+      font-size:
+        14px;
 
-      line-height: 1.7;
+      line-height:
+        1.7;
+
     }
 
 
-    /* =========================================
-       ROLE
-    ========================================= */
+    /* =====================================================
+       FUNÇÃO
+    ===================================================== */
 
     .role-grid {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         .9fr 1.1fr;
 
-      gap: 55px;
+      gap:
+        55px;
 
-      align-items: center;
+      align-items:
+        center;
+
     }
 
 
     .role-panel {
-      border:
-        1px solid var(--line);
+
+      padding:
+        34px;
 
       background:
         rgba(255,255,255,.025);
 
-      border-radius: 26px;
+      border:
+        1px solid
+        var(--line);
 
-      padding: 35px;
+      border-radius:
+        26px;
+
     }
 
 
     .role-title {
-      font-size: 31px;
 
-      margin-bottom: 13px;
+      font-size:
+        31px;
+
+      font-weight:
+        900;
+
+      margin-bottom:
+        12px;
+
     }
 
 
-    .role-panel p {
+    .role-panel > p {
+
       color:
         var(--muted);
 
-      line-height: 1.75;
+      line-height:
+        1.75;
+
     }
 
 
     .role-points {
-      display: grid;
 
-      gap: 14px;
+      display:
+        grid;
 
-      margin-top: 27px;
+      gap:
+        13px;
+
+      margin-top:
+        26px;
+
     }
 
 
     .role-point {
-      display: flex;
 
-      align-items: flex-start;
+      display:
+        flex;
 
-      gap: 13px;
+      gap:
+        13px;
 
-      padding: 15px;
-
-      border:
-        1px solid var(--line);
-
-      border-radius: 14px;
+      padding:
+        15px;
 
       background:
         rgba(255,255,255,.02);
+
+      border:
+        1px solid
+        var(--line);
+
+      border-radius:
+        14px;
+
     }
 
 
     .role-point strong {
-      display: block;
 
-      margin-bottom: 3px;
+      display:
+        block;
+
+      margin-bottom:
+        3px;
+
     }
 
 
     .role-point span {
+
       color:
         var(--muted);
 
-      font-size: 13px;
+      font-size:
+        13px;
+
     }
 
 
-    /* =========================================
-       EARNINGS
-    ========================================= */
+    /* =====================================================
+       GANHOS
+    ===================================================== */
 
     .earnings {
+
       background:
         radial-gradient(
           circle at 50% 0%,
-          rgba(214,181,106,.08),
-          transparent 45%
+          rgba(214,181,106,.09),
+          transparent 48%
         ),
 
-        rgba(255,255,255,.018);
+        #0d0d0d;
 
       border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
       border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
     }
 
 
     .earnings-grid {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         1fr 1fr;
 
-      gap: 18px;
+      gap:
+        18px;
+
     }
 
 
     .earning-card {
-      padding: 32px;
 
-      border-radius: 22px;
+      padding:
+        33px;
 
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-      background: #101010;
+      border-radius:
+        22px;
+
+      background:
+        #111;
+
     }
 
 
     .earning-card.highlight {
+
       border-color:
         rgba(214,181,106,.35);
 
@@ -864,190 +1232,270 @@
         linear-gradient(
           145deg,
           rgba(214,181,106,.10),
-          rgba(255,255,255,.02)
+          rgba(255,255,255,.018)
         );
-    }
 
-
-    .earning-card h3 {
-      margin-bottom: 10px;
-
-      font-size: 22px;
-    }
-
-
-    .earning-card p {
-      color:
-        var(--muted);
-
-      font-size: 14px;
-
-      line-height: 1.7;
     }
 
 
     .earning-big {
-      font-size: 46px;
-
-      line-height: 1;
 
       color:
         var(--gold-light);
 
-      font-weight: 950;
+      font-size:
+        47px;
 
-      margin-bottom: 10px;
+      line-height:
+        1;
+
+      font-weight:
+        950;
+
+      letter-spacing:
+        -2px;
+
+      margin-bottom:
+        10px;
+
+    }
+
+
+    .earning-card h3 {
+
+      font-size:
+        22px;
+
+      margin-bottom:
+        9px;
+
+    }
+
+
+    .earning-card p {
+
+      color:
+        var(--muted);
+
+      font-size:
+        14px;
+
+      line-height:
+        1.7;
+
     }
 
 
     .disclaimer {
-      margin-top: 18px;
 
-      color: #777;
+      margin-top:
+        17px;
 
-      font-size: 11px;
+      color:
+        #737373;
 
-      line-height: 1.6;
+      font-size:
+        11px;
+
+      line-height:
+        1.6;
+
     }
 
 
-    /* =========================================
-       FLOW
-    ========================================= */
+    /* =====================================================
+       FLUXO
+    ===================================================== */
 
     .flow {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(3,1fr);
 
-      gap: 15px;
+      gap:
+        15px;
+
     }
 
 
     .flow-item {
-      position: relative;
 
-      padding: 28px;
+      padding:
+        29px;
 
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-      border-radius: 20px;
+      border-radius:
+        20px;
 
       background:
         rgba(255,255,255,.02);
+
     }
 
 
     .flow-item strong {
-      display: block;
+
+      display:
+        block;
 
       color:
         var(--gold-light);
 
-      font-size: 12px;
+      text-transform:
+        uppercase;
 
-      margin-bottom: 16px;
+      letter-spacing:
+        .09em;
 
-      text-transform: uppercase;
+      font-size:
+        11px;
 
-      letter-spacing: .1em;
+      margin-bottom:
+        14px;
+
     }
 
 
     .flow-item h3 {
-      margin-bottom: 9px;
+
+      margin-bottom:
+        8px;
+
+      font-size:
+        20px;
+
     }
 
 
     .flow-item p {
+
       color:
         var(--muted);
 
-      font-size: 14px;
+      font-size:
+        14px;
+
     }
 
 
-    /* =========================================
-       FIT
-    ========================================= */
+    /* =====================================================
+       PERFIL
+    ===================================================== */
 
     .fit-grid {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(2,1fr);
 
-      gap: 17px;
+      gap:
+        17px;
+
     }
 
 
     .fit-card {
-      border:
-        1px solid var(--line);
+
+      padding:
+        25px;
 
       background:
         var(--card);
 
-      border-radius: 20px;
+      border:
+        1px solid
+        var(--line);
 
-      padding: 25px;
+      border-radius:
+        20px;
+
     }
 
 
     .fit-card h3 {
-      margin-bottom: 8px;
+
+      margin-bottom:
+        8px;
+
     }
 
 
     .fit-card p {
+
       color:
         var(--muted);
 
-      font-size: 14px;
+      font-size:
+        14px;
+
     }
 
 
-    /* =========================================
-       VIDEOS
-       MAIOR DESTAQUE
-    ========================================= */
+    /* =====================================================
+       VÍDEOS — GRANDE E SEM CORTAR
+    ===================================================== */
 
     .videos-section {
-      padding-top: 115px;
-      padding-bottom: 125px;
+
+      padding-top:
+        115px;
+
+      padding-bottom:
+        125px;
+
+      background:
+        linear-gradient(
+          to bottom,
+          #080808,
+          #0c0c0c
+        );
+
     }
 
 
     .videos-grid {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
-        repeat(2,1fr);
+        repeat(2,minmax(0,1fr));
 
-      gap: 30px;
+      gap:
+        28px;
 
-      width: 100%;
+      width:
+        100%;
+
     }
 
 
     .video-card {
+
+      padding:
+        16px;
+
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
+      border-radius:
+        25px;
 
       background:
         linear-gradient(
           145deg,
           #151515,
-          #0e0e0e
+          #0d0d0d
         );
-
-      border-radius: 26px;
-
-      padding: 17px;
-
-      overflow: hidden;
 
       box-shadow:
         0 25px 65px
@@ -1055,365 +1503,597 @@
 
       transition:
         .3s;
+
+      overflow:
+        hidden;
+
     }
 
 
     .video-card:hover {
+
       transform:
         translateY(-5px);
 
       border-color:
-        rgba(214,181,106,.35);
+        rgba(214,181,106,.38);
 
       box-shadow:
         0 30px 80px
         rgba(0,0,0,.4);
+
+    }
+
+
+    .video-frame {
+
+      width:
+        100%;
+
+      background:
+        #020202;
+
+      border-radius:
+        18px;
+
+      padding:
+        10px;
+
+      border:
+        1px solid
+        rgba(255,255,255,.05);
+
+      display:
+        flex;
+
+      align-items:
+        center;
+
+      justify-content:
+        center;
+
     }
 
 
     .video-card video {
-      width: 100%;
 
-      aspect-ratio: 16 / 10;
+      width:
+        100%;
 
-      min-height: 430px;
+      height:
+        auto;
 
-      display: block;
+      max-height:
+        620px;
 
-      border-radius: 18px;
+      display:
+        block;
 
       background:
-        #050505;
+        #000;
 
-      object-fit: cover;
+      border-radius:
+        12px;
+
+      object-fit:
+        contain;
+
     }
 
 
     .video-info {
-      padding:
-        23px 9px 10px;
-    }
-
-
-    .video-info h3 {
-      margin-bottom: 7px;
-
-      font-size: 23px;
-    }
-
-
-    .video-info p {
-      color:
-        var(--muted);
-
-      font-size: 14px;
-
-      line-height: 1.6;
-    }
-
-
-    /* =========================================
-       PROCESS
-    ========================================= */
-
-    .process {
-      display: grid;
-
-      grid-template-columns:
-        repeat(3,1fr);
-
-      gap: 18px;
-    }
-
-
-    .process-item {
-      text-align: center;
 
       padding:
-        35px 25px;
+        22px 8px 8px;
 
-      border-radius: 22px;
-
-      border:
-        1px solid var(--line);
-
-      background:
-        rgba(255,255,255,.025);
     }
 
 
-    .process-number {
-      width: 45px;
-
-      height: 45px;
-
-      display: grid;
-
-      place-items: center;
-
-      margin:
-        0 auto 18px;
-
-      border-radius: 50%;
-
-      background:
-        rgba(214,181,106,.1);
-
-      border:
-        1px solid rgba(214,181,106,.3);
+    .video-tag {
 
       color:
         var(--gold-light);
 
-      font-weight: 900;
+      text-transform:
+        uppercase;
+
+      letter-spacing:
+        .12em;
+
+      font-size:
+        10px;
+
+      font-weight:
+        950;
+
+      margin-bottom:
+        7px;
+
+    }
+
+
+    .video-info h3 {
+
+      font-size:
+        22px;
+
+      margin-bottom:
+        6px;
+
+    }
+
+
+    .video-info p {
+
+      color:
+        var(--muted);
+
+      font-size:
+        14px;
+
+      line-height:
+        1.6;
+
+    }
+
+
+    /* =====================================================
+       PROCESSO
+    ===================================================== */
+
+    .process {
+
+      display:
+        grid;
+
+      grid-template-columns:
+        repeat(3,1fr);
+
+      gap:
+        18px;
+
+    }
+
+
+    .process-item {
+
+      padding:
+        35px 25px;
+
+      text-align:
+        center;
+
+      border:
+        1px solid
+        var(--line);
+
+      background:
+        rgba(255,255,255,.025);
+
+      border-radius:
+        22px;
+
+    }
+
+
+    .process-number {
+
+      width:
+        46px;
+
+      height:
+        46px;
+
+      display:
+        grid;
+
+      place-items:
+        center;
+
+      margin:
+        0 auto 18px;
+
+      border-radius:
+        50%;
+
+      border:
+        1px solid
+        rgba(214,181,106,.34);
+
+      background:
+        rgba(214,181,106,.08);
+
+      color:
+        var(--gold-light);
+
+      font-weight:
+        950;
+
+    }
+
+
+    .process-item h3 {
+
+      margin-bottom:
+        7px;
+
     }
 
 
     .process-item p {
+
       color:
         var(--muted);
 
-      font-size: 14px;
+      font-size:
+        14px;
 
-      margin-top: 7px;
     }
 
 
-    /* =========================================
-       FORM
-    ========================================= */
+    /* =====================================================
+       FORMULÁRIO
+    ===================================================== */
 
     .form-section {
-      padding-top: 90px;
 
-      padding-bottom: 120px;
+      padding-top:
+        95px;
+
+      padding-bottom:
+        120px;
+
+      background:
+        radial-gradient(
+          circle at 10% 20%,
+          rgba(214,181,106,.08),
+          transparent 28%
+        );
+
     }
 
 
     .form-wrapper {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         .72fr 1.28fr;
 
-      gap: 20px;
+      gap:
+        20px;
 
-      align-items: stretch;
+      align-items:
+        stretch;
+
     }
 
 
     .form-side {
+
+      padding:
+        36px;
+
       border:
-        1px solid rgba(214,181,106,.25);
+        1px solid
+        rgba(214,181,106,.25);
 
-      border-radius: 26px;
-
-      padding: 35px;
+      border-radius:
+        26px;
 
       background:
         radial-gradient(
           circle at 90% 10%,
           rgba(214,181,106,.12),
-          transparent 35%
+          transparent 36%
         ),
 
         #111;
+
     }
 
 
     .form-side h2 {
-      font-size: 39px;
+
+      font-size:
+        38px;
+
+      line-height:
+        1;
+
+      letter-spacing:
+        -1.5px;
+
+      margin-bottom:
+        16px;
+
     }
 
 
     .form-side p {
+
       color:
         var(--muted);
 
-      font-size: 14px;
+      font-size:
+        14px;
 
-      line-height: 1.75;
+      line-height:
+        1.75;
+
     }
 
 
     .form-side-list {
-      list-style: none;
 
-      display: grid;
+      list-style:
+        none;
 
-      gap: 13px;
+      display:
+        grid;
 
-      margin-top: 27px;
+      gap:
+        12px;
+
+      margin-top:
+        28px;
+
     }
 
 
     .form-side-list li {
-      color: #ddd;
 
-      font-size: 14px;
+      display:
+        flex;
 
-      display: flex;
+      gap:
+        10px;
 
-      gap: 10px;
+      color:
+        #ddd;
+
+      font-size:
+        13px;
+
     }
 
 
     .form-box {
+
+      padding:
+        35px;
+
       border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
+      border-radius:
+        26px;
 
       background:
         #111;
 
-      border-radius: 26px;
+      box-shadow:
+        var(--shadow);
 
-      padding: 35px;
     }
 
 
     .form-header {
-      margin-bottom: 25px;
+
+      margin-bottom:
+        25px;
+
     }
 
 
     .form-header h3 {
-      font-size: 25px;
 
-      margin-bottom: 5px;
+      font-size:
+        25px;
+
+      margin-bottom:
+        4px;
+
     }
 
 
     .form-header p {
+
       color:
         var(--muted);
 
-      font-size: 13px;
+      font-size:
+        13px;
+
     }
 
 
     .form-grid {
-      display: grid;
+
+      display:
+        grid;
 
       grid-template-columns:
         repeat(2,1fr);
 
-      gap: 17px;
+      gap:
+        17px;
+
     }
 
 
     .field {
-      display: flex;
 
-      flex-direction: column;
+      display:
+        flex;
 
-      gap: 7px;
+      flex-direction:
+        column;
+
+      gap:
+        7px;
+
     }
 
 
     .field.full {
+
       grid-column:
         1 / -1;
+
     }
 
 
     label {
-      font-size: 12px;
 
-      font-weight: 800;
+      color:
+        #ddd;
 
-      color: #ddd;
+      font-size:
+        12px;
+
+      font-weight:
+        800;
+
     }
 
 
     .required {
+
       color:
         var(--gold-light);
+
     }
 
 
     .optional {
-      color: #777;
 
-      font-weight: 500;
+      color:
+        #777;
+
+      font-weight:
+        500;
+
     }
 
 
     input,
     select,
     textarea {
-      width: 100%;
 
-      border:
-        1px solid rgba(255,255,255,.1);
-
-      background:
-        #090909;
-
-      color: white;
-
-      border-radius: 12px;
-
-      outline: none;
+      width:
+        100%;
 
       padding:
         13px 14px;
 
+      border:
+        1px solid
+        rgba(255,255,255,.10);
+
+      border-radius:
+        12px;
+
+      background:
+        #090909;
+
+      color:
+        white;
+
+      outline:
+        none;
+
       transition:
         .2s;
+
     }
 
 
     input,
     select {
-      min-height: 48px;
+
+      min-height:
+        48px;
+
     }
 
 
     textarea {
-      min-height: 115px;
 
-      resize: vertical;
+      min-height:
+        120px;
+
+      resize:
+        vertical;
+
     }
 
 
     input::placeholder,
     textarea::placeholder {
-      color: #666;
+
+      color:
+        #666;
+
     }
 
 
     input:focus,
     select:focus,
     textarea:focus {
+
       border-color:
         rgba(214,181,106,.65);
 
       box-shadow:
         0 0 0 3px
         rgba(214,181,106,.07);
+
+    }
+
+
+    select option {
+
+      background:
+        #111;
+
     }
 
 
     .field-help {
-      color: #6f6f6f;
 
-      font-size: 11px;
+      color:
+        #707070;
+
+      font-size:
+        10px;
+
     }
 
 
     .form-footer {
-      margin-top: 22px;
+
+      margin-top:
+        22px;
+
     }
 
 
     .submit-button {
-      width: 100%;
 
-      min-height: 56px;
+      width:
+        100%;
 
-      border: 0;
+      min-height:
+        56px;
 
-      border-radius: 13px;
+      border:
+        none;
+
+      border-radius:
+        13px;
 
       background:
         linear-gradient(
@@ -1422,161 +2102,238 @@
           var(--gold)
         );
 
-      color: #111;
+      color:
+        #111;
 
-      font-weight: 950;
+      font-size:
+        14px;
 
-      cursor: pointer;
+      font-weight:
+        950;
 
-      transition: .25s;
+      cursor:
+        pointer;
+
+      transition:
+        .25s;
+
     }
 
 
     .submit-button:hover:not(:disabled) {
+
       transform:
         translateY(-2px);
 
       box-shadow:
-        0 14px 35px
+        0 15px 38px
         rgba(214,181,106,.2);
+
     }
 
 
     .submit-button:disabled {
-      opacity: .65;
 
-      cursor: wait;
-    }
+      opacity:
+        .65;
 
+      cursor:
+        wait;
 
-    .form-note {
-      margin-top: 12px;
-
-      color: #696969;
-
-      font-size: 11px;
-
-      text-align: center;
-
-      line-height: 1.5;
     }
 
 
     .form-message {
-      display: none;
 
-      margin-top: 15px;
+      display:
+        none;
 
-      padding: 14px;
+      margin-top:
+        15px;
 
-      border-radius: 12px;
+      padding:
+        14px;
 
-      font-size: 13px;
+      border-radius:
+        12px;
 
-      line-height: 1.5;
+      font-size:
+        13px;
+
+      line-height:
+        1.5;
+
     }
 
 
     .form-message.success {
-      display: block;
 
-      background:
-        rgba(114,214,155,.08);
-
-      border:
-        1px solid rgba(114,214,155,.25);
+      display:
+        block;
 
       color:
         var(--success);
+
+      background:
+        rgba(102,217,154,.08);
+
+      border:
+        1px solid
+        rgba(102,217,154,.25);
+
     }
 
 
     .form-message.error {
-      display: block;
+
+      display:
+        block;
+
+      color:
+        var(--danger);
 
       background:
         rgba(255,116,116,.08);
 
       border:
-        1px solid rgba(255,116,116,.25);
+        1px solid
+        rgba(255,116,116,.25);
 
-      color:
-        var(--danger);
     }
 
 
-    /* =========================================
-       FINAL CTA
-    ========================================= */
+    .form-note {
+
+      margin-top:
+        12px;
+
+      color:
+        #696969;
+
+      font-size:
+        10px;
+
+      line-height:
+        1.5;
+
+      text-align:
+        center;
+
+    }
+
+
+    /* =====================================================
+       CTA FINAL
+    ===================================================== */
 
     .final-cta {
-      padding:
-        95px 0;
 
-      text-align: center;
+      padding:
+        100px 0;
+
+      text-align:
+        center;
 
       border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
       background:
         radial-gradient(
           circle at center,
-          rgba(214,181,106,.10),
-          transparent 50%
+          rgba(214,181,106,.11),
+          transparent 52%
         );
+
     }
 
 
     .final-cta h2 {
-      max-width: 800px;
+
+      max-width:
+        850px;
 
       margin:
         0 auto 17px;
+
+      font-size:
+        clamp(
+          35px,
+          5vw,
+          58px
+        );
+
+      line-height:
+        1;
+
+      letter-spacing:
+        -2px;
+
     }
 
 
     .final-cta p {
-      max-width: 600px;
+
+      max-width:
+        650px;
 
       margin:
         0 auto 28px;
 
       color:
         var(--muted);
+
     }
 
 
-    /* =========================================
+    /* =====================================================
        FOOTER
-    ========================================= */
+    ===================================================== */
 
     footer {
-      border-top:
-        1px solid var(--line);
 
       padding:
         30px 0;
 
-      color: #666;
+      border-top:
+        1px solid
+        var(--line);
 
-      font-size: 12px;
+      color:
+        #666;
 
-      text-align: center;
+      font-size:
+        11px;
+
+      text-align:
+        center;
+
     }
 
 
-    /* =========================================
-       FLOATING CTA
-    ========================================= */
+    /* =====================================================
+       CTA FLUTUANTE
+    ===================================================== */
 
     .floating-cta {
-      position: fixed;
 
-      right: 22px;
+      position:
+        fixed;
 
-      bottom: 22px;
+      right:
+        22px;
 
-      z-index: 900;
+      bottom:
+        22px;
+
+      z-index:
+        900;
+
+      padding:
+        14px 19px;
+
+      border-radius:
+        999px;
 
       background:
         linear-gradient(
@@ -1585,307 +2342,451 @@
           var(--gold)
         );
 
-      color: #111;
+      color:
+        #111;
 
-      padding:
-        14px 19px;
+      font-size:
+        12px;
 
-      border-radius: 999px;
-
-      font-size: 13px;
-
-      font-weight: 950;
+      font-weight:
+        950;
 
       box-shadow:
-        0 12px 35px
+        0 13px 38px
         rgba(0,0,0,.4);
 
       transition:
         .25s;
+
     }
 
 
     .floating-cta:hover {
+
       transform:
         translateY(-3px);
+
     }
 
 
-    /* =========================================
+    /* =====================================================
        REVEAL
-    ========================================= */
+    ===================================================== */
 
     .reveal {
-      opacity: 0;
+
+      opacity:
+        0;
 
       transform:
-        translateY(18px);
+        translateY(20px);
 
       transition:
         opacity .7s ease,
         transform .7s ease;
+
     }
 
 
     .reveal.visible {
-      opacity: 1;
+
+      opacity:
+        1;
 
       transform:
         translateY(0);
+
     }
 
 
-    /* =========================================
-       RESPONSIVE
-    ========================================= */
+    /* =====================================================
+       RESPONSIVO
+    ===================================================== */
 
-    @media (max-width: 900px) {
+    @media (max-width: 950px) {
+
+      .hero,
+      .role-grid,
+      .form-wrapper {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .hero {
+
+        padding-top:
+          65px;
+
+      }
+
 
       .nav-links {
-        position: absolute;
 
-        top: 78px;
+        position:
+          absolute;
 
-        left: 20px;
+        top:
+          76px;
 
-        right: 20px;
+        left:
+          15px;
 
-        display: none;
+        right:
+          15px;
 
-        flex-direction: column;
+        display:
+          none;
 
-        align-items: stretch;
+        flex-direction:
+          column;
 
-        padding: 18px;
+        align-items:
+          stretch;
+
+        padding:
+          16px;
 
         background:
           #111;
 
         border:
-          1px solid var(--line);
+          1px solid
+          var(--line);
 
-        border-radius: 17px;
+        border-radius:
+          17px;
+
+        box-shadow:
+          0 25px 60px
+          rgba(0,0,0,.5);
+
       }
 
 
       .nav-links.open {
-        display: flex;
+
+        display:
+          flex;
+
       }
 
 
       .nav-links a {
-        padding: 11px;
+
+        padding:
+          10px;
+
       }
 
 
       .menu-button {
-        display: block;
-      }
 
+        display:
+          block;
 
-      .hero,
-      .role-grid,
-      .form-wrapper {
-        grid-template-columns: 1fr;
-      }
-
-
-      .hero {
-        padding-top: 65px;
       }
 
 
       .cards,
       .process,
       .flow {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .videos-grid {
+
+        grid-template-columns:
+          1fr;
+
       }
 
 
       .stats-grid {
+
         grid-template-columns:
           repeat(3,1fr);
+
       }
 
 
-      .stat {
-        border-bottom: 0;
-      }
-
-
-      .videos-grid,
       .earnings-grid,
       .fit-grid {
-        grid-template-columns: 1fr;
+
+        grid-template-columns:
+          1fr;
+
       }
 
 
       .video-card video {
-        min-height: 0;
 
-        aspect-ratio:
-          16 / 10;
+        max-height:
+          none;
+
       }
 
-
-      .form-wrapper {
-        gap: 15px;
-      }
     }
 
 
-    @media (max-width: 600px) {
+    @media (max-width: 620px) {
 
       .container {
+
         width:
-          min(
-            100% - 26px,
-            1180px
-          );
+          calc(100% - 26px);
+
+      }
+
+
+      header .nav {
+
+        min-height:
+          68px;
+
       }
 
 
       .logo {
-        width: 125px;
+
+        width:
+          123px;
+
+      }
+
+
+      .nav-links {
+
+        top:
+          68px;
+
       }
 
 
       .hero {
-        min-height: auto;
+
+        min-height:
+          auto;
 
         padding:
           55px 0 65px;
 
-        gap: 35px;
+        gap:
+          35px;
+
       }
 
 
-      h1 {
-        font-size: 46px;
+      .hero h1 {
+
+        font-size:
+          45px;
 
         letter-spacing:
           -2.5px;
+
       }
 
 
       .hero-text {
-        font-size: 15px;
-      }
 
+        font-size:
+          15px;
 
-      section {
-        padding:
-          75px 0;
-      }
-
-
-      .stats-grid {
-        grid-template-columns:
-          1fr 1fr;
-      }
-
-
-      .stat {
-        padding:
-          23px 10px;
-
-        border-right:
-          1px solid var(--line);
-      }
-
-
-      .stat:nth-child(2) {
-        border-right: 0;
-      }
-
-
-      .stat:last-child {
-        grid-column:
-          1 / -1;
-
-        border-top:
-          1px solid var(--line);
-
-        border-right: 0;
-      }
-
-
-      .hero-card,
-      .form-side,
-      .form-box {
-        padding: 25px;
-      }
-
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-
-      .field.full {
-        grid-column: auto;
-      }
-
-
-      .floating-cta {
-        right: 13px;
-
-        bottom: 13px;
-
-        left: 13px;
-
-        text-align: center;
       }
 
 
       .hero-buttons {
-        flex-direction: column;
+
+        flex-direction:
+          column;
+
       }
 
 
       .hero-buttons .btn {
-        width: 100%;
+
+        width:
+          100%;
+
+      }
+
+
+      .hero-card {
+
+        padding:
+          26px;
+
+      }
+
+
+      .money {
+
+        font-size:
+          54px;
+
+      }
+
+
+      section {
+
+        padding:
+          75px 0;
+
+      }
+
+
+      .stats-grid {
+
+        grid-template-columns:
+          1fr 1fr;
+
+      }
+
+
+      .stat {
+
+        padding:
+          22px 9px;
+
+        border-right:
+          1px solid
+          var(--line);
+
+      }
+
+
+      .stat strong {
+
+        font-size:
+          21px;
+
+      }
+
+
+      .stat:nth-child(2) {
+
+        border-right:
+          0;
+
+      }
+
+
+      .stat:last-child {
+
+        grid-column:
+          1 / -1;
+
+        border-top:
+          1px solid
+          var(--line);
+
+        border-right:
+          0;
+
+      }
+
+
+      .role-panel,
+      .form-side,
+      .form-box {
+
+        padding:
+          25px;
+
+      }
+
+
+      .form-grid {
+
+        grid-template-columns:
+          1fr;
+
+      }
+
+
+      .field.full {
+
+        grid-column:
+          auto;
+
       }
 
 
       .video-card {
-        padding: 12px;
 
-        border-radius: 20px;
+        padding:
+          12px;
+
+        border-radius:
+          20px;
+
+      }
+
+
+      .video-frame {
+
+        padding:
+          7px;
+
+        border-radius:
+          15px;
+
       }
 
 
       .video-card video {
-        min-height: 0;
 
-        aspect-ratio:
-          16 / 10;
+        width:
+          100%;
 
-        border-radius: 14px;
+        height:
+          auto;
+
+        max-height:
+          none;
+
+        border-radius:
+          10px;
+
       }
 
 
-      .video-info {
-        padding:
-          18px 7px 7px;
+      .floating-cta {
+
+        left:
+          13px;
+
+        right:
+          13px;
+
+        bottom:
+          13px;
+
+        text-align:
+          center;
+
       }
 
-
-      .video-info h3 {
-        font-size: 20px;
-      }
     }
 
   </style>
+
 </head>
 
 
 <body>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        HEADER
-  ========================================= -->
+  ===================================================== -->
 
   <header>
 
@@ -1903,9 +2804,9 @@
 
 
       <button
+        type="button"
         class="menu-button"
         id="menuButton"
-        type="button"
         aria-label="Abrir menu"
       >
         ☰
@@ -1925,8 +2826,12 @@
           Oportunidade
         </a>
 
+        <a href="#funcao">
+          A função
+        </a>
+
         <a href="#afinco">
-          Por que Afinco
+          Afinco
         </a>
 
         <a href="#videos">
@@ -1954,16 +2859,18 @@
   <main>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          HERO
-    ========================================= -->
+    ===================================================== -->
 
     <section
       class="container hero"
       id="inicio"
     >
 
+
       <div class="reveal">
+
 
         <div class="eyebrow">
 
@@ -1992,13 +2899,14 @@
           profissional.
 
           Se você quer entrar em um ambiente de performance,
-          desenvolvimento e oportunidade real de ganhos,
-          conheça a oportunidade da Afinco.
+          desenvolvimento e oportunidade, conheça a
+          oportunidade da Afinco.
 
         </p>
 
 
         <div class="hero-buttons">
+
 
           <a
             href="#cadastro"
@@ -2015,12 +2923,15 @@
             Conhecer a oportunidade
           </a>
 
+
         </div>
+
 
       </div>
 
 
       <div class="hero-card reveal">
+
 
         <div class="money">
           +R$4 MIL
@@ -2081,17 +2992,21 @@
 
 
         <div class="no-limit">
+
           SEM TETO DE GANHOS
+
         </div>
 
+
       </div>
+
 
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          STATS
-    ========================================= -->
+    ===================================================== -->
 
     <div class="stats">
 
@@ -2142,11 +3057,13 @@
     </div>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          OPORTUNIDADE
-    ========================================= -->
+    ===================================================== -->
 
-    <section id="oportunidade">
+    <section
+      id="oportunidade"
+    >
 
       <div class="container">
 
@@ -2263,9 +3180,9 @@
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          FUNÇÃO
-    ========================================= -->
+    ===================================================== -->
 
     <section id="funcao">
 
@@ -2280,8 +3197,10 @@
 
 
           <h2>
+
             Atendimento com foco
             em oportunidade.
+
           </h2>
 
 
@@ -2392,16 +3311,18 @@
 
           </div>
 
+
         </div>
+
 
       </div>
 
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          GANHOS
-    ========================================= -->
+    ===================================================== -->
 
     <section class="earnings">
 
@@ -2473,6 +3394,7 @@
 
             </div>
 
+
           </div>
 
 
@@ -2500,19 +3422,21 @@
               PERFORMANCE → RESULTADO
             </div>
 
+
           </div>
 
 
         </div>
+
 
       </div>
 
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          FLUXO
-    ========================================= -->
+    ===================================================== -->
 
     <section>
 
@@ -2606,9 +3530,9 @@
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          AFINCO
-    ========================================= -->
+    ===================================================== -->
 
     <section id="afinco">
 
@@ -2623,8 +3547,10 @@
 
 
           <h2>
+
             Ambiente para quem
             quer jogar sério.
+
           </h2>
 
 
@@ -2718,9 +3644,9 @@
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          PERFIL
-    ========================================= -->
+    ===================================================== -->
 
     <section>
 
@@ -2753,6 +3679,7 @@
               🔥 Gosta de desafios
             </h3>
 
+
             <p>
 
               Você não se acomoda facilmente
@@ -2768,6 +3695,7 @@
             <h3>
               🗣️ Sabe se comunicar
             </h3>
+
 
             <p>
 
@@ -2785,6 +3713,7 @@
               📈 Quer crescer
             </h3>
 
+
             <p>
 
               Tem vontade de aprender e construir
@@ -2800,6 +3729,7 @@
             <h3>
               🎯 Tem atitude
             </h3>
+
 
             <p>
 
@@ -2818,13 +3748,13 @@
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          VÍDEOS
-    ========================================= -->
+    ===================================================== -->
 
     <section
-      id="videos"
       class="videos-section"
+      id="videos"
     >
 
       <div class="container">
@@ -2861,26 +3791,37 @@
         <div class="videos-grid">
 
 
+          <!-- VÍDEO 01 -->
+
           <article class="video-card reveal">
 
 
-            <video
-              controls
-              preload="metadata"
-              playsinline
-            >
+            <div class="video-frame">
 
-              <source
-                src="video-plano-crescimento.mp4"
-                type="video/mp4"
+              <video
+                controls
+                preload="metadata"
+                playsinline
               >
 
-              Seu navegador não suporta vídeo.
+                <source
+                  src="video-plano-crescimento.mp4"
+                  type="video/mp4"
+                >
 
-            </video>
+                Seu navegador não suporta vídeo.
+
+              </video>
+
+            </div>
 
 
             <div class="video-info">
+
+              <div class="video-tag">
+                Vídeo 01
+              </div>
+
 
               <h3>
                 Plano de crescimento
@@ -2890,35 +3831,47 @@
               <p>
 
                 Entenda a visão de crescimento
-                e desenvolvimento.
+                e desenvolvimento da Afinco.
 
               </p>
 
             </div>
 
+
           </article>
 
+
+          <!-- VÍDEO 02 -->
 
           <article class="video-card reveal">
 
 
-            <video
-              controls
-              preload="metadata"
-              playsinline
-            >
+            <div class="video-frame">
 
-              <source
-                src="video-referencia-nacional.mp4"
-                type="video/mp4"
+              <video
+                controls
+                preload="metadata"
+                playsinline
               >
 
-              Seu navegador não suporta vídeo.
+                <source
+                  src="video-referencia-nacional.mp4"
+                  type="video/mp4"
+                >
 
-            </video>
+                Seu navegador não suporta vídeo.
+
+              </video>
+
+            </div>
 
 
             <div class="video-info">
+
+              <div class="video-tag">
+                Vídeo 02
+              </div>
+
 
               <h3>
                 Referência nacional
@@ -2928,25 +3881,27 @@
               <p>
 
                 Conheça um pouco mais sobre
-                a estrutura e o contexto.
+                nossa estrutura e contexto.
 
               </p>
 
             </div>
+
 
           </article>
 
 
         </div>
 
+
       </div>
 
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          PROCESSO
-    ========================================= -->
+    ===================================================== -->
 
     <section id="processo">
 
@@ -2993,8 +3948,10 @@
 
 
             <p>
+
               Preencha suas informações
               no formulário.
+
             </p>
 
           </div>
@@ -3013,8 +3970,10 @@
 
 
             <p>
+
               Nossa equipe avalia
               seu cadastro.
+
             </p>
 
           </div>
@@ -3050,9 +4009,9 @@
     </section>
 
 
-    <!-- =========================================
+    <!-- =====================================================
          FORMULÁRIO
-    ========================================= -->
+    ===================================================== -->
 
     <section
       class="form-section"
@@ -3071,7 +4030,9 @@
 
 
           <h2>
+
             Agora é com você.
+
           </h2>
 
 
@@ -3143,6 +4104,7 @@
 
           </ul>
 
+
         </div>
 
 
@@ -3191,9 +4153,9 @@
 
 
                 <input
-                  type="text"
                   id="nome"
                   name="nome_completo"
+                  type="text"
                   placeholder="Digite seu nome completo"
                   autocomplete="name"
                   required
@@ -3218,12 +4180,12 @@
 
 
                 <input
-                  type="number"
                   id="idade"
                   name="idade"
-                  placeholder="Ex.: 25"
-                  min="18"
+                  type="number"
+                  min="16"
                   max="100"
+                  placeholder="Ex.: 25"
                   required
                 >
 
@@ -3559,22 +4521,25 @@
 
             </div>
 
+
           </form>
 
+
         </div>
+
 
       </div>
 
     </section>
 
 
-    <!-- =========================================
-         FINAL CTA
-    ========================================= -->
+    <!-- =====================================================
+         CTA FINAL
+    ===================================================== -->
 
     <section class="final-cta">
 
-      <div class="container reveal">
+      <div class="container">
 
 
         <div class="section-kicker">
@@ -3608,6 +4573,7 @@
 
         </a>
 
+
       </div>
 
     </section>
@@ -3616,9 +4582,9 @@
   </main>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        FOOTER
-  ========================================= -->
+  ===================================================== -->
 
   <footer>
 
@@ -3632,9 +4598,9 @@
   </footer>
 
 
-  <!-- =========================================
+  <!-- =====================================================
        CTA FLUTUANTE
-  ========================================= -->
+  ===================================================== -->
 
   <a
     href="#cadastro"
@@ -3644,12 +4610,15 @@
   </a>
 
 
+  <!-- =====================================================
+       JAVASCRIPT
+  ===================================================== -->
+
   <script>
 
-
-    /* =========================================
+    /* =====================================================
        MENU MOBILE
-    ========================================= */
+    ===================================================== */
 
     const menuButton =
       document.getElementById(
@@ -3671,6 +4640,11 @@
           "open"
         );
 
+
+        document.body.classList.toggle(
+          "menu-open"
+        );
+
       }
     );
 
@@ -3688,6 +4662,11 @@
                 "open"
               );
 
+
+              document.body.classList.remove(
+                "menu-open"
+              );
+
             }
           );
 
@@ -3695,9 +4674,9 @@
       );
 
 
-    /* =========================================
+    /* =====================================================
        ANIMAÇÕES
-    ========================================= */
+    ===================================================== */
 
     const revealElements =
       document.querySelectorAll(
@@ -3705,60 +4684,83 @@
       );
 
 
-    const observer =
-      new IntersectionObserver(
-        function (entries) {
+    if (
+      "IntersectionObserver" in window
+    ) {
 
-          entries.forEach(
-            function (entry) {
+      const observer =
+        new IntersectionObserver(
+          function (entries) {
 
-              if (
-                entry.isIntersecting
-              ) {
+            entries.forEach(
+              function (entry) {
 
-                entry.target.classList.add(
-                  "visible"
-                );
+                if (
+                  entry.isIntersecting
+                ) {
+
+                  entry.target.classList.add(
+                    "visible"
+                  );
 
 
-                observer.unobserve(
-                  entry.target
-                );
+                  observer.unobserve(
+                    entry.target
+                  );
+
+                }
 
               }
+            );
 
-            }
+          },
+          {
+            threshold: 0.08
+          }
+        );
+
+
+      revealElements.forEach(
+        function (element) {
+
+          observer.observe(
+            element
           );
 
-        },
-        {
-          threshold: 0.10
         }
       );
 
+    } else {
 
-    revealElements.forEach(
-      function (element) {
+      revealElements.forEach(
+        function (element) {
 
-        observer.observe(
-          element
-        );
+          element.classList.add(
+            "visible"
+          );
 
-      }
-    );
+        }
+      );
+
+    }
 
 
-    /* =========================================
+    /* =====================================================
        SUPABASE
-    ========================================= */
+       CHAVE CORRETA
+    ===================================================== */
 
     const SUPABASE_URL =
       "https://suxumbvzokoezwxouyeg.supabase.co";
 
 
     const SUPABASE_KEY =
-      "sb_publishable_1N3VgWZFmYC6UKTYdW_xYwsa91AZ";
+      "sb_publishable_1N3VgWZFmYC6UKTYdW_xYw_dwsa91AZ";
 
+
+    /* =====================================================
+       FORMULÁRIO
+    ===================================================== */
 
     const form =
       document.getElementById(
@@ -3772,21 +4774,15 @@
       );
 
 
-    /* =========================================
-       ENVIO DA CANDIDATURA
-    ========================================= */
+    /* =====================================================
+       ENVIO
+    ===================================================== */
 
     form.addEventListener(
       "submit",
       async function (event) {
 
         event.preventDefault();
-
-
-        const botao =
-          form.querySelector(
-            'button[type="submit"]'
-          );
 
 
         /* VALIDAÇÃO */
@@ -3802,7 +4798,14 @@
         }
 
 
-        botao.disabled = true;
+        const botao =
+          form.querySelector(
+            'button[type="submit"]'
+          );
+
+
+        botao.disabled =
+          true;
 
 
         botao.textContent =
@@ -3821,9 +4824,12 @@
 
         const dados = {
 
+
           nome_completo:
             document
-              .getElementById("nome")
+              .getElementById(
+                "nome"
+              )
               .value
               .trim(),
 
@@ -3831,52 +4837,69 @@
           idade:
             parseInt(
               document
-                .getElementById("idade")
+                .getElementById(
+                  "idade"
+                )
                 .value,
+
               10
             ),
 
 
           sexo:
             document
-              .getElementById("sexo")
+              .getElementById(
+                "sexo"
+              )
               .value,
 
 
           trabalhando_atualmente:
             document
-              .getElementById("trabalhando")
+              .getElementById(
+                "trabalhando"
+              )
               .value,
 
 
           como_soube:
             document
-              .getElementById("origem")
+              .getElementById(
+                "origem"
+              )
               .value,
 
 
           inicio:
-            form.elements[
-              "inicio"
-            ].value,
+            document
+              .getElementById(
+                "inicio"
+              )
+              .value,
 
 
           experiencia_vendas:
             document
-              .getElementById("vendas")
+              .getElementById(
+                "vendas"
+              )
               .value,
 
 
           experiencia:
             document
-              .getElementById("experiencia")
+              .getElementById(
+                "experiencia"
+              )
               .value
               .trim(),
 
 
           motivo:
             document
-              .getElementById("motivo")
+              .getElementById(
+                "motivo"
+              )
               .value
               .trim()
 
@@ -3888,11 +4911,14 @@
 
           const resposta =
             await fetch(
+
               SUPABASE_URL +
               "/rest/v1/candidaturas",
+
               {
 
-                method: "POST",
+                method:
+                  "POST",
 
 
                 headers: {
@@ -3915,12 +4941,14 @@
                   )
 
               }
+
             );
 
 
           if (
             !resposta.ok
           ) {
+
 
             const erro =
               await resposta.text();
@@ -3953,8 +4981,11 @@
 
 
           formMessage.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
+            behavior:
+              "smooth",
+
+            block:
+              "center"
           });
 
 
@@ -3983,7 +5014,8 @@
         finally {
 
 
-          botao.disabled = false;
+          botao.disabled =
+            false;
 
 
           botao.textContent =
@@ -3992,6 +5024,7 @@
         }
 
       }
+
     );
 
   </script>
