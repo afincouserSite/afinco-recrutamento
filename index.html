@@ -22,6 +22,8 @@
   <meta property="og:title" content="Afinco Imóveis | Faça Parte do Extraordinário">
   <meta property="og:description" content="Conheça a oportunidade e candidate-se para fazer parte da Afinco Imóveis.">
   <meta property="og:image" content="afinco-social-card.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Afinco Imóveis | Faça Parte do Extraordinário">
   <meta name="twitter:description" content="Conheça a oportunidade e candidate-se para fazer parte da Afinco Imóveis.">
@@ -354,8 +356,8 @@
 
     .videos {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
+      grid-template-columns: 1fr;
+      gap: 38px;
     }
 
     .video-card {
@@ -373,18 +375,181 @@
     }
 
     .video-box {
+      position: relative;
       background: #000;
-      aspect-ratio: 16 / 9;
+      min-height: clamp(520px, 58vw, 780px);
       display: flex;
       align-items: center;
       justify-content: center;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(245, 197, 66, 0.16);
+    }
+
+    .video-box::after {
+      content: "TELA CINEMA • VÍDEO COMPLETO";
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 2;
+      padding: 8px 12px;
+      border: 1px solid rgba(245, 197, 66, 0.45);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.68);
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      pointer-events: none;
+      backdrop-filter: blur(8px);
     }
 
     .video-box video {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      min-height: 520px;
+      object-fit: contain;
+      object-position: center;
       display: block;
+      background: #000;
+    }
+
+    .video-box:has(video:fullscreen)::after {
+      display: none;
+    }
+
+    /* =========================
+       UNIDADES
+    ========================= */
+
+    .locations {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .location-card {
+      background: #0d0d0d;
+      border: 1px solid rgba(245, 197, 66, 0.28);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.32);
+      transition: 0.35s;
+    }
+
+    .location-card:hover {
+      transform: translateY(-7px);
+      border-color: var(--gold);
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.48);
+    }
+
+    .location-image {
+      height: 300px;
+      background: #050505 center/cover no-repeat;
+      position: relative;
+    }
+
+    .location-image::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 35%, rgba(0, 0, 0, 0.78) 100%);
+    }
+
+    .location-badge {
+      position: absolute;
+      z-index: 2;
+      left: 18px;
+      bottom: 18px;
+      color: white;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      font-size: 12px;
+    }
+
+    .location-badge span {
+      display: block;
+      color: var(--gold);
+      font-size: 22px;
+      letter-spacing: 0;
+      margin-top: 3px;
+    }
+
+    .location-body {
+      padding: 25px;
+    }
+
+    .location-body h3 {
+      text-transform: uppercase;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .location-body p {
+      color: #bdbdbd;
+      font-size: 14px;
+      min-height: 68px;
+      margin-bottom: 18px;
+    }
+
+    .location-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .location-actions a {
+      flex: 1;
+      min-width: 140px;
+      text-align: center;
+      padding: 12px 14px;
+      border-radius: 8px;
+      border: 1px solid rgba(245, 197, 66, 0.45);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: 0.25s;
+    }
+
+    .location-actions a:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      background: rgba(245, 197, 66, 0.06);
+    }
+
+
+    .whatsapp-button {
+      background: #1fce65;
+      color: #07140b;
+      box-shadow: 0 0 35px rgba(31, 206, 101, 0.16);
+    }
+
+    .whatsapp-button:hover {
+      background: #2be976;
+      color: #07140b;
+      box-shadow: 0 0 45px rgba(31, 206, 101, 0.28);
+    }
+
+    .floating-whatsapp {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 998;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #1fce65;
+      color: #07140b;
+      font-size: 25px;
+      font-weight: 900;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(31, 206, 101, 0.2);
+      transition: 0.3s;
+    }
+
+    .floating-whatsapp:hover {
+      transform: translateY(-4px) scale(1.05);
     }
 
     .video-info {
@@ -624,9 +789,20 @@
 
       .cards,
       .process,
-      .videos {
+      .videos,
+      .locations {
         grid-template-columns: 1fr;
       }
+
+      .video-box {
+        min-height: 520px;
+      }
+
+      .video-box video {
+        min-height: 520px;
+      }
+
+
 
       section {
         padding: 75px 0;
@@ -682,11 +858,88 @@
         grid-column: auto;
       }
 
+      .video-box {
+        min-height: 430px;
+      }
+
+      .video-box video {
+        min-height: 430px;
+      }
+
+      .video-box::after {
+        top: 12px;
+        left: 12px;
+        font-size: 8px;
+      }
+
+      .location-image {
+        height: 250px;
+      }
+
+
+
+      .recruiter-actions a {
+        width: 100%;
+      }
+
+      .floating-whatsapp {
+        right: 15px;
+        bottom: 15px;
+        width: 54px;
+        height: 54px;
+      }
+
       .footer-content {
         flex-direction: column;
         text-align: center;
       }
     }
+    /* CTA CANDIDATURA — efeito 3D / destaque */
+    .primary-button, .top-button {
+      position: relative;
+      transform: translateZ(0);
+      border: 1px solid rgba(245,197,66,.7);
+      box-shadow: 0 10px 0 rgba(120,88,0,.65), 0 18px 35px rgba(0,0,0,.35), 0 0 24px rgba(245,197,66,.12);
+      transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    }
+    .primary-button:hover, .top-button:hover {
+      transform: translateY(-4px) scale(1.015);
+      box-shadow: 0 14px 0 rgba(120,88,0,.55), 0 25px 45px rgba(0,0,0,.42), 0 0 34px rgba(245,197,66,.2);
+      filter: brightness(1.08);
+    }
+    .primary-button:active, .top-button:active {
+      transform: translateY(5px);
+      box-shadow: 0 4px 0 rgba(120,88,0,.65), 0 10px 20px rgba(0,0,0,.3);
+    }
+    .floating-whatsapp {
+      width: auto; height: 54px; padding: 0 20px; border-radius: 999px;
+      font-size: 14px; letter-spacing: .5px; text-transform: uppercase;
+      text-decoration: none;
+    }
+    .afinco-mark {
+      width: 42px; height: 42px; object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(245,197,66,.18));
+    }
+    .location-badge { display:flex; align-items:center; gap:9px; }
+    .location-badge::before {
+      content:"A"; display:grid; place-items:center; width:26px; height:26px; border-radius:50%;
+      border:1px solid var(--gold); color:var(--gold); font-weight:900; font-size:14px;
+    }
+    .brand img { max-height: 58px; }
+    @media (max-width: 700px) {
+      .floating-whatsapp { right: 14px; bottom: 14px; height: 50px; padding: 0 16px; font-size: 12px; }
+    }
+
+    .hero-logo-mark { display:flex; align-items:center; gap:12px; margin-bottom:20px; color:#fff; font-weight:900; letter-spacing:2px; }
+    .hero-logo-mark .afinco-mark { width:52px; height:52px; }
+
+    .mega-candidate-cta { padding: 48px 0; background: radial-gradient(circle at 50% 0%, rgba(245,197,66,.10), transparent 55%); }
+    .mega-candidate-inner { display:flex; align-items:center; justify-content:space-between; gap:28px; padding:34px; border:1px solid rgba(245,197,66,.42); border-radius:24px; background:linear-gradient(135deg,#151515,#050505); box-shadow:0 30px 70px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.04); }
+    .mega-candidate-inner h2 { font-size:clamp(30px,5vw,62px); margin:5px 0 8px; line-height:.95; letter-spacing:-1px; }
+    .mega-candidate-inner p { color:#aaa; max-width:650px; }
+    .mega-button { font-size:15px; padding:18px 28px; white-space:nowrap; }
+    @media(max-width:760px){ .mega-candidate-inner{flex-direction:column;align-items:flex-start}.mega-button{width:100%;text-align:center} }
+
   </style>
 </head>
 
@@ -701,7 +954,7 @@
 
       <a href="#inicio" class="brand">
         <img
-          src="logo-afinco-imoveis.png"
+          src="logo-afinco-imoveis.svg"
           alt="Afinco imóveis"
         >
       </a>
@@ -733,7 +986,9 @@
 
       <div class="container">
 
-        <div class="hero-content reveal">
+        <div class="hero-logo-mark"><img class="afinco-mark" src="afinco-favicon.svg" alt="Afinco Imóveis"><span>AFINCO IMÓVEIS</span></div>
+
+          <div class="hero-content reveal">
 
           <div class="eyebrow">
             Oportunidade de independência
@@ -1034,6 +1289,103 @@
 
       </div>
 
+    </section>
+
+
+    <!-- =========================
+         UNIDADES
+    ========================= -->
+
+    <section class="section-dark" id="unidades">
+
+      <div class="container">
+
+        <div class="section-title">
+          <small>Onde estamos</small>
+
+          <h2>
+            Três endereços.
+            <span>Uma só Afinco.</span>
+          </h2>
+
+          <p>
+            Conheça nossas unidades em Curitiba e Londrina e encontre
+            o caminho mais rápido até a nossa equipe.
+          </p>
+
+        </div>
+
+        <div class="locations">
+
+          <article class="location-card">
+            <div
+              class="location-image"
+              style="background-image:url('https://afincoimoveis.com.br/__l5e/assets-v1/7b7234e3-1b42-416e-9e1d-2bb1b4a7a777/matriz-curitiba-v2.png');"
+            >
+              <div class="location-badge"><img class="afinco-mark" src="afinco-favicon.svg" alt="Afinco"> <span>Matriz Curitiba</span></div>
+            </div>
+            <div class="location-body">
+              <h3>Curitiba — Matriz</h3>
+              <p>R. Tapajós, 577 · São Francisco · Curitiba/PR · CEP 80510-330</p>
+              <div class="location-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Rua+Tapajos+577+Sao+Francisco+Curitiba+PR" target="_blank" rel="noopener">Ver no mapa ↗</a>
+                <a href="#cadastro" class="primary-button">Quero me candidatar →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="location-card">
+            <div
+              class="location-image"
+              style="background-image:url('https://afincoimoveis.com.br/__l5e/assets-v1/3181f405-d2f1-450a-84f4-69f9a389237e/filial-curitiba-v2.png');"
+            >
+              <div class="location-badge"><img class="afinco-mark" src="afinco-favicon.svg" alt="Afinco"> <span>Filial Curitiba</span></div>
+            </div>
+            <div class="location-body">
+              <h3>Curitiba — Filial</h3>
+              <p>R. Inácio Lustosa, 1240 · São Francisco · Curitiba/PR · CEP 80510-000</p>
+              <div class="location-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Rua+Inacio+Lustosa+1240+Sao+Francisco+Curitiba+PR" target="_blank" rel="noopener">Ver no mapa ↗</a>
+                <a href="#cadastro" class="primary-button">Quero me candidatar →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="location-card">
+            <div
+              class="location-image"
+              style="background-image:url('https://afincoimoveis.com.br/__l5e/assets-v1/0e26bad3-7765-4878-b167-ee271550b827/filial-londrina-v2.png');"
+            >
+              <div class="location-badge"><img class="afinco-mark" src="afinco-favicon.svg" alt="Afinco"> <span>Filial Londrina</span></div>
+            </div>
+            <div class="location-body">
+              <h3>Londrina</h3>
+              <p>R. Pernambuco, 390 · Centro · Londrina/PR · CEP 86020-320</p>
+              <div class="location-actions">
+                <a href="https://www.google.com/maps/search/?api=1&query=Rua+Pernambuco+390+Centro+Londrina+PR" target="_blank" rel="noopener">Ver no mapa ↗</a>
+                <a href="#cadastro" class="primary-button">Quero me candidatar →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="mega-candidate-cta">
+      <div class="container">
+        <div class="mega-candidate-inner">
+          <div>
+            <span class="eyebrow">Seu próximo passo</span>
+            <h2>QUERO ME CANDIDATAR</h2>
+            <p>Se você quer crescer, vender e construir algo grande, comece agora.</p>
+          </div>
+          <a href="#cadastro" class="primary-button mega-button">Quero me candidatar →</a>
+        </div>
+      </div>
     </section>
 
 
@@ -1498,6 +1850,18 @@
        FOOTER
   ========================= -->
 
+  <a
+    class="floating-whatsapp"
+    href="https://wa.me/5541998969919?text=Ol%C3%A1!%20Vim%20pelo%20processo%20seletivo%20da%20Afinco%20e%20gostaria%20de%20falar%20com%20o%20recrutador."
+    target="_blank"
+    rel="noopener"
+    aria-label="Falar com o recrutador pelo WhatsApp"
+    title="Falar com o recrutador"
+  >
+    <span>Falar com recrutador</span>
+  </a>
+
+
   <footer>
 
     <div class="container footer-content">
@@ -1505,7 +1869,7 @@
       <div class="footer-logo">
 
         <img
-          src="logo-afinco-imoveis.png"
+          src="logo-afinco-imoveis.svg"
           alt="Afinco imóveis"
         >
 
