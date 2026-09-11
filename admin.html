@@ -33,6 +33,7 @@
 
   --gold:#d7b56d;
   --gold2:#f0d99a;
+  --gold-dark:#a8873d;
 
   --green:#51c878;
   --red:#e26d76;
@@ -1670,6 +1671,26 @@ button:disabled{
 }
 
 
+/* =====================================================
+   PREMIUM POLISH
+===================================================== */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.012) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 78%);}
+header{background:rgba(7,9,13,.88)!important;box-shadow:0 12px 40px rgba(0,0,0,.22);}
+.brand{text-shadow:0 0 24px rgba(215,181,109,.10);}
+.page-head{position:relative;}
+.page-head h1{background:linear-gradient(90deg,#fff,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.live{padding:8px 11px;border:1px solid rgba(81,200,120,.16);border-radius:999px;background:rgba(81,200,120,.035);}
+.metric{box-shadow:0 14px 35px rgba(0,0,0,.16);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;}
+.metric:hover{transform:translateY(-2px);border-color:rgba(215,181,109,.28);box-shadow:0 20px 45px rgba(0,0,0,.24);}
+.toolbar{box-shadow:0 16px 45px rgba(0,0,0,.18);}
+.candidate{position:relative;box-shadow:0 14px 35px rgba(0,0,0,.16);transition:.2s;}
+.candidate::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);opacity:.55;}
+.candidate:hover{transform:translateY(-3px);border-color:rgba(215,181,109,.30);box-shadow:0 24px 55px rgba(0,0,0,.28);}
+.phone-info{border-color:rgba(81,200,120,.16);background:rgba(81,200,120,.035);}
+.phone-link{color:#9beab8;text-decoration:none;font-weight:900;}
+.phone-link:hover{color:#c4f6d3;text-decoration:underline;}
+.detail-box.phone-detail{border-color:rgba(81,200,120,.20);background:rgba(81,200,120,.035);}
+.detail-box.phone-detail .detail-value{color:#9beab8;}
 /* =====================================================
    EMPTY
 ===================================================== */
@@ -3646,6 +3667,19 @@ function renderCandidates(){
                 </div>
 
 
+                <div class="info phone-info">
+
+                  <div class="info-label">
+                    Telefone
+                  </div>
+
+                  <div class="info-value">
+                    ${renderPhone(candidate.telefone)}
+                  </div>
+
+                </div>
+
+
                 <div class="info">
 
                   <div class="info-label">
@@ -4047,6 +4081,9 @@ function openDetails(id){
         )}
 
 
+        ${renderPhoneDetail(candidate.telefone)}
+
+
         ${detailBox(
           "Idade",
           candidate.idade
@@ -4232,6 +4269,26 @@ function openDetails(id){
 
 }
 
+
+function cleanPhone(value){
+  return String(value || "").replace(/\D/g, "");
+}
+
+function renderPhone(value){
+  const phone = String(value || "").trim();
+  if(!phone) return "-";
+  const digits = cleanPhone(phone);
+  const href = digits.length >= 10 ? `tel:${digits}` : "#";
+  return `<a class="phone-link" href="${href}">📞 ${escapeHTML(phone)}</a>`;
+}
+
+function renderPhoneDetail(value){
+  const phone = String(value || "").trim();
+  if(!phone) return detailBox("Telefone", "Não informado");
+  const digits = cleanPhone(phone);
+  const href = digits.length >= 10 ? `tel:${digits}` : "#";
+  return `<div class="detail-box phone-detail"><div class="detail-label">Telefone</div><div class="detail-value"><a class="phone-link" href="${href}">📞 ${escapeHTML(phone)}</a></div></div>`;
+}
 
 /* =====================================================
    DETAIL BOX
