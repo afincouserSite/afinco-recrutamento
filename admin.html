@@ -472,6 +472,82 @@ button:disabled{
 
 
 /* =====================================================
+   ALPHA COMMAND CENTER
+===================================================== */
+function activeCandidates(){ return candidates.filter(c => !c.deleted_at); }
+function alphaAgeHours(c){
+  const d = new Date(c.created_at || 0).getTime();
+  if(!d) return 0;
+  return Math.max(0, (Date.now()-d)/3600000);
+}
+function alphaHotCandidates(){
+  return activeCandidates().filter(c => {
+    const st=c.status||"Novo";
+    const exp=String(c.experiencia_vendas||"").toLowerCase();
+    const ready=String(c.inicio||"").toLowerCase();
+    return st === "Entrevista" || st === "Em análise" || exp.includes("sim") || ready.includes("imedi") || ready.includes("agora");
+  }).sort((a,b)=>alphaAgeHours(b)-alphaAgeHours(a)).slice(0,4);
+}
+function alphaStaleCandidates(){
+  return activeCandidates().filter(c => (c.status||"Novo")==="Novo" && alphaAgeHours(c)>=24);
+}
+function alphaDailySeries(){
+  const days=[]; const now=new Date(); now.setHours(0,0,0,0);
+  for(let i=13;i>=0;i--){ const d=new Date(now); d.setDate(d.getDate()-i); days.push({d,count:0}); }
+  activeCandidates().forEach(c=>{const t=new Date(c.created_at||0); t.setHours(0,0,0,0); const hit=days.find(x=>x.d.getTime()===t.getTime()); if(hit) hit.count++;});
+  return days;
+}
+function renderAlphaTradeChart(){
+  const el=document.getElementById("alphaTradeChart"); if(!el) return;
+  const series=alphaDailySeries(), max=Math.max(1,...series.map(x=>x.count));
+  const w=900,h=220,p=18; const innerW=w-p*2, innerH=h-p*2;
+  const pts=series.map((x,i)=>({x:p+(i/(series.length-1))*innerW,y:p+innerH-(x.count/max)*innerH,c:x.count,d:x.d}));
+  const line=pts.map((p,i)=>(i?"L":"M")+p.x.toFixed(1)+" "+p.y.toFixed(1)).join(" ");
+  const area=line+` L ${pts[pts.length-1].x} ${h-p} L ${pts[0].x} ${h-p} Z`;
+  const grid=[.25,.5,.75].map(v=>`<line x1="${p}" x2="${w-p}" y1="${p+innerH*(1-v)}" y2="${p+innerH*(1-v)}"/>`).join("");
+  const labels=pts.filter((_,i)=>i%2===0).map(x=>`<text class="trade-label" x="${x.x}" y="${h-3}" text-anchor="middle">${x.d.getDate().toString().padStart(2,"0")}</text>`).join("");
+  const dots=pts.map(x=>`<circle class="trade-dot" cx="${x.x}" cy="${x.y}" r="3.5"><title>${x.d.toLocaleDateString("pt-BR")}: ${x.c} candidato(s)</title></circle>`).join("");
+  const last=pts[pts.length-1];
+  el.innerHTML=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><defs><linearGradient id="tradeGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-opacity="1"/><stop offset="100%" stop-opacity="0"/></linearGradient></defs><g class="trade-grid">${grid}</g><path class="trade-fill" d="${area}"/><path class="trade-line" d="${line}"/>${dots}<text class="trade-last" x="${Math.min(w-45,last.x+8)}" y="${Math.max(14,last.y-9)}">${last.c} hoje</text>${labels}</svg>`;
+}
+function renderAlphaPipeline(){
+  const el=document.getElementById("alphaPipeline"); if(!el) return;
+  const list=["Novo","Em análise","Entrevista","Aprovado","Reprovado"], active=activeCandidates();
+  el.innerHTML=list.map((st,i)=>{const n=active.filter(c=>(c.status||"Novo")===st).length; const pct=active.length?Math.min(100,(n/active.length)*100):0; return `<div class="pipe"><div class="pipe-label">${st.toUpperCase()}</div><div class="pipe-value">${n}</div><div class="pipe-bar"><i style="width:${pct}%"></i></div></div>`}).join("");
+}
+function renderAlphaInsights(){
+  const el=document.getElementById("alphaInsights"); if(!el) return;
+  const active=activeCandidates(), stale=alphaStaleCandidates(), hot=alphaHotCandidates();
+  const approved=active.filter(c=>(c.status||"")==="Aprovado").length;
+  const score=active.length?Math.round(Math.min(99,(approved/active.length)*100 + Math.min(25,(hot.length/Math.max(1,active.length))*100))):0;
+  el.innerHTML=`<div class="alpha-score"><div class="score-ring"><b>${score}</b></div><div class="score-copy"><strong>ALCATEIA MOMENTUM</strong><span>Índice operacional baseado no estado atual do funil.</span></div></div><div class="alpha-side-metric"><span>Sem primeiro contato &gt; 24h</span><b>${stale.length}</b></div><div class="alpha-side-metric"><span>Oportunidades quentes</span><b>${hot.length}</b></div><div class="alpha-side-metric"><span>Taxa de aprovação</span><b>${active.length?((approved/active.length)*100).toFixed(1):"0.0"}%</b></div>`;
+}
+function renderAlphaHot(){
+  const el=document.getElementById("alphaHot"); if(!el) return;
+  const hot=alphaHotCandidates();
+  if(!hot.length){el.innerHTML=`<div class="alpha-alert"><div class="alpha-alert-icon">✓</div><div><strong>Nenhuma oportunidade quente detectada</strong><span>O painel vai recalcular automaticamente quando novos dados entrarem.</span></div></div>`;return;}
+  el.innerHTML=hot.map(c=>`<div class="alpha-alert"><div class="alpha-alert-icon">🔥</div><div><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.status||"Novo")} · ${escapeHTML(c.experiencia_vendas||"sem informação de vendas")} · <b>${Math.round(alphaAgeHours(c))}h</b></span></div></div>`).join("");
+}
+function renderAlphaAlerts(){
+  const el=document.getElementById("alphaAlerts"); if(!el) return;
+  const active=activeCandidates(), stale=alphaStaleCandidates(), interviews=active.filter(c=>(c.status||"")==="Entrevista").length, newCount=active.filter(c=>(c.status||"Novo")==="Novo").length;
+  const alerts=[];
+  if(stale.length) alerts.push(`🔥 <strong>${stale.length} candidato(s) sem primeiro contato há mais de 24h.</strong><span>Prioridade recomendada: atacar essa fila antes de buscar novo volume.</span>`);
+  if(interviews) alerts.push(`🎯 <strong>${interviews} entrevista(s) em andamento.</strong><span>Revise essas fichas e registre o próximo passo para não perder timing.</span>`);
+  if(newCount>=5) alerts.push(`⚡ <strong>${newCount} novos candidatos aguardando triagem.</strong><span>Transforme volume parado em conversas reais.</span>`);
+  if(!alerts.length) alerts.push(`🧠 <strong>Operação estável.</strong><span>Continue monitorando entrada, contato e evolução do funil.</span>`);
+  el.innerHTML=alerts.map(x=>`<div class="alpha-alert"><div class="alpha-alert-icon">${x.slice(0,2)}</div><div>${x.slice(3)}</div></div>`).join("");
+}
+function renderAlphaCommand(){
+  const active=activeCandidates(), stale=alphaStaleCandidates(), hot=alphaHotCandidates();
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set("alphaTotal",active.length); set("alphaNew",active.filter(c=>(c.status||"Novo")==="Novo").length); set("alphaInterview",active.filter(c=>(c.status||"")==="Entrevista").length); set("alphaApproved",active.filter(c=>(c.status||"")==="Aprovado").length); set("alphaPriority",stale.length+hot.length); set("alphaStale",stale.length);
+  const e=document.getElementById("alphaLoggedEmail"); if(e)e.textContent=window.afincoAdminEmail||adminEmail.textContent||"ADMIN";
+  renderAlphaTradeChart(); renderAlphaPipeline(); renderAlphaInsights(); renderAlphaHot(); renderAlphaAlerts();
+}
+function focusAlphaPriority(){ searchInput.value=""; statusFilter.value="Novo"; originFilter.value="Todos"; viewMode="active"; refreshViewMode(); document.getElementById("candidatesList")?.scrollIntoView({behavior:"smooth",block:"start"}); }
+
+/* =====================================================
    DASHBOARD
 ===================================================== */
 
@@ -2006,6 +2082,36 @@ body:before{
 @media(max-width:1100px){.page-head:after{display:none}.page-head h1{font-size:26px}}
 @media(max-width:700px){.brand-division{display:none}.page-head{padding:18px}.hero-x{display:block;margin:7px 0 0}.live{margin-top:8px}.page-head{align-items:flex-start}.topbar-inner{min-height:68px}}
 
+
+/* =====================================================
+   ALPHA COMMAND CENTER 2.0
+===================================================== */
+.alpha-command{display:grid;gap:18px;margin-bottom:22px}
+.alpha-hero{position:relative;overflow:hidden;border:1px solid rgba(212,175,55,.28);border-radius:24px;padding:28px;background:radial-gradient(circle at 85% 10%,rgba(30,91,166,.22),transparent 28%),radial-gradient(circle at 15% 100%,rgba(212,175,55,.12),transparent 35%),linear-gradient(135deg,#08090b,#111318 55%,#090a0d);box-shadow:0 22px 70px rgba(0,0,0,.28)}
+.alpha-hero:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 48%,rgba(255,255,255,.035) 48.2%,transparent 49%);pointer-events:none}
+.alpha-kicker{font-size:10px;letter-spacing:.22em;font-weight:900;color:#d8b65b;text-transform:uppercase}
+.alpha-title{margin:8px 0 4px;font-size:clamp(28px,4vw,52px);line-height:.95;font-weight:1000;letter-spacing:-.04em;color:#fff}
+.alpha-title span{background:linear-gradient(90deg,#fff,#d8b65b 55%,#5da7ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.alpha-sub{max-width:720px;color:#9ea6b2;font-size:12px;line-height:1.7}
+.alpha-live{position:absolute;right:24px;top:24px;display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:999px;border:1px solid rgba(61,215,125,.28);background:rgba(61,215,125,.07);font-size:9px;font-weight:950;letter-spacing:.1em;color:#75e0a0}
+.alpha-live i{width:7px;height:7px;border-radius:50%;background:#4ee08b;box-shadow:0 0 14px rgba(78,224,139,.8)}
+.alpha-admin{display:inline-flex;align-items:center;gap:9px;margin-top:17px;padding:9px 12px;border-radius:12px;border:1px solid rgba(212,175,55,.24);background:rgba(212,175,55,.06);color:#fff;font-size:10px;font-weight:900}
+.alpha-admin b{color:#d8b65b}.alpha-admin small{color:#7f8793;font-weight:700}
+.alpha-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.alpha-stat{position:relative;min-height:112px;padding:18px;border-radius:18px;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));box-shadow:0 12px 30px rgba(0,0,0,.16);overflow:hidden;transition:.22s transform,.22s border-color}
+.alpha-stat:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.3)}
+.alpha-stat:after{content:"";position:absolute;right:-22px;bottom:-32px;width:100px;height:100px;border-radius:50%;background:rgba(212,175,55,.06)}
+.alpha-stat .label{font-size:9px;letter-spacing:.12em;color:#808894;font-weight:950;text-transform:uppercase}.alpha-stat .value{font-size:32px;line-height:1;margin-top:16px;color:#fff;font-weight:1000;letter-spacing:-.04em}.alpha-stat .micro{margin-top:9px;font-size:9px;color:#6f7782}.alpha-stat.gold .value{color:#e0bf68}.alpha-stat.blue .value{color:#70b5ff}.alpha-stat.green .value{color:#72e2a1}.alpha-stat.red .value{color:#ff7777}
+.alpha-row{display:grid;grid-template-columns:1.25fr .75fr;gap:18px}.alpha-panel{border:1px solid rgba(255,255,255,.08);border-radius:20px;background:rgba(12,14,18,.88);box-shadow:0 16px 45px rgba(0,0,0,.18);overflow:hidden}.alpha-panel-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.06)}.alpha-panel-title{font-size:12px;font-weight:1000;color:#fff;letter-spacing:.04em}.alpha-panel-sub{font-size:9px;color:#737b87;margin-top:5px}.alpha-panel-body{padding:18px 20px}
+.alpha-alert{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}.alpha-alert:last-child{border-bottom:0}.alpha-alert-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:11px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.15);font-size:15px;flex:none}.alpha-alert strong{display:block;color:#fff;font-size:10px}.alpha-alert span{display:block;color:#858d98;font-size:9px;line-height:1.55;margin-top:4px}.alpha-alert b{color:#d8b65b}
+.alpha-pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.pipe{padding:14px 10px;border-radius:14px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);position:relative}.pipe:after{content:"›";position:absolute;right:-8px;top:38%;color:#5d6672;font-size:18px}.pipe:last-child:after{display:none}.pipe-label{font-size:8px;color:#737b87;font-weight:900;letter-spacing:.08em}.pipe-value{font-size:25px;font-weight:1000;color:#fff;margin-top:8px}.pipe-bar{height:3px;margin-top:10px;border-radius:10px;background:#252932;overflow:hidden}.pipe-bar i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#d8b65b,#5da7ff)}
+.alpha-trade{height:220px;position:relative}.alpha-trade svg{width:100%;height:100%;display:block}.trade-grid line{stroke:rgba(255,255,255,.06);stroke-width:1}.trade-line{fill:none;stroke:#d8b65b;stroke-width:2.5;filter:drop-shadow(0 0 5px rgba(216,182,91,.35))}.trade-fill{fill:url(#tradeGrad);opacity:.16}.trade-dot{fill:#fff;stroke:#d8b65b;stroke-width:2}.trade-label{font-size:9px;fill:#727a86;font-weight:700}.trade-last{font-size:10px;fill:#d8b65b;font-weight:900}
+.alpha-side-metric{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06)}.alpha-side-metric:last-child{border-bottom:0}.alpha-side-metric span{font-size:9px;color:#858d98}.alpha-side-metric b{font-size:15px;color:#fff}.alpha-score{display:flex;align-items:center;gap:15px;margin-bottom:14px}.score-ring{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#d8b65b 0 82%,#292d35 82% 100%);position:relative}.score-ring:after{content:"";position:absolute;inset:6px;border-radius:50%;background:#101216}.score-ring b{position:relative;z-index:1;color:#fff;font-size:18px}.score-copy strong{display:block;color:#fff;font-size:11px}.score-copy span{display:block;color:#7d8590;font-size:9px;margin-top:5px;line-height:1.5}
+.alpha-command .toolbar-button{border-radius:12px}.alpha-command .command-link{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);color:#d8dde5;padding:8px 10px;border-radius:10px;font-size:9px;font-weight:900;cursor:pointer}.alpha-command .command-link:hover{border-color:rgba(212,175,55,.3);color:#fff}
+@media(max-width:1100px){.alpha-grid{grid-template-columns:repeat(3,1fr)}.alpha-row{grid-template-columns:1fr}.alpha-pipeline{grid-template-columns:repeat(5,minmax(100px,1fr));overflow-x:auto}.alpha-live{position:static;width:max-content;margin-top:15px}}
+@media(max-width:650px){.alpha-grid{grid-template-columns:repeat(2,1fr)}.alpha-hero{padding:22px}.alpha-title{font-size:34px}.alpha-pipeline{grid-template-columns:repeat(5,120px)}.alpha-panel-body{padding:14px}}
+/* Hide legacy overview blocks; the Alpha cockpit replaces them visually while preserving their IDs/functions. */
+main.container > section.dashboard, main.container > section.analytics{display:none!important}
 </style>
 
 </head>
@@ -2163,6 +2269,53 @@ body:before{
 
   </section>
 
+
+  <!-- ALPHA COMMAND CENTER -->
+  <section class="alpha-command" id="alphaCommandCenter">
+    <div class="alpha-hero">
+      <div class="alpha-live"><i></i> SISTEMA ONLINE · ALPHA MODE</div>
+      <div class="alpha-kicker">AFINCO // ALCATÉIA · EXECUTIVE CONTROL</div>
+      <h2 class="alpha-title">COMMAND <span>CENTER</span></h2>
+      <div class="alpha-sub">Seu centro de comando para recrutamento. Dados, prioridades, performance e inteligência operacional em uma única visão.</div>
+      <div class="alpha-admin">🐺 <b>ALPHA</b> <small>· ADMINISTRADOR AUTORIZADO ·</small> <span id="alphaLoggedEmail">carregando...</span></div>
+    </div>
+
+    <div class="alpha-grid">
+      <div class="alpha-stat gold"><div class="label">Candidatos ativos</div><div class="value" id="alphaTotal">0</div><div class="micro">fora da lixeira</div></div>
+      <div class="alpha-stat blue"><div class="label">Novos</div><div class="value" id="alphaNew">0</div><div class="micro">aguardando triagem</div></div>
+      <div class="alpha-stat"><div class="label">Entrevistas</div><div class="value" id="alphaInterview">0</div><div class="micro">estágio atual</div></div>
+      <div class="alpha-stat green"><div class="label">Aprovados</div><div class="value" id="alphaApproved">0</div><div class="micro">potencial convertido</div></div>
+      <div class="alpha-stat"><div class="label">Prioridades</div><div class="value" id="alphaPriority">0</div><div class="micro">ação recomendada</div></div>
+      <div class="alpha-stat red"><div class="label">Sem contato</div><div class="value" id="alphaStale">0</div><div class="micro">mais de 24h</div></div>
+    </div>
+
+    <div class="alpha-row">
+      <div class="alpha-panel">
+        <div class="alpha-panel-head"><div><div class="alpha-panel-title">📈 PERFORMANCE // TELEMETRIA</div><div class="alpha-panel-sub">Entradas de candidatos por dia · leitura visual estilo trading</div></div><div class="alpha-kicker" id="alphaChartRange">ÚLTIMOS 14 DIAS</div></div>
+        <div class="alpha-panel-body"><div class="alpha-trade" id="alphaTradeChart"></div></div>
+      </div>
+      <div class="alpha-panel">
+        <div class="alpha-panel-head"><div><div class="alpha-panel-title">🧠 TRILLION MIND</div><div class="alpha-panel-sub">O que merece sua atenção agora</div></div></div>
+        <div class="alpha-panel-body" id="alphaInsights"></div>
+      </div>
+    </div>
+
+    <div class="alpha-row">
+      <div class="alpha-panel">
+        <div class="alpha-panel-head"><div><div class="alpha-panel-title">🐺 PIPELINE // OPERAÇÃO ALCATÉIA</div><div class="alpha-panel-sub">Movimento atual do funil</div></div></div>
+        <div class="alpha-panel-body"><div class="alpha-pipeline" id="alphaPipeline"></div></div>
+      </div>
+      <div class="alpha-panel">
+        <div class="alpha-panel-head"><div><div class="alpha-panel-title">🔥 HOT OPPORTUNITIES</div><div class="alpha-panel-sub">Candidatos que pedem ação rápida</div></div></div>
+        <div class="alpha-panel-body" id="alphaHot"></div>
+      </div>
+    </div>
+
+    <div class="alpha-panel">
+      <div class="alpha-panel-head"><div><div class="alpha-panel-title">⚡ ALPHA ALERTS</div><div class="alpha-panel-sub">Alertas operacionais calculados a partir dos dados carregados</div></div><button class="command-link" onclick="focusAlphaPriority()">VER PRIORIDADES →</button></div>
+      <div class="alpha-panel-body" id="alphaAlerts"></div>
+    </div>
+  </section>
 
   <!-- DASHBOARD -->
 
@@ -2671,7 +2824,8 @@ const SUPABASE_KEY =
 
 function updateTrashCount(){
   const count = candidates.filter(c => !!c.deleted_at).length;
-  trashCount.textContent = count;
+  const el = document.getElementById("trashCount");
+  if(el) el.textContent = count;
 }
 
 function refreshViewMode(){
@@ -3396,6 +3550,8 @@ function updateDashboard(){
     </div>
 
   `;
+
+  renderAlphaCommand();
 
 }
 
