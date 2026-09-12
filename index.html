@@ -918,6 +918,130 @@
     .mega-button { font-size:15px; padding:18px 28px; white-space:nowrap; }
     @media(max-width:760px){ .mega-candidate-inner{flex-direction:column;align-items:flex-start}.mega-button{width:100%;text-align:center} }
 
+
+    /* =========================
+       AGENDA DE ENTREVISTAS
+    ========================= */
+
+    .interview-schedule {
+      margin: 0 0 30px;
+      padding: 22px;
+      border: 1px solid rgba(214, 175, 79, .28);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(214,175,79,.10), rgba(255,255,255,.035));
+      box-shadow: 0 16px 45px rgba(0,0,0,.16);
+    }
+
+    .interview-schedule-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .interview-schedule-kicker {
+      margin: 0 0 7px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: #d6af4f;
+    }
+
+    .interview-schedule h3 {
+      margin: 0;
+      font-size: clamp(20px, 3vw, 28px);
+      line-height: 1.05;
+    }
+
+    .interview-schedule-copy {
+      max-width: 680px;
+      margin: 7px 0 0;
+      color: rgba(255,255,255,.68);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .interview-schedule-badge {
+      flex: 0 0 auto;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(214,175,79,.32);
+      background: rgba(214,175,79,.08);
+      color: #f2d37b;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .interview-days {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .interview-day {
+      padding: 17px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px;
+      background: rgba(0,0,0,.20);
+    }
+
+    .interview-day strong {
+      display: block;
+      margin-bottom: 11px;
+      font-size: 16px;
+    }
+
+    .interview-times {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .interview-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .interview-time::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d6af4f;
+      box-shadow: 0 0 0 4px rgba(214,175,79,.08);
+    }
+
+    .interview-flex {
+      margin: 14px 0 0;
+      padding-top: 13px;
+      border-top: 1px solid rgba(255,255,255,.07);
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 700px) {
+      .interview-schedule-top {
+        flex-direction: column;
+      }
+
+      .interview-days {
+        grid-template-columns: 1fr;
+      }
+    }
+
   </style>
 </head>
 
@@ -1594,6 +1718,50 @@
 
 
         <div class="form-wrapper">
+
+
+
+            <div class="interview-schedule" aria-label="Agenda de entrevistas">
+
+              <div class="interview-schedule-top">
+                <div>
+                  <p class="interview-schedule-kicker">Etapa presencial</p>
+                  <h3>Entrevistas com agenda definida.</h3>
+                  <p class="interview-schedule-copy">
+                    Para manter nossa operação organizada e dar mais atenção a cada candidato,
+                    as entrevistas acontecem <strong>somente às terças e quintas-feiras</strong>,
+                    nos horários de <strong>11h</strong> ou <strong>15h30</strong>.
+                  </p>
+                </div>
+                <div class="interview-schedule-badge">2 dias · 2 horários</div>
+              </div>
+
+              <div class="interview-days">
+
+                <div class="interview-day">
+                  <strong>Terça-feira</strong>
+                  <div class="interview-times">
+                    <span class="interview-time">11h</span>
+                    <span class="interview-time">15h30</span>
+                  </div>
+                </div>
+
+                <div class="interview-day">
+                  <strong>Quinta-feira</strong>
+                  <div class="interview-times">
+                    <span class="interview-time">11h</span>
+                    <span class="interview-time">15h30</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <p class="interview-flex">
+                <strong>Horário flexível:</strong> escolha o melhor dos horários disponíveis.
+                Se houver necessidade de ajuste, nossa equipe poderá alinhar diretamente com você.
+              </p>
+
+            </div>
 
           <form id="candidaturaForm">
 
