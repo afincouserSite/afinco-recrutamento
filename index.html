@@ -69,6 +69,10 @@
       --card: #111111;
       --white: #ffffff;
       --muted: #b8b8b8;
+      --blue: #4da3ff;
+      --cyan: #58e6ff;
+      --violet: #8b7cff;
+      --green: #54e39a;
     }
 
     .container {
@@ -495,41 +499,6 @@
       background: rgba(245, 197, 66, 0.06);
     }
 
-
-    .whatsapp-button {
-      background: #1fce65;
-      color: #07140b;
-      box-shadow: 0 0 35px rgba(31, 206, 101, 0.16);
-    }
-
-    .whatsapp-button:hover {
-      background: #2be976;
-      color: #07140b;
-      box-shadow: 0 0 45px rgba(31, 206, 101, 0.28);
-    }
-
-    .floating-whatsapp {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 998;
-      width: 58px;
-      height: 58px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      background: #1fce65;
-      color: #07140b;
-      font-size: 25px;
-      font-weight: 900;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 30px rgba(31, 206, 101, 0.2);
-      transition: 0.3s;
-    }
-
-    .floating-whatsapp:hover {
-      transform: translateY(-4px) scale(1.05);
-    }
-
     .video-info {
       padding: 25px;
     }
@@ -860,13 +829,6 @@
         width: 100%;
       }
 
-      .floating-whatsapp {
-        right: 15px;
-        bottom: 15px;
-        width: 54px;
-        height: 54px;
-      }
-
       .footer-content {
         flex-direction: column;
         text-align: center;
@@ -889,11 +851,6 @@
       transform: translateY(5px);
       box-shadow: 0 4px 0 rgba(120,88,0,.65), 0 10px 20px rgba(0,0,0,.3);
     }
-    .floating-whatsapp {
-      width: auto; height: 54px; padding: 0 20px; border-radius: 999px;
-      font-size: 14px; letter-spacing: .5px; text-transform: uppercase;
-      text-decoration: none;
-    }
     .afinco-mark {
       width: 42px; height: 42px; object-fit: contain;
       filter: drop-shadow(0 0 10px rgba(245,197,66,.18));
@@ -904,9 +861,6 @@
       border:1px solid var(--gold); color:var(--gold); font-weight:900; font-size:14px;
     }
     .brand img { max-height: 58px; }
-    @media (max-width: 700px) {
-      .floating-whatsapp { right: 14px; bottom: 14px; height: 50px; padding: 0 16px; font-size: 12px; }
-    }
 
     .hero-logo-mark { display:flex; align-items:center; gap:12px; margin-bottom:20px; color:#fff; font-weight:900; letter-spacing:2px; }
     .hero-logo-mark .afinco-mark { width:52px; height:52px; }
@@ -918,6 +872,71 @@
     .mega-button { font-size:15px; padding:18px 28px; white-space:nowrap; }
     @media(max-width:760px){ .mega-candidate-inner{flex-direction:column;align-items:flex-start}.mega-button{width:100%;text-align:center} }
 
+
+
+    /* =========================
+       VISUAL SYSTEM 2.0 — PREMIUM
+    ========================= */
+    body::before {
+      content:""; position:fixed; inset:-20%; pointer-events:none; z-index:-1;
+      background:
+        radial-gradient(circle at 15% 12%, rgba(77,163,255,.08), transparent 28%),
+        radial-gradient(circle at 88% 24%, rgba(139,124,255,.07), transparent 26%),
+        radial-gradient(circle at 55% 88%, rgba(88,230,255,.05), transparent 24%);
+    }
+    .hero {
+      background:
+        radial-gradient(circle at 78% 24%, rgba(77,163,255,.16), transparent 28%),
+        radial-gradient(circle at 20% 76%, rgba(245,197,66,.10), transparent 30%),
+        linear-gradient(135deg, #070707 0%, #0b0d12 52%, #080808 100%);
+    }
+    .section-title small, .eyebrow { text-shadow: 0 0 18px rgba(245,197,66,.14); }
+    .form-wrapper {
+      position:relative; overflow:hidden;
+      border:1px solid rgba(245,197,66,.22);
+      box-shadow: 0 35px 90px rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.035);
+    }
+    .form-wrapper::before {
+      content:""; position:absolute; width:260px; height:260px; right:-110px; top:-110px; border-radius:50%;
+      background:rgba(77,163,255,.10); filter:blur(4px); pointer-events:none;
+    }
+    .interview-schedule {
+      position:relative; border-color:rgba(77,163,255,.30);
+      background:linear-gradient(135deg, rgba(245,197,66,.10), rgba(77,163,255,.07) 55%, rgba(139,124,255,.07));
+      box-shadow:0 20px 55px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+    .interview-schedule::after {
+      content:""; position:absolute; left:22px; right:22px; bottom:0; height:1px;
+      background:linear-gradient(90deg, transparent, rgba(88,230,255,.6), transparent);
+    }
+    .interview-day { transition:.25s ease; }
+    .interview-day:hover { transform:translateY(-2px); border-color:rgba(77,163,255,.35); background:rgba(77,163,255,.06); }
+    .interview-day strong { color:#fff; }
+    .interview-time { border-color:rgba(77,163,255,.20); }
+    .interview-time::before { background:var(--cyan); box-shadow:0 0 0 4px rgba(88,230,255,.08); }
+
+    .interview-choice { margin:0 0 30px; padding:22px; border:1px solid rgba(245,197,66,.24); border-radius:18px; background:linear-gradient(135deg,rgba(255,255,255,.035),rgba(77,163,255,.035)); }
+    .interview-choice-head { display:flex; justify-content:space-between; gap:16px; align-items:flex-start; margin-bottom:18px; }
+    .interview-choice-kicker { margin:0 0 6px; color:var(--gold); font-size:11px; font-weight:900; letter-spacing:.15em; text-transform:uppercase; }
+    .interview-choice h3 { margin:0; font-size:clamp(20px,3vw,28px); line-height:1.05; }
+    .interview-choice-copy { margin:7px 0 0; color:rgba(255,255,255,.62); font-size:13px; }
+    .choice-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+    .choice-grid input { position:absolute; opacity:0; pointer-events:none; }
+    .choice-card { display:flex; align-items:center; justify-content:space-between; gap:14px; min-height:76px; padding:16px 18px; border:1px solid rgba(255,255,255,.10); border-radius:15px; background:rgba(0,0,0,.20); cursor:pointer; transition:.25s ease; }
+    .choice-card:hover { border-color:rgba(77,163,255,.42); transform:translateY(-2px); }
+    .choice-card-main { display:flex; align-items:center; gap:13px; }
+    .choice-icon { width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:rgba(77,163,255,.10); border:1px solid rgba(77,163,255,.22); color:var(--cyan); font-size:17px; }
+    .choice-card strong { display:block; font-size:14px; }
+    .choice-card small { display:block; margin-top:2px; color:rgba(255,255,255,.48); font-size:11px; }
+    .choice-check { width:20px; height:20px; border-radius:50%; border:1px solid rgba(255,255,255,.20); position:relative; flex:0 0 auto; }
+    .choice-grid input:checked + .choice-card { border-color:var(--cyan); background:linear-gradient(135deg,rgba(88,230,255,.10),rgba(77,163,255,.06)); box-shadow:0 0 0 1px rgba(88,230,255,.12),0 12px 30px rgba(0,0,0,.18); }
+    .choice-grid input:checked + .choice-card .choice-check { border-color:var(--cyan); background:var(--cyan); box-shadow:0 0 18px rgba(88,230,255,.25); }
+    .choice-grid input:checked + .choice-card .choice-check::after { content:""; position:absolute; width:6px; height:6px; left:6px; top:6px; border-radius:50%; background:#071016; }
+    .schedule-summary { margin-top:13px; padding:12px 14px; border-radius:12px; border:1px dashed rgba(245,197,66,.24); color:rgba(255,255,255,.60); font-size:12px; }
+    .schedule-summary b { color:#fff; }
+    .form-submit { background:linear-gradient(135deg,var(--gold),#ffe58a); color:#080808; box-shadow:0 16px 40px rgba(245,197,66,.16); }
+    .form-submit:hover { box-shadow:0 20px 48px rgba(245,197,66,.24); transform:translateY(-2px); }
+    @media(max-width:700px){ .choice-grid{grid-template-columns:1fr;} .interview-choice-head{flex-direction:column;} }
 
     /* =========================
        AGENDA DE ENTREVISTAS
@@ -1722,45 +1741,71 @@
 
 
             <div class="interview-schedule" aria-label="Agenda de entrevistas">
-
               <div class="interview-schedule-top">
                 <div>
-                  <p class="interview-schedule-kicker">Etapa presencial</p>
-                  <h3>Entrevistas com agenda definida.</h3>
+                  <p class="interview-schedule-kicker">ETAPA PRESENCIAL · AGENDA OFICIAL</p>
+                  <h3>Escolha seu dia e horário.</h3>
                   <p class="interview-schedule-copy">
-                    Para manter nossa operação organizada e dar mais atenção a cada candidato,
-                    as entrevistas acontecem <strong>somente às terças e quintas-feiras</strong>,
-                    nos horários de <strong>11h</strong> ou <strong>15h30</strong>.
+                    As entrevistas acontecem <strong>somente às terças e quintas-feiras</strong>,
+                    com duas janelas de atendimento: <strong>11h</strong> e <strong>15h30</strong>.
+                    No cadastro, você poderá indicar a opção que funciona melhor para você.
                   </p>
                 </div>
                 <div class="interview-schedule-badge">2 dias · 2 horários</div>
               </div>
-
               <div class="interview-days">
+                <div class="interview-day"><strong>Terça-feira</strong><div class="interview-times"><span class="interview-time">11h</span><span class="interview-time">15h30</span></div></div>
+                <div class="interview-day"><strong>Quinta-feira</strong><div class="interview-times"><span class="interview-time">11h</span><span class="interview-time">15h30</span></div></div>
+              </div>
+              <p class="interview-flex"><strong>Horário flexível:</strong> escolha uma das quatro combinações disponíveis no cadastro.</p>
+            </div>
 
-                <div class="interview-day">
-                  <strong>Terça-feira</strong>
-                  <div class="interview-times">
-                    <span class="interview-time">11h</span>
-                    <span class="interview-time">15h30</span>
-                  </div>
+            <div class="interview-choice">
+              <div class="interview-choice-head">
+                <div>
+                  <p class="interview-choice-kicker">Sua preferência</p>
+                  <h3>Reserve sua janela de entrevista</h3>
+                  <p class="interview-choice-copy">Selecione <strong>um dia</strong> e <strong>um horário</strong> para nossa equipe organizar sua entrevista.</p>
                 </div>
-
-                <div class="interview-day">
-                  <strong>Quinta-feira</strong>
-                  <div class="interview-times">
-                    <span class="interview-time">11h</span>
-                    <span class="interview-time">15h30</span>
-                  </div>
-                </div>
-
               </div>
 
-              <p class="interview-flex">
-                <strong>Horário flexível:</strong> escolha o melhor dos horários disponíveis.
-                Se houver necessidade de ajuste, nossa equipe poderá alinhar diretamente com você.
-              </p>
+              <div class="field full" style="margin-bottom:18px;">
+                <label>1. Escolha o dia da entrevista</label>
+                <div class="choice-grid">
+                  <div>
+                    <input type="radio" id="entrevistaDiaTerca" name="entrevista_dia" value="Terça-feira" required>
+                    <label class="choice-card" for="entrevistaDiaTerca">
+                      <span class="choice-card-main"><span class="choice-icon">◷</span><span><strong>Terça-feira</strong><small>Uma das duas janelas disponíveis</small></span></span><span class="choice-check"></span>
+                    </label>
+                  </div>
+                  <div>
+                    <input type="radio" id="entrevistaDiaQuinta" name="entrevista_dia" value="Quinta-feira" required>
+                    <label class="choice-card" for="entrevistaDiaQuinta">
+                      <span class="choice-card-main"><span class="choice-icon">◷</span><span><strong>Quinta-feira</strong><small>Uma das duas janelas disponíveis</small></span></span><span class="choice-check"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
 
+              <div class="field full">
+                <label>2. Escolha o horário</label>
+                <div class="choice-grid">
+                  <div>
+                    <input type="radio" id="entrevistaHora11" name="entrevista_horario" value="11:00" required>
+                    <label class="choice-card" for="entrevistaHora11">
+                      <span class="choice-card-main"><span class="choice-icon">11</span><span><strong>11h00</strong><small>Janela da manhã</small></span></span><span class="choice-check"></span>
+                    </label>
+                  </div>
+                  <div>
+                    <input type="radio" id="entrevistaHora1530" name="entrevista_horario" value="15:30" required>
+                    <label class="choice-card" for="entrevistaHora1530">
+                      <span class="choice-card-main"><span class="choice-icon">15</span><span><strong>15h30</strong><small>Janela da tarde</small></span></span><span class="choice-check"></span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="schedule-summary">📅 Sua seleção: <b id="scheduleSelectionSummary">selecione o dia e o horário</b></div>
             </div>
 
           <form id="candidaturaForm">
@@ -2082,19 +2127,6 @@
   <!-- =========================
        FOOTER
   ========================= -->
-
-  <a
-    class="floating-whatsapp"
-    href="https://wa.me/5541998969919?text=Ol%C3%A1!%20Vim%20pelo%20processo%20seletivo%20da%20Afinco%20e%20gostaria%20de%20falar%20com%20o%20recrutador."
-    target="_blank"
-    rel="noopener"
-    aria-label="Falar com o recrutador pelo WhatsApp"
-    title="Falar com o recrutador"
-  >
-    <span>Falar com recrutador</span>
-  </a>
-
-
   <footer>
 
     <div class="container footer-content">
@@ -2141,6 +2173,18 @@
 
     const form = document.getElementById("candidaturaForm");
 
+    const scheduleSummary = document.getElementById("scheduleSelectionSummary");
+    const scheduleRadios = form.querySelectorAll('input[name="entrevista_dia"], input[name="entrevista_horario"]');
+
+    function updateScheduleSummary(){
+      const dia = form.querySelector('input[name="entrevista_dia"]:checked')?.value;
+      const hora = form.querySelector('input[name="entrevista_horario"]:checked')?.value;
+      if(scheduleSummary){
+        scheduleSummary.textContent = dia && hora ? `${dia} às ${hora}` : "selecione o dia e o horário";
+      }
+    }
+    scheduleRadios.forEach(radio => radio.addEventListener("change", updateScheduleSummary));
+
     form.addEventListener("submit", async function(event) {
 
       event.preventDefault();
@@ -2171,6 +2215,8 @@
         trabalhando_atualmente: document.getElementById("trabalhando").value,
         como_soube: document.getElementById("origem").value,
         inicio: form.elements["inicio"].value,
+        entrevista_dia: form.elements["entrevista_dia"].value,
+        entrevista_horario: form.elements["entrevista_horario"].value,
         experiencia_vendas: document.getElementById("vendas").value,
         experiencia: document.getElementById("experiencia").value.trim(),
         motivo: document.getElementById("motivo").value.trim()
@@ -2198,10 +2244,15 @@
         }
 
         alert(
-          "Candidatura enviada com sucesso! Em breve nossa equipe poderá entrar em contato."
+          `Candidatura enviada com sucesso!
+
+Sua preferência de entrevista: ${dados.entrevista_dia} às ${dados.entrevista_horario}.
+
+Nossa equipe fará a organização da próxima etapa.`
         );
 
         form.reset();
+        updateScheduleSummary();
 
       } catch (erro) {
 
