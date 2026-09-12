@@ -2021,6 +2021,25 @@ body:before{
 .alpha-command .toolbar-button{border-radius:12px}.alpha-command .command-link{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);color:#d8dde5;padding:8px 10px;border-radius:10px;font-size:9px;font-weight:900;cursor:pointer}.alpha-command .command-link:hover{border-color:rgba(212,175,55,.3);color:#fff}
 @media(max-width:1100px){.alpha-grid{grid-template-columns:repeat(3,1fr)}.alpha-row{grid-template-columns:1fr}.alpha-pipeline{grid-template-columns:repeat(5,minmax(100px,1fr));overflow-x:auto}.alpha-live{position:static;width:max-content;margin-top:15px}}
 @media(max-width:650px){.alpha-grid{grid-template-columns:repeat(2,1fr)}.alpha-hero{padding:22px}.alpha-title{font-size:34px}.alpha-pipeline{grid-template-columns:repeat(5,120px)}.alpha-panel-body{padding:14px}}
+
+/* =====================================================
+   ALPHA CRM — AGENDA DE ENTREVISTAS
+===================================================== */
+.alpha-agenda{margin:0 0 22px;border:1px solid rgba(93,167,255,.16);border-radius:22px;background:linear-gradient(135deg,rgba(10,13,18,.98),rgba(13,17,24,.96));box-shadow:0 18px 55px rgba(0,0,0,.2);overflow:hidden}
+.crm-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 20px;border-bottom:1px solid rgba(255,255,255,.06)}
+.crm-kicker{font-size:9px;letter-spacing:.18em;color:#70b5ff;font-weight:950;text-transform:uppercase}.crm-title{font-size:16px;font-weight:1000;color:#fff;margin-top:5px}.crm-sub{font-size:9px;color:#7f8895;margin-top:4px}
+.crm-live-count{padding:9px 12px;border-radius:12px;border:1px solid rgba(212,175,55,.22);background:rgba(212,175,55,.06);font-size:10px;font-weight:950;color:#e1c36e;white-space:nowrap}
+.crm-slots{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:14px 16px 18px}
+.crm-slot{min-height:145px;border:1px solid rgba(255,255,255,.07);border-radius:16px;background:rgba(255,255,255,.025);overflow:hidden}
+.crm-slot-head{display:flex;justify-content:space-between;align-items:center;padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.06);background:rgba(255,255,255,.018)}
+.crm-slot-day{font-size:9px;font-weight:1000;color:#dfe5ed;letter-spacing:.06em;text-transform:uppercase}.crm-slot-time{font-size:10px;font-weight:1000;color:#d8b65b}.crm-slot-count{font-size:8px;color:#7e8793;margin-top:3px}
+.crm-slot-body{padding:10px}.crm-person{display:flex;align-items:center;gap:9px;padding:8px 7px;margin-bottom:6px;border-radius:11px;border:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.16);cursor:pointer;transition:.18s}
+.crm-person:last-child{margin-bottom:0}.crm-person:hover{border-color:rgba(93,167,255,.35);transform:translateY(-1px)}.crm-avatar{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:linear-gradient(135deg,#1a3557,#10151d);border:1px solid rgba(93,167,255,.22);color:#fff;font-size:10px;font-weight:1000;flex:none}.crm-person strong{display:block;color:#fff;font-size:9px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.crm-person span{display:block;color:#737d8b;font-size:8px;margin-top:3px}.crm-empty{padding:22px 8px;text-align:center;color:#69727f;font-size:9px;line-height:1.5}.crm-empty b{display:block;color:#929ba8;margin-bottom:4px}
+.interview-chip{display:inline-flex;align-items:center;gap:6px;padding:7px 9px;border-radius:10px;background:linear-gradient(135deg,rgba(93,167,255,.10),rgba(212,175,55,.08));border:1px solid rgba(93,167,255,.20);color:#dce9f8;font-size:9px;font-weight:950}
+.interview-chip b{color:#e0bf68}.interview-chip small{color:#8290a0;font-size:8px;font-weight:800}
+@media(max-width:900px){.crm-slots{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.crm-head{align-items:flex-start;flex-direction:column}.crm-live-count{width:100%;text-align:center}.crm-slots{grid-template-columns:1fr;padding:10px}.crm-slot{min-height:auto}.crm-slot-body{max-height:230px;overflow:auto}}
+
 /* Hide legacy overview blocks; the Alpha cockpit replaces them visually while preserving their IDs/functions. */
 main.container > section.dashboard, main.container > section.analytics{display:none!important}
 
@@ -2229,6 +2248,20 @@ main.container > section.dashboard, main.container > section.analytics{display:n
       <div class="alpha-panel-head"><div><div class="alpha-panel-title">⚡ ALPHA ALERTS</div><div class="alpha-panel-sub">Alertas operacionais calculados a partir dos dados carregados</div></div><button class="command-link" onclick="focusAlphaPriority()">VER PRIORIDADES →</button></div>
       <div class="alpha-panel-body" id="alphaAlerts"></div>
     </div>
+  </section>
+
+
+  <!-- ALPHA CRM — AGENDA -->
+  <section class="alpha-agenda" id="alphaInterviewAgenda">
+    <div class="crm-head">
+      <div>
+        <div class="crm-kicker">CRM // AGENDA OPERACIONAL</div>
+        <div class="crm-title">🎯 Entrevistas selecionadas</div>
+        <div class="crm-sub">Todas as preferências registradas pelos candidatos, organizadas por dia e horário.</div>
+      </div>
+      <div class="crm-live-count" id="crmInterviewTotal">0 entrevistas registradas</div>
+    </div>
+    <div class="crm-slots" id="crmInterviewSlots"></div>
   </section>
 
   <!-- DASHBOARD -->
@@ -2787,6 +2820,33 @@ function focusAlphaPriority(){ searchInput.value=""; statusFilter.value="Novo"; 
 
 
 
+
+
+/* =====================================================
+   ALPHA CRM — AGENDA
+===================================================== */
+function crmInitials(name){
+  const parts=String(name||"Candidato").trim().split(/\s+/).filter(Boolean);
+  return ((parts[0]?.[0]||"")+(parts.length>1?parts[parts.length-1][0]:"" )).toUpperCase().slice(0,2)||"CA";
+}
+function renderInterviewAgenda(){
+  const slotsEl=document.getElementById("crmInterviewSlots");
+  const totalEl=document.getElementById("crmInterviewTotal");
+  if(!slotsEl) return;
+  const active=activeCandidates();
+  const slots=[
+    {day:"Terça-feira",time:"11:00",label:"TERÇA · 11H"},
+    {day:"Terça-feira",time:"15:30",label:"TERÇA · 15H30"},
+    {day:"Quinta-feira",time:"11:00",label:"QUINTA · 11H"},
+    {day:"Quinta-feira",time:"15:30",label:"QUINTA · 15H30"}
+  ];
+  const scheduled=active.filter(c=>c.entrevista_dia && c.entrevista_horario);
+  if(totalEl) totalEl.textContent=`${scheduled.length} entrevista${scheduled.length===1?"":"s"} registrada${scheduled.length===1?"":"s"}`;
+  slotsEl.innerHTML=slots.map(slot=>{
+    const people=active.filter(c=>String(c.entrevista_dia||"")===slot.day && String(c.entrevista_horario||"")===slot.time).sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
+    return `<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">${slot.day}</div><div class="crm-slot-count">${people.length} selecionado${people.length===1?"":"s"}</div></div><div class="crm-slot-time">${slot.time.replace(":","h")}</div></div><div class="crm-slot-body">${people.length?people.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.status||"Novo")} · ${escapeHTML(c.telefone||"sem telefone")}</span></div></div>`).join(""):`<div class="crm-empty"><b>${slot.label}</b>Nenhuma seleção registrada ainda.</div>`}</div></div>`;
+  }).join("");
+}
 
 /* =====================================================
    SUPABASE
@@ -3389,6 +3449,8 @@ function setConnectionState(online,message){
 ===================================================== */
 
 function updateDashboard(){
+
+  renderInterviewAgenda();
 
   document.getElementById(
     "totalCount"
@@ -4077,7 +4139,7 @@ ${viewMode === "trash" ? "" : `                  <select
                   </div>
 
                   <div class="info-value">
-                    ${escapeHTML(candidate.entrevista_dia || "Não selecionado")} · ${escapeHTML(candidate.entrevista_horario || "-")}
+                    <span class="interview-chip">🎯 <b>${escapeHTML(candidate.entrevista_dia || "Não selecionado")}</b> <small>às</small> <b>${escapeHTML(candidate.entrevista_horario || "-")}</b></span>
                   </div>
 
                 </div>
