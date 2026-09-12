@@ -2044,6 +2044,46 @@ body:before{
 main.container > section.dashboard, main.container > section.analytics{display:none!important}
 
 .connection-state{display:inline-flex;align-items:center;gap:6px;color:#7ff0b1;font-size:9px;font-weight:900;letter-spacing:.5px}.connection-state::before{content:"";width:7px;height:7px;border-radius:50%;background:#7ff0b1;box-shadow:0 0 12px rgba(127,240,177,.7)}.connection-state.offline{color:#ff7d7d}.connection-state.offline::before{background:#ff7d7d;box-shadow:0 0 12px rgba(255,125,125,.7)}
+
+/* =====================================================
+   ALPHA CRM — KANBAN PRO 036.1
+===================================================== */
+.kanban-section{margin-top:18px;border:1px solid rgba(255,255,255,.085);border-radius:22px;background:linear-gradient(145deg,rgba(13,17,24,.98),rgba(7,10,15,.98));box-shadow:0 24px 70px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035);overflow:hidden}
+.kanban-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding:20px 20px 15px;border-bottom:1px solid rgba(255,255,255,.065)}
+.kanban-kicker{font-size:9px;letter-spacing:.18em;color:#7faeff;font-weight:950;text-transform:uppercase}
+.kanban-title{font-size:19px;font-weight:950;color:#fff;margin-top:5px}
+.kanban-sub{font-size:10px;color:#7f8998;margin-top:5px;line-height:1.45}
+.kanban-live{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.06);font-size:9px;font-weight:950;color:#e8ca72;white-space:nowrap}
+.kanban-live i{width:6px;height:6px;border-radius:50%;background:#51d88a;box-shadow:0 0 14px #51d88a;display:block}
+.kanban-board{display:grid;grid-template-columns:repeat(5,minmax(220px,1fr));gap:10px;padding:15px;overflow-x:auto}
+.kanban-column{min-height:320px;border:1px solid rgba(255,255,255,.065);border-radius:16px;background:rgba(255,255,255,.018);display:flex;flex-direction:column;transition:.18s ease}
+.kanban-column.drag-over{border-color:rgba(212,175,55,.55);box-shadow:0 0 0 2px rgba(212,175,55,.08),0 18px 40px rgba(0,0,0,.2);transform:translateY(-2px)}
+.kanban-column-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:13px 13px 11px;border-bottom:1px solid rgba(255,255,255,.06)}
+.kanban-column-title{font-size:10px;font-weight:950;color:#e9edf3;letter-spacing:.08em;text-transform:uppercase}
+.kanban-count{min-width:23px;height:23px;padding:0 7px;border-radius:999px;display:grid;place-items:center;background:rgba(255,255,255,.055);color:#d9e0ea;font-size:9px;font-weight:950}
+.kanban-cards{display:flex;flex-direction:column;gap:8px;padding:10px;flex:1}
+.kanban-card{position:relative;border:1px solid rgba(255,255,255,.075);border-radius:13px;background:linear-gradient(145deg,rgba(20,25,34,.98),rgba(12,16,23,.98));padding:11px;cursor:grab;box-shadow:0 10px 24px rgba(0,0,0,.18);transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+.kanban-card:hover{transform:translateY(-2px);border-color:rgba(212,175,55,.28);box-shadow:0 16px 32px rgba(0,0,0,.28)}
+.kanban-card:active{cursor:grabbing}
+.kanban-card.dragging{opacity:.45;transform:rotate(1deg) scale(.985)}
+.kanban-avatar{width:31px;height:31px;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(212,175,55,.22),rgba(67,139,255,.18));border:1px solid rgba(212,175,55,.22);color:#f5e5ad;font-size:9px;font-weight:950;flex:0 0 auto}
+.kanban-card-top{display:flex;align-items:center;gap:8px;min-width:0}
+.kanban-card-name{font-size:11px;font-weight:950;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kanban-card-age{font-size:8px;color:#687485;margin-top:2px}
+.kanban-card-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.kanban-chip{padding:5px 7px;border-radius:7px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.055);color:#aeb8c7;font-size:8px;font-weight:800}
+.kanban-card-footer{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;padding-top:9px;border-top:1px solid rgba(255,255,255,.055)}
+.kanban-open{border:0;background:none;color:#7fb0ff;font-size:8px;font-weight:950;cursor:pointer;padding:0}
+.kanban-empty{display:grid;place-items:center;min-height:180px;text-align:center;color:#4f5b6a;font-size:9px;line-height:1.5;border:1px dashed rgba(255,255,255,.055);border-radius:11px;padding:20px}
+.kanban-empty b{display:block;color:#727e8e;margin-bottom:3px}
+.kanban-column[data-status="Novo"] .kanban-column-head{border-top:2px solid #5ea2ff}
+.kanban-column[data-status="Em análise"] .kanban-column-head{border-top:2px solid #f0ad55}
+.kanban-column[data-status="Entrevista"] .kanban-column-head{border-top:2px solid #9b7bff}
+.kanban-column[data-status="Aprovado"] .kanban-column-head{border-top:2px solid #52d98a}
+.kanban-column[data-status="Reprovado"] .kanban-column-head{border-top:2px solid #e26d76}
+@media(max-width:1180px){.kanban-board{grid-template-columns:repeat(5,minmax(245px,1fr))}.kanban-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:650px){.kanban-section{border-radius:16px}.kanban-head{padding:16px}.kanban-board{padding:10px;gap:8px}.kanban-column{min-height:280px}}
+
 </style>
 
 <style>
@@ -2290,6 +2330,22 @@ header{background:rgba(4,6,9,.72)!important;backdrop-filter:blur(18px);border-bo
     </div>
     <div class="crm-slots" id="crmInterviewSlots"></div>
   </section>
+
+
+
+  <!-- ALPHA CRM — KANBAN PRO -->
+  <section class="kanban-section" id="alphaKanban">
+    <div class="kanban-head">
+      <div>
+        <div class="kanban-kicker">CRM // PIPELINE VISUAL</div>
+        <div class="kanban-title">🐺 Kanban de Recrutamento</div>
+        <div class="kanban-sub">Arraste um candidato entre as etapas para atualizar o status diretamente no CRM.</div>
+      </div>
+      <div class="kanban-live"><i></i><span id="kanbanTotal">0 candidatos ativos</span></div>
+    </div>
+    <div class="kanban-board" id="kanbanBoard"></div>
+  </section>
+
 
   <!-- DASHBOARD -->
 
@@ -2873,6 +2929,72 @@ function renderInterviewAgenda(){
     const people=active.filter(c=>String(c.entrevista_dia||"")===slot.day && String(c.entrevista_horario||"")===slot.time).sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
     return `<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">${slot.day}</div><div class="crm-slot-count">${people.length} selecionado${people.length===1?"":"s"}</div></div><div class="crm-slot-time">${slot.time.replace(":","h")}</div></div><div class="crm-slot-body">${people.length?people.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.status||"Novo")} · ${escapeHTML(c.telefone||"sem telefone")}</span></div></div>`).join(""):`<div class="crm-empty"><b>${slot.label}</b>Nenhuma seleção registrada ainda.</div>`}</div></div>`;
   }).join("");
+}
+
+
+
+/* =====================================================
+   ALPHA CRM — KANBAN PRO
+===================================================== */
+const KANBAN_STATUSES = [
+  {name:"Novo", icon:"🆕", label:"Novos"},
+  {name:"Em análise", icon:"🔎", label:"Em análise"},
+  {name:"Entrevista", icon:"🎯", label:"Entrevistas"},
+  {name:"Aprovado", icon:"🏆", label:"Aprovados"},
+  {name:"Reprovado", icon:"⛔", label:"Reprovados"}
+];
+function renderKanban(){
+  const board=document.getElementById("kanbanBoard");
+  const totalEl=document.getElementById("kanbanTotal");
+  if(!board) return;
+  const active=activeCandidates();
+  if(totalEl) totalEl.textContent=`${active.length} candidato${active.length===1?"":"s"} ativo${active.length===1?"":"s"}`;
+  board.innerHTML=KANBAN_STATUSES.map(col=>{
+    const people=active.filter(c=>(c.status||"Novo")===col.name).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+    return `<div class="kanban-column" data-status="${escapeHTML(col.name)}" data-drop-status="${escapeHTML(col.name)}">
+      <div class="kanban-column-head"><div class="kanban-column-title">${col.icon} ${escapeHTML(col.label)}</div><div class="kanban-count">${people.length}</div></div>
+      <div class="kanban-cards" data-kanban-drop="${escapeHTML(col.name)}">
+        ${people.length ? people.map(c=>{
+          const age=alphaAgeHours(c);
+          const ageLabel=age<1?"agora":age<24?`${Math.max(1,Math.floor(age))}h atrás`:`${Math.floor(age/24)}d atrás`;
+          const interview=c.entrevista_dia&&c.entrevista_horario?`${c.entrevista_dia.replace("-feira","")} · ${c.entrevista_horario}`:"Sem entrevista";
+          return `<article class="kanban-card" draggable="true" data-id="${escapeHTML(c.id)}">
+            <div class="kanban-card-top">
+              <div class="kanban-avatar">${crmInitials(c.nome_completo)}</div>
+              <div style="min-width:0"><div class="kanban-card-name" title="${escapeHTML(c.nome_completo||"Candidato")}">${escapeHTML(c.nome_completo||"Candidato")}</div><div class="kanban-card-age">${ageLabel}</div></div>
+            </div>
+            <div class="kanban-card-meta">
+              <span class="kanban-chip">📍 ${escapeHTML(c.como_soube||"Origem n/i")}</span>
+              <span class="kanban-chip">${c.entrevista_dia&&c.entrevista_horario?"🎯":"○"} ${escapeHTML(interview)}</span>
+            </div>
+            <div class="kanban-card-footer"><span class="kanban-chip">${escapeHTML(c.telefone||"Sem telefone")}</span><button class="kanban-open" type="button" data-open-id="${escapeHTML(c.id)}">VER FICHA →</button></div>
+          </article>`;
+        }).join("") : `<div class="kanban-empty"><div><b>${col.icon} ${escapeHTML(col.label)}</b>Arraste candidatos para esta etapa.</div></div>`}
+      </div>
+    </div>`;
+  }).join("");
+  bindKanbanEvents();
+}
+function bindKanbanEvents(){
+  const board=document.getElementById("kanbanBoard");
+  if(!board) return;
+  board.querySelectorAll(".kanban-card").forEach(card=>{
+    card.addEventListener("dragstart",e=>{card.classList.add("dragging");e.dataTransfer.effectAllowed="move";e.dataTransfer.setData("text/plain",card.dataset.id);});
+    card.addEventListener("dragend",()=>card.classList.remove("dragging"));
+  });
+  board.querySelectorAll("[data-kanban-drop]").forEach(zone=>{
+    zone.addEventListener("dragover",e=>{e.preventDefault();zone.closest(".kanban-column")?.classList.add("drag-over");});
+    zone.addEventListener("dragleave",e=>{if(!zone.contains(e.relatedTarget)) zone.closest(".kanban-column")?.classList.remove("drag-over");});
+    zone.addEventListener("drop",async e=>{
+      e.preventDefault();
+      const column=zone.closest(".kanban-column");
+      column?.classList.remove("drag-over");
+      const id=e.dataTransfer.getData("text/plain");
+      const newStatus=zone.dataset.kanbanDrop;
+      if(id&&newStatus) await updateStatus(id,newStatus);
+    });
+  });
+  board.querySelectorAll("[data-open-id]").forEach(btn=>btn.addEventListener("click",()=>openDetails(btn.dataset.openId)));
 }
 
 /* =====================================================
@@ -3478,6 +3600,7 @@ function setConnectionState(online,message){
 function updateDashboard(){
 
   renderInterviewAgenda();
+  renderKanban();
 
   document.getElementById(
     "totalCount"
