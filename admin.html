@@ -1328,18 +1328,6 @@ button:disabled{
 }
 
 
-.quick-button.whatsapp{
-
-  border-color:
-    rgba(81,200,120,.28);
-
-  color:#83e5a7;
-
-  background:
-    rgba(81,200,120,.06);
-}
-
-
 /* =====================================================
    MODAL
 ===================================================== */
@@ -1996,7 +1984,6 @@ body:before{
 .quick h3{text-transform:uppercase;letter-spacing:.08em}
 .quick-button{transition:.18s ease}
 .quick-button:hover{transform:translateX(2px);border-color:rgba(215,181,109,.25)}
-.quick-button.whatsapp{border-color:rgba(79,224,139,.2)}
 .modal{border-color:rgba(215,181,109,.25);box-shadow:0 35px 120px rgba(0,0,0,.75)}
 .detail-section-title{letter-spacing:.15em}
 .login-box{border-color:rgba(215,181,109,.22);background:linear-gradient(145deg,rgba(215,181,109,.07),rgba(255,255,255,.012)),#0b0f15;box-shadow:0 30px 100px rgba(0,0,0,.65)}
@@ -2617,17 +2604,7 @@ main.container > section.dashboard, main.container > section.analytics{display:n
           >
             🗑️ Lixeira <span id="trashCount" class="trash-count">0</span>
           </button>
-
-
-          <button
-            id="whatsappButton"
-            class="quick-button whatsapp"
-          >
-            💬 Abrir grupo de recrutamento
-          </button>
-
-
-        </div>
+</div>
 
       </div>
 
@@ -2904,27 +2881,6 @@ async function deleteCandidateForever(id){
     showToast("Não foi possível apagar definitivamente. Confira as permissões do Supabase.");
   }
 }
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
-
-/*
-   IMPORTANTE:
-
-   O grupo continua sendo o destino definido por você.
-
-   O navegador NÃO recebe token secreto de WhatsApp.
-
-   Por enquanto o botão abre o grupo.
-
-   A automação oficial será conectada depois por servidor/
-   Cloudflare Worker.
-*/
-
-const WHATSAPP_GROUP_URL =
-  "https://chat.whatsapp.com/ELErKdAcoQFCclGV3jlGNs?s=cl&p=a&mlu=0&ilr=4";
-
 
 /* =====================================================
    ELEMENTOS
@@ -4117,6 +4073,19 @@ ${viewMode === "trash" ? "" : `                  <select
                 <div class="info">
 
                   <div class="info-label">
+                    Entrevista
+                  </div>
+
+                  <div class="info-value">
+                    ${escapeHTML(candidate.entrevista_dia || "Não selecionado")} · ${escapeHTML(candidate.entrevista_horario || "-")}
+                  </div>
+
+                </div>
+
+
+                <div class="info">
+
+                  <div class="info-label">
                     Disponibilidade
                   </div>
 
@@ -4176,9 +4145,6 @@ ${viewMode === "trash" ? "" : `                  <select
                     ☠️ Apagar definitivamente
                   </button>
                 ` : `
-                  <button class="action" onclick="sendCandidateToWhatsApp('${escapeHTML(candidate.id)}')">
-                    💬 WhatsApp
-                  </button>
                   <button class="action danger" onclick="moveToTrash('${escapeHTML(candidate.id)}')">
                     🗑️ Lixeira
                   </button>
@@ -4525,6 +4491,18 @@ function openDetails(id){
 
 
         ${detailBox(
+          "Dia da entrevista",
+          candidate.entrevista_dia || "Não selecionado"
+        )}
+
+
+        ${detailBox(
+          "Horário da entrevista",
+          candidate.entrevista_horario || "Não selecionado"
+        )}
+
+
+        ${detailBox(
           "Experiência profissional",
           candidate.experiencia || "-",
           true
@@ -4802,113 +4780,6 @@ document.addEventListener(
   }
 );
 
-
-/* =====================================================
-   WHATSAPP
-===================================================== */
-
-function buildCandidateMessage(candidate){
-
-  return `
-🆕 NOVO CANDIDATO — AFINCO
-
-Nome: ${candidate.nome_completo || "-"}
-Idade: ${candidate.idade || "-"}
-Origem: ${candidate.como_soube || "-"}
-Vendas: ${candidate.experiencia_vendas || "-"}
-Início: ${candidate.inicio || "-"}
-Trabalhando: ${candidate.trabalhando_atualmente || "-"}
-
-Status: ${candidate.status || "Novo"}
-
-Abrir ficha no painel:
-${window.location.href}
-  `.trim();
-
-}
-
-
-function sendCandidateToWhatsApp(id){
-
-  const candidate =
-    candidates.find(
-      item =>
-        item.id === id
-    );
-
-
-  if(!candidate){
-    return;
-  }
-
-
-  const message =
-    buildCandidateMessage(
-      candidate
-    );
-
-
-  /*
-    Por enquanto:
-
-    - copia a mensagem
-    - abre o grupo
-
-    Assim você pode colar no grupo
-    imediatamente.
-
-    A etapa de postagem automática
-    será feita pelo backend oficial.
-  */
-
-  navigator.clipboard
-    ?.writeText(message)
-    .catch(
-      () => {}
-    );
-
-
-  window.open(
-    WHATSAPP_GROUP_URL,
-    "_blank"
-  );
-
-
-  showToast(
-    "✓ Mensagem do candidato copiada. Cole no grupo."
-  );
-
-}
-
-
-/* =====================================================
-   WHATSAPP CENTRAL
-===================================================== */
-
-document
-  .getElementById(
-    "whatsappButton"
-  )
-  .addEventListener(
-    "click",
-    function(){
-
-      window.open(
-        WHATSAPP_GROUP_URL,
-        "_blank"
-      );
-
-    }
-  );
-
-
-trashButton.addEventListener("click", function(){
-  viewMode = viewMode === "trash" ? "active" : "trash";
-  searchInput.value = "";
-  statusFilter.value = "Todos";
-  originFilter.value = "Todos";
-  refreshViewMode();
-});
 
 /* =====================================================
    FILTROS RÁPIDOS
