@@ -2215,8 +2215,8 @@
         trabalhando_atualmente: document.getElementById("trabalhando").value,
         como_soube: document.getElementById("origem").value,
         inicio: form.elements["inicio"].value,
-        entrevista_dia: form.elements["entrevista_dia"].value,
-        entrevista_horario: form.elements["entrevista_horario"].value,
+        entrevista_dia: form.querySelector('input[name="entrevista_dia"]:checked')?.value || "",
+        entrevista_horario: form.querySelector('input[name="entrevista_horario"]:checked')?.value || "",
         experiencia_vendas: document.getElementById("vendas").value,
         experiencia: document.getElementById("experiencia").value.trim(),
         motivo: document.getElementById("motivo").value.trim()
