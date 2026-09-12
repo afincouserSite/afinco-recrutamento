@@ -542,7 +542,7 @@ function renderAlphaCommand(){
   const active=activeCandidates(), stale=alphaStaleCandidates(), hot=alphaHotCandidates();
   const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
   set("alphaTotal",active.length); set("alphaNew",active.filter(c=>(c.status||"Novo")==="Novo").length); set("alphaInterview",active.filter(c=>(c.status||"")==="Entrevista").length); set("alphaApproved",active.filter(c=>(c.status||"")==="Aprovado").length); set("alphaPriority",stale.length+hot.length); set("alphaStale",stale.length);
-  const e=document.getElementById("alphaLoggedEmail"); if(e)e.textContent=window.afincoAdminEmail||adminEmail.textContent||"ADMIN";
+  const e=document.getElementById("alphaLoggedEmail"); if(e)e.textContent=window.afincoAdminEmail||afincoAdminEmailValue||adminEmail.textContent||"ADMIN";
   renderAlphaTradeChart(); renderAlphaPipeline(); renderAlphaInsights(); renderAlphaHot(); renderAlphaAlerts();
 }
 function focusAlphaPriority(){ searchInput.value=""; statusFilter.value="Novo"; originFilter.value="Todos"; viewMode="active"; refreshViewMode(); document.getElementById("candidatesList")?.scrollIntoView({behavior:"smooth",block:"start"}); }
@@ -2112,6 +2112,8 @@ body:before{
 @media(max-width:650px){.alpha-grid{grid-template-columns:repeat(2,1fr)}.alpha-hero{padding:22px}.alpha-title{font-size:34px}.alpha-pipeline{grid-template-columns:repeat(5,120px)}.alpha-panel-body{padding:14px}}
 /* Hide legacy overview blocks; the Alpha cockpit replaces them visually while preserving their IDs/functions. */
 main.container > section.dashboard, main.container > section.analytics{display:none!important}
+
+.connection-state{display:inline-flex;align-items:center;gap:6px;color:#7ff0b1;font-size:9px;font-weight:900;letter-spacing:.5px}.connection-state::before{content:"";width:7px;height:7px;border-radius:50%;background:#7ff0b1;box-shadow:0 0 12px rgba(127,240,177,.7)}.connection-state.offline{color:#ff7d7d}.connection-state.offline::before{background:#ff7d7d;box-shadow:0 0 12px rgba(255,125,125,.7)}
 </style>
 
 </head>
@@ -2277,7 +2279,8 @@ main.container > section.dashboard, main.container > section.analytics{display:n
       <div class="alpha-kicker">AFINCO // ALCATÉIA · EXECUTIVE CONTROL</div>
       <h2 class="alpha-title">COMMAND <span>CENTER</span></h2>
       <div class="alpha-sub">Seu centro de comando para recrutamento. Dados, prioridades, performance e inteligência operacional em uma única visão.</div>
-      <div class="alpha-admin">🐺 <b>ALPHA</b> <small>· ADMINISTRADOR AUTORIZADO ·</small> <span id="alphaLoggedEmail">carregando...</span></div>
+      <div class="alpha-admin">🐺 <b>ALPHA</b> <small>· ADMINISTRADOR AUTORIZADO ·</small> <span id="alphaConnectionState" class="connection-state">CONECTANDO...</span>
+                  <span id="alphaLoggedName">ALPHA</span> · <span id="alphaLoggedEmail">carregando...</span></div>
     </div>
 
     <div class="alpha-grid">
@@ -3013,6 +3016,9 @@ let candidateNotes = {};
 
 let viewMode = "active";
 
+let afincoAdminName = "ALPHA";
+let afincoAdminEmailValue = "";
+
 
 /* =====================================================
    SEGURANÇA HTML
@@ -3243,6 +3249,7 @@ loginForm.addEventListener(
       adminEmail.textContent =
         email;
 
+      await loadAdminProfile();
 
       loginScreen.style.display =
         "none";
@@ -3282,128 +3289,140 @@ loginForm.addEventListener(
    CARREGAR
 ===================================================== */
 
-async function loadCandidates(){
+async function loadAdminProfile(){
+  try{
+    const userResponse = await fetch(`${SUPABASE_URL}/auth/v1/user`,{
+      method:"GET",
+      cache:"no-store",
+      headers:{
+        "apikey":SUPABASE_KEY,
+        "Authorization":`Bearer ${accessToken}`
+      }
+    });
+    if(!userResponse.ok) throw new Error("Sessão inválida ou expirada.");
+    const user = await userResponse.json();
+    afincoAdminEmailValue = user.email || "";
 
+    // A política RLS do admin_users já limita o retorno ao próprio usuário.
+    // Por isso, não filtramos o e-mail na URL: evitamos falhas de autorização/encoding
+    // e deixamos o Supabase fazer a validação de identidade pela sessão.
+    const profileResponse = await fetch(
+      `${SUPABASE_URL}/rest/v1/admin_users?select=nome,email,ativo&limit=1`,
+      {
+        method:"GET",
+        cache:"no-store",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":`Bearer ${accessToken}`,
+          "Accept":"application/json"
+        }
+      }
+    );
+    const profileRaw = await profileResponse.text();
+    let profiles = [];
+    try { profiles = profileRaw ? JSON.parse(profileRaw) : []; } catch { profiles = []; }
+    if(!profileResponse.ok){
+      console.error("ADMIN_USERS RESPONSE:", profileRaw);
+      throw new Error(`Falha na autorização do administrador (${profileResponse.status}).`);
+    }
+    const profile = profiles.find(p =>
+      String(p.email || "").trim().toLowerCase() === String(afincoAdminEmailValue || "").trim().toLowerCase()
+      && p.ativo === true
+    );
+    if(!profile){
+      throw new Error(`Administrador não autorizado: ${afincoAdminEmailValue || "e-mail não identificado"}.`);
+    }
+    afincoAdminName = profile.nome || "ALPHA";
+
+    const emailEl=document.getElementById("alphaLoggedEmail");
+    if(emailEl) emailEl.textContent=afincoAdminEmailValue;
+    const nameEl=document.getElementById("alphaLoggedName");
+    if(nameEl) nameEl.textContent=afincoAdminName;
+    window.afincoAdminEmail=afincoAdminEmailValue;
+    window.afincoAdminName=afincoAdminName;
+    return true;
+  }catch(error){
+    console.error("ALPHA PROFILE ERROR:",error);
+    throw error;
+  }
+}
+
+async function loadCandidates(){
   candidatesList.innerHTML = `
     <div class="empty">
-
-      <strong>
-        Carregando candidaturas...
-      </strong>
-
-      <span>
-        Aguarde um momento.
-      </span>
-
-    </div>
-  `;
-
+      <strong>Sincronizando com o Command Center...</strong>
+      <span>Conectando ao banco AFINCO.</span>
+    </div>`;
 
   try{
+    if(!accessToken) throw new Error("Sessão não encontrada. Faça login novamente.");
 
-    const response =
-      await fetch(
-        `${SUPABASE_URL}/rest/v1/candidaturas?select=*&order=created_at.desc`,
-        {
-          method:"GET",
-
-          headers:{
-            "apikey":
-              SUPABASE_KEY,
-
-            "Authorization":
-              `Bearer ${accessToken}`
-          }
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/candidaturas?select=*&order=created_at.desc`,
+      {
+        method:"GET",
+        cache:"no-store",
+        headers:{
+          "apikey":SUPABASE_KEY,
+          "Authorization":`Bearer ${accessToken}`,
+          "Accept":"application/json",
+          "Content-Type":"application/json"
         }
-      );
+      }
+    );
 
+    const raw = await response.text();
+    let payload;
+    try{ payload = raw ? JSON.parse(raw) : null; }catch{ payload = raw; }
 
     if(response.status === 401){
-
       logout();
-
       return;
-
     }
 
+    if(response.status === 403){
+      throw new Error("SUPABASE 403 — o usuário está logado, mas o banco recusou a leitura de candidaturas. Verifique a política SELECT do ALCATEIA.");
+    }
 
     if(!response.ok){
-
-      throw new Error(
-        await response.text()
-      );
-
+      const detail = typeof payload === "object" ? (payload.message || payload.error_description || payload.hint || payload.details || JSON.stringify(payload)) : String(payload);
+      throw new Error(`SUPABASE ${response.status} — ${detail}`);
     }
 
+    if(!Array.isArray(payload)){
+      throw new Error("O Supabase respondeu, mas não devolveu uma lista de candidaturas.");
+    }
 
-    candidates =
-      await response.json();
-
-
-    /*
-      status pode existir diretamente na tabela.
-      Caso algum candidato ainda não tenha status,
-      tratamos como Novo no painel.
-    */
-
-    candidates =
-      candidates.map(
-        function(candidate){
-
-          return {
-            ...candidate,
-
-            status:
-              candidate.status ||
-              "Novo"
-          };
-
-        }
-      );
-
+    candidates = payload.map(candidate => ({
+      ...candidate,
+      status: candidate.status || "Novo"
+    }));
 
     updateDashboard();
     updateTrashCount();
-
     buildOriginFilter();
-
     updateAnalytics();
-
     applyFilters();
-
+    setConnectionState(true, `CONECTADO · ${candidates.length} REGISTROS`);
 
   }catch(error){
-
-    console.error(error);
-
-
+    console.error("ALPHA CANDIDATES ERROR:",error);
+    setConnectionState(false,"ERRO DE SINCRONIZAÇÃO");
     candidatesList.innerHTML = `
-
       <div class="empty">
-
-        <strong>
-          Não foi possível carregar.
-        </strong>
-
-        <span>
-          Verifique sua conexão e tente novamente.
-        </span>
-
+        <strong>⚠ Falha na sincronização</strong>
+        <span>${escapeHTML(error.message || "Não foi possível carregar as candidaturas.")}</span>
         <br><br>
-
-        <button
-          class="toolbar-button"
-          onclick="loadCandidates()"
-        >
-          Tentar novamente
-        </button>
-
-      </div>
-
-    `;
-
+        <button class="toolbar-button" onclick="loadCandidates()">↻ Tentar novamente</button>
+      </div>`;
   }
+}
 
+function setConnectionState(online,message){
+  const el=document.getElementById("alphaConnectionState");
+  if(!el) return;
+  el.textContent=message;
+  el.classList.toggle("offline",!online);
 }
 
 
@@ -5074,12 +5093,10 @@ async function initialize(){
     }
 
 
-    const user =
-      await response.json();
-
+    await loadAdminProfile();
 
     adminEmail.textContent =
-      user.email || "";
+      afincoAdminEmailValue || "";
 
 
     loginScreen.style.display =
