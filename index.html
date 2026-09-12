@@ -2174,11 +2174,11 @@
     const form = document.getElementById("candidaturaForm");
 
     const scheduleSummary = document.getElementById("scheduleSelectionSummary");
-    const scheduleRadios = form.querySelectorAll('input[name="entrevista_dia"], input[name="entrevista_horario"]');
+    const scheduleRadios = document.querySelectorAll('input[name="entrevista_dia"], input[name="entrevista_horario"]');
 
     function updateScheduleSummary(){
-      const dia = form.querySelector('input[name="entrevista_dia"]:checked')?.value;
-      const hora = form.querySelector('input[name="entrevista_horario"]:checked')?.value;
+      const dia = document.querySelector('input[name="entrevista_dia"]:checked')?.value || "";
+      const hora = document.querySelector('input[name="entrevista_horario"]:checked')?.value || "";
       if(scheduleSummary){
         scheduleSummary.textContent = dia && hora ? `${dia} às ${hora}` : "selecione o dia e o horário";
       }
@@ -2198,6 +2198,16 @@
       const telefone = document.getElementById("telefone").value.trim();
       const email = document.getElementById("email").value.trim();
 
+      const entrevistaDiaSelecionado = document.querySelector('input[name="entrevista_dia"]:checked')?.value || "";
+      const entrevistaHorarioSelecionado = document.querySelector('input[name="entrevista_horario"]:checked')?.value || "";
+
+      if (!entrevistaDiaSelecionado || !entrevistaHorarioSelecionado) {
+        alert("Selecione o dia e o horário da entrevista antes de enviar a candidatura.");
+        botao.disabled = false;
+        botao.textContent = "Enviar minha candidatura →";
+        return;
+      }
+
       if (!Number.isInteger(idade) || idade < 18 || idade > 40) {
         alert("A candidatura é destinada a pessoas entre 18 e 40 anos.");
         document.getElementById("idade").focus();
@@ -2215,8 +2225,8 @@
         trabalhando_atualmente: document.getElementById("trabalhando").value,
         como_soube: document.getElementById("origem").value,
         inicio: form.elements["inicio"].value,
-        entrevista_dia: form.querySelector('input[name="entrevista_dia"]:checked')?.value || "",
-        entrevista_horario: form.querySelector('input[name="entrevista_horario"]:checked')?.value || "",
+        entrevista_dia: document.querySelector('input[name="entrevista_dia"]:checked')?.value || "",
+        entrevista_horario: document.querySelector('input[name="entrevista_horario"]:checked')?.value || "",
         experiencia_vendas: document.getElementById("vendas").value,
         experiencia: document.getElementById("experiencia").value.trim(),
         motivo: document.getElementById("motivo").value.trim()
