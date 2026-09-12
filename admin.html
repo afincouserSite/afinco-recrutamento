@@ -2970,68 +2970,26 @@ function renderInterviewAgenda(){
   const scheduled=active.filter(c=>c.entrevista_dia&&c.entrevista_horario);
   if(totalEl) totalEl.textContent=`${scheduled.length} entrevista${scheduled.length===1?"":"s"} registrada${scheduled.length===1?"":"s"}`;
 
-  // AGENDA PRINCIPAL: somente os 2 próximos dias oficiais (terça e quinta).
-  // A ficha do candidato continua com TODAS as próximas terças e quintas para remarcação interna.
-  const dates=[]; const d=new Date(); d.setHours(12,0,0,0);
-  for(let i=0;i<14 && dates.length<2;i++){
-    const day=d.getDay();
-    if(day===2||day===4) dates.push(new Date(d));
-    d.setDate(d.getDate()+1);
-  }
-  const isoLocal=x=>`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;
-  const fmt=x=>x.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}).replace(/^./,m=>m.toUpperCase());
-  const slots=[];
-  dates.forEach(dt=>['11:00','15:30'].forEach(time=>slots.push({date:isoLocal(dt),day:fmt(dt),time,label:`${fmt(dt)} · ${time==='11:00'?'11H':'15H30'}`})));
-  const dated=active.filter(c=>c.entrevista_data&&c.entrevista_horario);
-  const legacy=active.filter(c=>c.entrevista_dia&&c.entrevista_horario&&!c.entrevista_data);
-  let html=`<div class="crm-week-focus"><div><b>⚡ AGENDA OPERACIONAL</b><span>Próximos dias oficiais de entrevista</span></div><strong>TERÇA + QUINTA</strong></div>`;
+  // AGENDA OPERACIONAL FIXA: somente TERÇA e QUINTA.
+  // A data exata não faz parte da operação do painel. O dia da semana é a referência.
+  const slots=[
+    {day:'Terça-feira', key:'Terça-feira', time:'11:00', label:'TERÇA · 11H'},
+    {day:'Terça-feira', key:'Terça-feira', time:'15:30', label:'TERÇA · 15H30'},
+    {day:'Quinta-feira', key:'Quinta-feira', time:'11:00', label:'QUINTA · 11H'},
+    {day:'Quinta-feira', key:'Quinta-feira', time:'15:30', label:'QUINTA · 15H30'}
+  ];
+  let html=`<div class="crm-week-focus"><div><b>⚡ AGENDA OPERACIONAL</b><span>Entrevistas oficiais da equipe</span></div><strong>TERÇA + QUINTA</strong></div>`;
   html+=slots.map(slot=>{
-    const people=dated.filter(c=>String(c.entrevista_data)===slot.date&&String(c.entrevista_horario)===slot.time).sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
+    const people=active.filter(c=>String(c.entrevista_dia||'').replace('-feira','-feira')===slot.key && String(c.entrevista_horario)===slot.time).sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
     return `<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">${escapeHTML(slot.day)}</div><div class="crm-slot-count">${people.length} selecionado${people.length===1?"":"s"}</div></div><div class="crm-slot-time">${slot.time.replace(":","h")}</div></div><div class="crm-slot-body">${people.length?people.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.status||"Novo")} · ${escapeHTML(c.telefone||"sem telefone")}</span></div></div>`).join(""):`<div class="crm-empty"><b>${escapeHTML(slot.label)}</b>Nenhuma entrevista agendada.</div>`}</div></div>`;
   }).join('');
-  if(legacy.length){ html+=`<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">LEGADO · SEM DATA</div><div class="crm-slot-count">${legacy.length} registro${legacy.length===1?'':'s'}</div></div><div class="crm-slot-time">ANTIGO</div></div><div class="crm-slot-body">${legacy.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.entrevista_dia||"")} · ${escapeHTML(c.entrevista_horario||"")}</span></div></div>`).join('')}</div></div>`; }
+  const legacy=active.filter(c=>c.entrevista_horario && c.entrevista_dia && !['Terça-feira','Quinta-feira'].includes(c.entrevista_dia));
+  if(legacy.length){
+    html+=`<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">REGISTROS PARA REVISAR</div><div class="crm-slot-count">${legacy.length} registro${legacy.length===1?'':'s'}</div></div><div class="crm-slot-time">ATENÇÃO</div></div><div class="crm-slot-body">${legacy.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.entrevista_dia||"")} · ${escapeHTML(c.entrevista_horario||"")}</span></div></div>`).join('')}</div></div>`;
+  }
   slotsEl.innerHTML=html;
 }
 
-/* =====================================================
-   ALPHA CRM — KANBAN PRO
-===================================================== */
-const KANBAN_STATUSES = [
-  {name:"Novo", icon:"🆕", label:"Novos"},
-  {name:"Em análise", icon:"🔎", label:"Em análise"},
-  {name:"Entrevista", icon:"🎯", label:"Entrevistas"},
-  {name:"Aprovado", icon:"🏆", label:"Aprovados"},
-  {name:"Reprovado", icon:"⛔", label:"Reprovados"}
-];
-
-function crm037Priority(candidate){
-  return candidate.prioridade || "Morno";
-}
-function crm037ActionDate(candidate){
-  return candidate.proxima_acao_at || "";
-}
-function crm037HasAction(candidate){ return !!(candidate.proxima_acao && String(candidate.proxima_acao).trim()); }
-function crm037IsDue(candidate){
-  if(!candidate.proxima_acao_at || !crm037HasAction(candidate)) return false;
-  const d=new Date(candidate.proxima_acao_at);
-  if(Number.isNaN(d.getTime())) return false;
-  return d.getTime() <= Date.now();
-}
-function crm037Matches(candidate){
-  if(crm037Filter === "Todos") return true;
-  if(crm037Filter === "acao") return crm037HasAction(candidate);
-  return crm037Priority(candidate) === crm037Filter;
-}
-function crm037FormatAction(candidate){
-  if(!crm037HasAction(candidate)) return `<span class="crm037-next">⚪ <b>Próxima ação:</b> ainda não definida</span>`;
-  const due=crm037IsDue(candidate);
-  let when="";
-  if(candidate.proxima_acao_at){
-    const d=new Date(candidate.proxima_acao_at);
-    if(!Number.isNaN(d.getTime())) when=` · ${d.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}`;
-  }
-  return `<span class="crm037-next ${due?'crm037-overdue':''}">${due?'⚠️':'➡️'} <b>Próxima ação:</b> ${escapeHTML(candidate.proxima_acao)}${escapeHTML(when)}${due?' · ATRASADA':''}</span>`;
-}
 function renderCRM037(){
   const active=activeCandidates();
   const hot=active.filter(c=>crm037Priority(c)==='Quente').length;
@@ -3062,7 +3020,7 @@ function renderKanban(){
         ${people.length ? people.map(c=>{
           const age=alphaAgeHours(c);
           const ageLabel=age<1?"agora":age<24?`${Math.max(1,Math.floor(age))}h atrás`:`${Math.floor(age/24)}d atrás`;
-          const interview=c.entrevista_data&&c.entrevista_horario?`${c.entrevista_data.split("-").reverse().join("/")} · ${c.entrevista_horario}`:(c.entrevista_dia&&c.entrevista_horario?`${c.entrevista_dia.replace("-feira","")} · ${c.entrevista_horario}`:"Sem entrevista");
+          const interview=c.entrevista_dia&&c.entrevista_horario?`${c.entrevista_dia.replace("-feira","")} · ${c.entrevista_horario}`:"Sem entrevista";
           return `<article class="kanban-card" draggable="true" data-id="${escapeHTML(c.id)}">
             <div class="kanban-card-top">
               <div class="kanban-avatar">${crmInitials(c.nome_completo)}</div>
@@ -4397,7 +4355,7 @@ ${viewMode === "trash" ? "" : `                  <select
                   </div>
 
                   <div class="info-value">
-                    <span class="interview-chip">🎯 <b>${escapeHTML(candidate.entrevista_data ? `${candidate.entrevista_data.split("-").reverse().join("/")} (${candidate.entrevista_dia||""})` : (candidate.entrevista_dia || "Não selecionado"))}</b> <small>às</small> <b>${escapeHTML(candidate.entrevista_horario || "-")}</b></span>
+                    <span class="interview-chip">🎯 <b>${escapeHTML(candidate.entrevista_dia || "Não selecionado")}</b> <small>às</small> <b>${escapeHTML(candidate.entrevista_horario || "-")}</b></span>
                   </div>
 
                 </div>
@@ -4690,39 +4648,31 @@ function crm037Weekday(d){
   return d.toLocaleDateString('pt-BR',{weekday:'long'}).replace(/^./,m=>m.toUpperCase());
 }
 function crm037DateOptions(selected){
-  const opts=['<option value="">Sem data definida</option>'];
-  crm037UpcomingInterviewDates(52).forEach(d=>{
-    const iso=crm037ISODate(d);
-    opts.push(`<option value="${iso}" ${String(selected||'')===iso?'selected':''}>${escapeHTML(crm037Weekday(d))} · ${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}</option>`);
-  });
-  return opts.join('');
+  return '';
 }
 function crm037SyncInterviewDay(){
-  const select=document.getElementById('crmInterviewDate');
-  const dayField=document.getElementById('crmInterviewDay');
-  if(!select||!dayField) return;
-  if(!select.value){ dayField.value=''; return; }
-  const [y,m,day]=select.value.split('-').map(Number);
-  dayField.value=crm037Weekday(new Date(y,m-1,day));
+  const day=document.getElementById('crmInterviewDay')?.value || '';
+  return day;
 }
+
 async function saveInterview037(id){
   const candidate=candidates.find(c=>c.id===id); if(!candidate) return;
-  const data=document.getElementById('crmInterviewDate')?.value || null;
+  const dia=document.getElementById('crmInterviewDay')?.value || null;
   const horario=document.getElementById('crmInterviewTime')?.value || null;
-  let dia=null;
-  if(data){ const [y,m,day]=data.split('-').map(Number); dia=crm037Weekday(new Date(y,m-1,day)); }
-  if(data && !horario){ showToast('Escolha o horário da entrevista.'); return; }
-  if(!data && horario){ showToast('Escolha a data da entrevista.'); return; }
+  if(!dia && !horario){ showToast('Escolha o dia e o horário da entrevista.'); return; }
+  if(!dia || !horario){ showToast('Escolha o dia e o horário da entrevista.'); return; }
+  if(!['Terça-feira','Quinta-feira'].includes(dia)){ showToast('Escolha somente terça-feira ou quinta-feira.'); return; }
+
   const now=new Date().toISOString();
   try{
     const response=await fetch(`${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,{
       method:'PATCH',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${accessToken}`,'Content-Type':'application/json','Prefer':'return=minimal'},
-      body:JSON.stringify({entrevista_data:data,entrevista_dia:dia,entrevista_horario:horario,ultima_atividade_at:now})
+      body:JSON.stringify({entrevista_data:null,entrevista_dia:dia,entrevista_horario:horario,ultima_atividade_at:now})
     });
     if(!response.ok) throw new Error(await response.text());
-    Object.assign(candidate,{entrevista_data:data,entrevista_dia:dia,entrevista_horario:horario,ultima_atividade_at:now});
+    Object.assign(candidate,{entrevista_data:null,entrevista_dia:dia,entrevista_horario:horario,ultima_atividade_at:now});
     renderInterviewAgenda(); renderKanban(); applyFilters(); updateDashboard(); updateAnalytics();
-    showToast(data ? `✓ Entrevista marcada para ${data.split('-').reverse().join('/')} às ${horario}.` : '✓ Entrevista removida da agenda.');
+    showToast(`✓ Entrevista marcada para ${dia} às ${horario}.`);
     openDetails(id);
   }catch(error){ console.error(error); showToast('Não foi possível salvar a agenda. Confira o SQL 037 e as permissões do Supabase.'); }
 }
@@ -4868,14 +4818,17 @@ function openDetails(id){
 
     <section class="detail-section">
       <div class="detail-section-title">🎯 Agenda de entrevista — gestão interna</div>
-      <div class="crm-agenda-internal-badge">⚡ AGENDA INTERNA · DATA FLEXÍVEL · TERÇAS E QUINTAS</div>
+      <div class="crm-agenda-internal-badge">⚡ AGENDA OFICIAL · TERÇA OU QUINTA</div>
       <div class="crm037-editor">
-        <div class="crm037-field" style="grid-column:1/-1"><label>Data interna — escolha qualquer próxima terça ou quinta</label><select id="crmInterviewDate" onchange="crm037SyncInterviewDay()">${crm037DateOptions(candidate.entrevista_data)}</select></div>
-        <div class="crm037-field"><label>Horário</label><select id="crmInterviewTime"><option value="">Sem horário</option><option value="11:00" ${candidate.entrevista_horario==='11:00'?'selected':''}>11:00</option><option value="15:30" ${candidate.entrevista_horario==='15:30'?'selected':''}>15:30</option></select></div>
-        <div class="crm037-field"><label>Dia calculado</label><input id="crmInterviewDay" value="${escapeHTML(candidate.entrevista_dia||'')}" readonly></div>
+        <div class="crm037-field"><label>Dia da entrevista</label><select id="crmInterviewDay">
+          <option value="">Selecione o dia</option>
+          <option value="Terça-feira" ${candidate.entrevista_dia==='Terça-feira'?'selected':''}>Terça-feira</option>
+          <option value="Quinta-feira" ${candidate.entrevista_dia==='Quinta-feira'?'selected':''}>Quinta-feira</option>
+        </select></div>
+        <div class="crm037-field"><label>Horário</label><select id="crmInterviewTime"><option value="">Selecione o horário</option><option value="11:00" ${candidate.entrevista_horario==='11:00'?'selected':''}>11:00</option><option value="15:30" ${candidate.entrevista_horario==='15:30'?'selected':''}>15:30</option></select></div>
       </div>
       <button class="crm037-save" type="button" onclick="saveInterview037('${escapeHTML(candidate.id)}')">📅 Salvar entrevista na agenda</button>
-      <div style="margin-top:10px;color:#8e99a8;font-size:12px;font-weight:700">A seleção acima é exclusiva do painel administrativo. A agenda principal mostra somente os <b>2 próximos dias oficiais</b> (terça e quinta), enquanto nesta ficha você pode escolher <b>qualquer próxima terça ou quinta</b> para remarcar o candidato. Os horários continuam <b>11:00</b> ou <b>15:30</b>.</div>
+      <div style="margin-top:10px;color:#8e99a8;font-size:12px;font-weight:700">A agenda do processo trabalha somente com <b>terça-feira ou quinta-feira</b>, nos horários <b>11:00 ou 15:30</b>. Sem calendário e sem seleção de outras datas.</div>
     </section>
 
 
@@ -4903,7 +4856,7 @@ function openDetails(id){
 
         ${detailBox(
           "Dia da entrevista",
-          candidate.entrevista_data ? `${candidate.entrevista_data.split("-").reverse().join("/")} (${candidate.entrevista_dia||""})` : (candidate.entrevista_dia || "Não selecionado")
+          candidate.entrevista_dia || "Não selecionado"
         )}
 
 
