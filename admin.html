@@ -2130,6 +2130,10 @@ header{background:rgba(4,6,9,.72)!important;backdrop-filter:blur(18px);border-bo
 .modal{backdrop-filter:blur(20px);border-radius:24px!important}.action{border-radius:10px!important}
 @media(max-width:700px){.bmw-alpha-badge{position:static;margin-top:18px;width:74px;height:74px}.bmw-wheel{inset:17px}.bmw-top{top:12px;font-size:8px}.alpha-hero{padding:22px!important}}
 
+
+.crm-week-focus{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 14px;padding:14px 16px;border:1px solid rgba(212,175,55,.18);border-radius:16px;background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(29,92,168,.08));box-shadow:inset 0 1px 0 rgba(255,255,255,.03)}
+.crm-week-focus div{display:flex;flex-direction:column;gap:3px}.crm-week-focus b{color:#d9c27a;font-size:11px;letter-spacing:.12em}.crm-week-focus span{color:#8e99a8;font-size:11px;font-weight:700}.crm-week-focus>strong{font-size:11px;letter-spacing:.12em;color:#fff;border:1px solid rgba(112,181,255,.2);padding:8px 10px;border-radius:999px;background:rgba(29,92,168,.12)}
+@media(max-width:700px){.crm-week-focus{align-items:flex-start;flex-direction:column}.crm-week-focus>strong{align-self:flex-start}}
 </style>
 </head>
 
@@ -2965,21 +2969,29 @@ function renderInterviewAgenda(){
   const active=activeCandidates();
   const scheduled=active.filter(c=>c.entrevista_dia&&c.entrevista_horario);
   if(totalEl) totalEl.textContent=`${scheduled.length} entrevista${scheduled.length===1?"":"s"} registrada${scheduled.length===1?"":"s"}`;
+
+  // AGENDA PRINCIPAL: somente os 2 próximos dias oficiais (terça e quinta).
+  // A ficha do candidato continua com TODAS as próximas terças e quintas para remarcação interna.
   const dates=[]; const d=new Date(); d.setHours(12,0,0,0);
-  for(let i=0;i<90 && dates.length<12;i++){ const day=d.getDay(); if(day===2||day===4) dates.push(new Date(d)); d.setDate(d.getDate()+1); }
+  for(let i=0;i<14 && dates.length<2;i++){
+    const day=d.getDay();
+    if(day===2||day===4) dates.push(new Date(d));
+    d.setDate(d.getDate()+1);
+  }
   const isoLocal=x=>`${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;
   const fmt=x=>x.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'}).replace(/^./,m=>m.toUpperCase());
-  const slots=[]; dates.forEach(dt=>['11:00','15:30'].forEach(time=>slots.push({date:isoLocal(dt),day:fmt(dt),time,label:`${fmt(dt)} · ${time==='10:00'?'10H':'15H30'}`})));
+  const slots=[];
+  dates.forEach(dt=>['11:00','15:30'].forEach(time=>slots.push({date:isoLocal(dt),day:fmt(dt),time,label:`${fmt(dt)} · ${time==='11:00'?'11H':'15H30'}`})));
   const dated=active.filter(c=>c.entrevista_data&&c.entrevista_horario);
   const legacy=active.filter(c=>c.entrevista_dia&&c.entrevista_horario&&!c.entrevista_data);
-  let html=slots.map(slot=>{
+  let html=`<div class="crm-week-focus"><div><b>⚡ AGENDA OPERACIONAL</b><span>Próximos dias oficiais de entrevista</span></div><strong>TERÇA + QUINTA</strong></div>`;
+  html+=slots.map(slot=>{
     const people=dated.filter(c=>String(c.entrevista_data)===slot.date&&String(c.entrevista_horario)===slot.time).sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
     return `<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">${escapeHTML(slot.day)}</div><div class="crm-slot-count">${people.length} selecionado${people.length===1?"":"s"}</div></div><div class="crm-slot-time">${slot.time.replace(":","h")}</div></div><div class="crm-slot-body">${people.length?people.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.status||"Novo")} · ${escapeHTML(c.telefone||"sem telefone")}</span></div></div>`).join(""):`<div class="crm-empty"><b>${escapeHTML(slot.label)}</b>Nenhuma entrevista agendada.</div>`}</div></div>`;
   }).join('');
   if(legacy.length){ html+=`<div class="crm-slot"><div class="crm-slot-head"><div><div class="crm-slot-day">LEGADO · SEM DATA</div><div class="crm-slot-count">${legacy.length} registro${legacy.length===1?'':'s'}</div></div><div class="crm-slot-time">ANTIGO</div></div><div class="crm-slot-body">${legacy.map(c=>`<div class="crm-person" onclick="openDetails('${escapeHTML(c.id)}')"><div class="crm-avatar">${crmInitials(c.nome_completo)}</div><div style="min-width:0"><strong>${escapeHTML(c.nome_completo||"Candidato")}</strong><span>${escapeHTML(c.entrevista_dia||"")} · ${escapeHTML(c.entrevista_horario||"")}</span></div></div>`).join('')}</div></div>`; }
   slotsEl.innerHTML=html;
 }
-
 
 /* =====================================================
    ALPHA CRM — KANBAN PRO
@@ -4863,7 +4875,7 @@ function openDetails(id){
         <div class="crm037-field"><label>Dia calculado</label><input id="crmInterviewDay" value="${escapeHTML(candidate.entrevista_dia||'')}" readonly></div>
       </div>
       <button class="crm037-save" type="button" onclick="saveInterview037('${escapeHTML(candidate.id)}')">📅 Salvar entrevista na agenda</button>
-      <div style="margin-top:10px;color:#8e99a8;font-size:12px;font-weight:700">A seleção acima é exclusiva do painel administrativo. Aqui você pode escolher <b>outra data</b> entre as próximas terças e quintas. Os horários continuam os mesmos do processo público: <b>11:00</b> ou <b>15:30</b>.</div>
+      <div style="margin-top:10px;color:#8e99a8;font-size:12px;font-weight:700">A seleção acima é exclusiva do painel administrativo. A agenda principal mostra somente os <b>2 próximos dias oficiais</b> (terça e quinta), enquanto nesta ficha você pode escolher <b>qualquer próxima terça ou quinta</b> para remarcar o candidato. Os horários continuam <b>11:00</b> ou <b>15:30</b>.</div>
     </section>
 
 
