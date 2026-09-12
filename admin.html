@@ -2084,6 +2084,23 @@ main.container > section.dashboard, main.container > section.analytics{display:n
 @media(max-width:1180px){.kanban-board{grid-template-columns:repeat(5,minmax(245px,1fr))}.kanban-head{align-items:flex-start;flex-direction:column}}
 @media(max-width:650px){.kanban-section{border-radius:16px}.kanban-head{padding:16px}.kanban-board{padding:10px;gap:8px}.kanban-column{min-height:280px}}
 
+
+
+/* =====================================================
+   ALPHA CRM 037 — PIPELINE 2.0
+===================================================== */
+.crm037-section{margin:24px 0;padding:22px;border:1px solid rgba(255,255,255,.08);border-radius:22px;background:linear-gradient(145deg,rgba(14,16,22,.98),rgba(8,10,14,.98));box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.crm037-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-end;margin-bottom:18px;flex-wrap:wrap}
+.crm037-kicker{font-size:10px;letter-spacing:2px;color:#c9a55d;font-weight:900}.crm037-title{font-size:24px;font-weight:950;margin-top:4px}.crm037-sub{font-size:11px;color:var(--muted);margin-top:6px;max-width:760px}
+.crm037-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.crm037-kpi{padding:15px;border-radius:16px;border:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.025)}.crm037-kpi-label{font-size:9px;color:var(--muted);font-weight:900;letter-spacing:1px}.crm037-kpi-value{font-size:25px;font-weight:950;margin-top:5px}.crm037-kpi small{display:block;color:var(--muted);font-size:9px;margin-top:4px}
+.crm037-hot{border-color:rgba(255,80,80,.28)}.crm037-warm{border-color:rgba(240,173,85,.28)}.crm037-cold{border-color:rgba(94,162,255,.28)}.crm037-due{border-color:rgba(226,109,118,.32)}
+.crm037-chip{display:inline-flex;align-items:center;gap:5px;padding:5px 8px;border-radius:999px;font-size:9px;font-weight:900;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035)}
+.crm037-actions{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap}.crm037-action{font:inherit;border:1px solid rgba(255,255,255,.1);background:#11151d;color:#fff;border-radius:10px;padding:9px 12px;font-size:10px;font-weight:900;cursor:pointer}.crm037-action.active{border-color:#c9a55d;color:#c9a55d;background:rgba(201,165,93,.08)}
+.crm037-editor{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.crm037-field label{display:block;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);font-weight:900;margin-bottom:6px}.crm037-field select,.crm037-field input{width:100%;box-sizing:border-box;background:#0d1118;color:#fff;border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:11px;font:inherit;font-size:11px;outline:none}.crm037-field select:focus,.crm037-field input:focus{border-color:#c9a55d}.crm037-save{margin-top:12px;border:1px solid rgba(201,165,93,.45);background:linear-gradient(135deg,#17130b,#0d1118);color:#f2d28d;border-radius:11px;padding:11px 15px;font-weight:950;cursor:pointer}
+.crm037-cardline{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap}.crm037-next{font-size:9px;color:#dfe6ef;line-height:1.4}.crm037-next b{color:#c9a55d}.crm037-overdue{color:#ff7e86!important}
+@media(max-width:900px){.crm037-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.crm037-editor{grid-template-columns:1fr}}
+@media(max-width:560px){.crm037-grid{grid-template-columns:1fr}.crm037-section{padding:15px}}
+
 </style>
 
 <style>
@@ -2346,6 +2363,33 @@ header{background:rgba(4,6,9,.72)!important;backdrop-filter:blur(18px);border-bo
     <div class="kanban-board" id="kanbanBoard"></div>
   </section>
 
+
+
+  <!-- ALPHA CRM 037 — PIPELINE 2.0 -->
+  <section class="crm037-section" id="alphaCRM037">
+    <div class="crm037-head">
+      <div>
+        <div class="crm037-kicker">CRM 037 // INTELLIGENCE LAYER</div>
+        <div class="crm037-title">⚡ Alpha Pipeline 2.0</div>
+        <div class="crm037-sub">Temperatura, origem, responsável e próxima ação. Esta é a primeira camada do CRM operacional de verdade.</div>
+      </div>
+      <div class="crm037-chip">● DADOS SINCRONIZADOS COM SUPABASE</div>
+    </div>
+    <div class="crm037-grid">
+      <div class="crm037-kpi crm037-hot"><div class="crm037-kpi-label">🔥 QUENTES</div><div class="crm037-kpi-value" id="crm037Hot">0</div><small>prioridade máxima</small></div>
+      <div class="crm037-kpi crm037-warm"><div class="crm037-kpi-label">🟡 MORNOS</div><div class="crm037-kpi-value" id="crm037Warm">0</div><small>precisam acompanhamento</small></div>
+      <div class="crm037-kpi crm037-cold"><div class="crm037-kpi-label">❄️ FRIOS</div><div class="crm037-kpi-value" id="crm037Cold">0</div><small>reativação</small></div>
+      <div class="crm037-kpi crm037-due"><div class="crm037-kpi-label">⚠️ AÇÃO HOJE</div><div class="crm037-kpi-value" id="crm037Due">0</div><small>próxima ação vencendo</small></div>
+      <div class="crm037-kpi"><div class="crm037-kpi-label">🎯 SEM AÇÃO</div><div class="crm037-kpi-value" id="crm037NoAction">0</div><small>precisam de planejamento</small></div>
+    </div>
+    <div class="crm037-actions">
+      <button type="button" class="crm037-action active" data-crm037-filter="Todos">Todos</button>
+      <button type="button" class="crm037-action" data-crm037-filter="Quente">🔥 Quentes</button>
+      <button type="button" class="crm037-action" data-crm037-filter="Morno">🟡 Mornos</button>
+      <button type="button" class="crm037-action" data-crm037-filter="Frio">❄️ Frios</button>
+      <button type="button" class="crm037-action" data-crm037-filter="acao">⚠️ Com ação</button>
+    </div>
+  </section>
 
   <!-- DASHBOARD -->
 
@@ -2943,14 +2987,59 @@ const KANBAN_STATUSES = [
   {name:"Aprovado", icon:"🏆", label:"Aprovados"},
   {name:"Reprovado", icon:"⛔", label:"Reprovados"}
 ];
+
+function crm037Priority(candidate){
+  return candidate.prioridade || "Morno";
+}
+function crm037ActionDate(candidate){
+  return candidate.proxima_acao_at || "";
+}
+function crm037HasAction(candidate){ return !!(candidate.proxima_acao && String(candidate.proxima_acao).trim()); }
+function crm037IsDue(candidate){
+  if(!candidate.proxima_acao_at || !crm037HasAction(candidate)) return false;
+  const d=new Date(candidate.proxima_acao_at);
+  if(Number.isNaN(d.getTime())) return false;
+  return d.getTime() <= Date.now();
+}
+function crm037Matches(candidate){
+  if(crm037Filter === "Todos") return true;
+  if(crm037Filter === "acao") return crm037HasAction(candidate);
+  return crm037Priority(candidate) === crm037Filter;
+}
+function crm037FormatAction(candidate){
+  if(!crm037HasAction(candidate)) return `<span class="crm037-next">⚪ <b>Próxima ação:</b> ainda não definida</span>`;
+  const due=crm037IsDue(candidate);
+  let when="";
+  if(candidate.proxima_acao_at){
+    const d=new Date(candidate.proxima_acao_at);
+    if(!Number.isNaN(d.getTime())) when=` · ${d.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}`;
+  }
+  return `<span class="crm037-next ${due?'crm037-overdue':''}">${due?'⚠️':'➡️'} <b>Próxima ação:</b> ${escapeHTML(candidate.proxima_acao)}${escapeHTML(when)}${due?' · ATRASADA':''}</span>`;
+}
+function renderCRM037(){
+  const active=activeCandidates();
+  const hot=active.filter(c=>crm037Priority(c)==='Quente').length;
+  const warm=active.filter(c=>crm037Priority(c)==='Morno').length;
+  const cold=active.filter(c=>crm037Priority(c)==='Frio').length;
+  const due=active.filter(crm037IsDue).length;
+  const noAction=active.filter(c=>!crm037HasAction(c)).length;
+  const set=(id,v)=>{const e=document.getElementById(id);if(e)e.textContent=v;};
+  set('crm037Hot',hot);set('crm037Warm',warm);set('crm037Cold',cold);set('crm037Due',due);set('crm037NoAction',noAction);
+  document.querySelectorAll('[data-crm037-filter]').forEach(btn=>btn.classList.toggle('active',btn.dataset.crm037Filter===crm037Filter));
+}
+function bindCRM037Filters(){
+  document.querySelectorAll('[data-crm037-filter]').forEach(btn=>btn.addEventListener('click',()=>{crm037Filter=btn.dataset.crm037Filter;renderCRM037();renderKanban();}));
+}
+
 function renderKanban(){
+  renderCRM037();
   const board=document.getElementById("kanbanBoard");
   const totalEl=document.getElementById("kanbanTotal");
   if(!board) return;
   const active=activeCandidates();
   if(totalEl) totalEl.textContent=`${active.length} candidato${active.length===1?"":"s"} ativo${active.length===1?"":"s"}`;
   board.innerHTML=KANBAN_STATUSES.map(col=>{
-    const people=active.filter(c=>(c.status||"Novo")===col.name).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
+    const people=active.filter(c=>(c.status||"Novo")===col.name && crm037Matches(c)).sort((a,b)=>new Date(b.created_at||0)-new Date(a.created_at||0));
     return `<div class="kanban-column" data-status="${escapeHTML(col.name)}" data-drop-status="${escapeHTML(col.name)}">
       <div class="kanban-column-head"><div class="kanban-column-title">${col.icon} ${escapeHTML(col.label)}</div><div class="kanban-count">${people.length}</div></div>
       <div class="kanban-cards" data-kanban-drop="${escapeHTML(col.name)}">
@@ -2964,9 +3053,11 @@ function renderKanban(){
               <div style="min-width:0"><div class="kanban-card-name" title="${escapeHTML(c.nome_completo||"Candidato")}">${escapeHTML(c.nome_completo||"Candidato")}</div><div class="kanban-card-age">${ageLabel}</div></div>
             </div>
             <div class="kanban-card-meta">
+              <span class="kanban-chip">${crm037Priority(c)==="Quente"?"🔥":crm037Priority(c)==="Frio"?"❄️":"🟡"} ${escapeHTML(crm037Priority(c))}</span>
               <span class="kanban-chip">📍 ${escapeHTML(c.como_soube||"Origem n/i")}</span>
               <span class="kanban-chip">${c.entrevista_dia&&c.entrevista_horario?"🎯":"○"} ${escapeHTML(interview)}</span>
             </div>
+            <div class="crm037-cardline">${crm037FormatAction(c)}<span class="kanban-chip">👤 ${escapeHTML(c.responsavel||"ALPHA")}</span></div>
             <div class="kanban-card-footer"><span class="kanban-chip">${escapeHTML(c.telefone||"Sem telefone")}</span><button class="kanban-open" type="button" data-open-id="${escapeHTML(c.id)}">VER FICHA →</button></div>
           </article>`;
         }).join("") : `<div class="kanban-empty"><div><b>${col.icon} ${escapeHTML(col.label)}</b>Arraste candidatos para esta etapa.</div></div>`}
@@ -3185,6 +3276,7 @@ let viewMode = "active";
 
 let afincoAdminName = "ALPHA";
 let afincoAdminEmailValue = "";
+let crm037Filter = "Todos";
 
 
 /* =====================================================
@@ -4475,6 +4567,8 @@ async function updateStatus(
   candidate.status =
     newStatus;
 
+  candidate.ultima_atividade_at = new Date().toISOString();
+
 
   updateDashboard();
 
@@ -4512,7 +4606,8 @@ async function updateStatus(
 
           body:
             JSON.stringify({
-              status:newStatus
+              status:newStatus,
+              ultima_atividade_at:new Date().toISOString()
             })
 
         }
@@ -4561,6 +4656,28 @@ async function updateStatus(
 /* =====================================================
    FICHA
 ===================================================== */
+
+
+async function saveCRM037(id){
+  const candidate=candidates.find(c=>c.id===id); if(!candidate) return;
+  const prioridade=document.getElementById('crmPriority')?.value || 'Morno';
+  const responsavel=(document.getElementById('crmResponsible')?.value || 'ALPHA').trim() || 'ALPHA';
+  const proxima_acao=document.getElementById('crmNextAction')?.value || null;
+  const raw=document.getElementById('crmNextActionAt')?.value || '';
+  const proxima_acao_at=raw ? new Date(raw).toISOString() : null;
+  const now=new Date().toISOString();
+  try{
+    const response=await fetch(`${SUPABASE_URL}/rest/v1/candidaturas?id=eq.${encodeURIComponent(id)}`,{
+      method:'PATCH',headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${accessToken}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({prioridade,responsavel,proxima_acao,proxima_acao_at,ultima_atividade_at:now})
+    });
+    if(!response.ok) throw new Error(await response.text());
+    Object.assign(candidate,{prioridade,responsavel,proxima_acao,proxima_acao_at,ultima_atividade_at:now});
+    renderCRM037();renderKanban();applyFilters();updateDashboard();updateAnalytics();
+    showToast('✓ CRM atualizado e salvo no Supabase.');
+    openDetails(id);
+  }catch(error){console.error(error);showToast('Não foi possível salvar o CRM. Confira o SQL 037 e as permissões do Supabase.');}
+}
 
 function openDetails(id){
 
@@ -4753,6 +4870,17 @@ function openDetails(id){
 
     </section>
 
+
+    <section class="detail-section">
+      <div class="detail-section-title">CRM 2.0 — gestão da oportunidade</div>
+      <div class="crm037-editor">
+        <div class="crm037-field"><label>Temperatura</label><select id="crmPriority"><option value="Quente" ${crm037Priority(candidate)==="Quente"?"selected":""}>🔥 Quente</option><option value="Morno" ${crm037Priority(candidate)==="Morno"?"selected":""}>🟡 Morno</option><option value="Frio" ${crm037Priority(candidate)==="Frio"?"selected":""}>❄️ Frio</option></select></div>
+        <div class="crm037-field"><label>Responsável</label><input id="crmResponsible" value="${escapeHTML(candidate.responsavel||"ALPHA")}" placeholder="Nome do responsável"></div>
+        <div class="crm037-field"><label>Próxima ação</label><select id="crmNextAction"><option value="" ${!candidate.proxima_acao?"selected":""}>Sem ação definida</option><option value="Entrar em contato" ${candidate.proxima_acao==="Entrar em contato"?"selected":""}>💬 Entrar em contato</option><option value="Ligar para candidato" ${candidate.proxima_acao==="Ligar para candidato"?"selected":""}>📞 Ligar para candidato</option><option value="Confirmar entrevista" ${candidate.proxima_acao==="Confirmar entrevista"?"selected":""}>🎯 Confirmar entrevista</option><option value="Solicitar documento" ${candidate.proxima_acao==="Solicitar documento"?"selected":""}>📄 Solicitar documento</option><option value="Fazer follow-up" ${candidate.proxima_acao==="Fazer follow-up"?"selected":""}>🔄 Fazer follow-up</option><option value="Entrevistar candidato" ${candidate.proxima_acao==="Entrevistar candidato"?"selected":""}>👤 Entrevistar candidato</option><option value="Outro" ${candidate.proxima_acao==="Outro"?"selected":""}>✏️ Outro</option></select></div>
+        <div class="crm037-field"><label>Data e hora da próxima ação</label><input id="crmNextActionAt" type="datetime-local" value="${candidate.proxima_acao_at?escapeHTML(String(candidate.proxima_acao_at).slice(0,16)):""}"></div>
+      </div>
+      <button class="crm037-save" type="button" onclick="saveCRM037('${escapeHTML(candidate.id)}')">💾 Salvar dados do CRM</button>
+    </section>
 
     <section class="detail-section">
 
@@ -5220,6 +5348,8 @@ async function initialize(){
 
 }
 
+
+bindCRM037Filters();
 
 /* =====================================================
    START
